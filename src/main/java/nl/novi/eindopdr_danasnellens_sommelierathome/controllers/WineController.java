@@ -1,9 +1,12 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
+
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,9 +34,12 @@ public class WineController {
         return ResponseEntity.ok().body(wineService.getWineById(id));
     }
     //Create
+    //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
     @PostMapping
-    public ResponseEntity<WineOutputDto> addWine(@RequestBody Wine wine) {
-        return ResponseEntity.ok().body(wineService.createWine(wine));
+    public ResponseEntity<WineOutputDto> createWine(@RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
+        WineOutputDto wineOutputDto = wineService.createWine(wineInputDto/*, userDetails.getUsername()*/);
+        //URI
+        return ResponseEntity.created(null).body(wineOutputDto/*, userDetails.getUsername()*/);
     }
     //Update
     //Delete
