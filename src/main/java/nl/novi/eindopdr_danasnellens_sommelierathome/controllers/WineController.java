@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
+import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 
@@ -8,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,11 +40,17 @@ public class WineController {
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
     //Zie ook SpringSecurityConfig.java
     @PostMapping
-    public ResponseEntity<WineOutputDto> createWine(@RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
-        WineOutputDto wineOutputDto = wineService.createWine(wineInputDto/*, userDetails.getUsername()*/);
-        //URI
-        return ResponseEntity.created(null).body(wineOutputDto/*, userDetails.getUsername()*/);
+    public ResponseEntity<WineOutputDto> createWine
+        (@Valid @RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
+            WineOutputDto wineOutputDto = wineService.createWine(wineInputDto/*, userDetails.getUsername()*/);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineOutputDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(wineOutputDto/*, userDetails.getUsername()*/);
     }
     //Update
+    @PutMapping("/{id}")
+    public ResponseEntity<WineOutputDto> updateWine(@PathVariable Long id, @Valid @RequestBody WineInputDto updatedWine) {
+        WineOutputDto wineOutputDto = wineService.updateWine(id, updatedWine);
+        return ResponseEntity.ok().body(wineOutputDto);
+    }
     //Delete
 }

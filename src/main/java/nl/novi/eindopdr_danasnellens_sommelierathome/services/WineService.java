@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
@@ -41,6 +42,14 @@ public class WineService {
     public WineOutputDto createWine(WineInputDto wineInputDto/*, String wineName */) {
         Wine wine = wineRepository.save(wineFromInputDtoToModel(wineInputDto/*, wineName)*/));
         return wineFromModelToOutputDto(wine);
+    }
+
+    public WineOutputDto updateWine(Long id, WineInputDto updatedWine) {
+        Optional<Wine> optionalWine = wineRepository.findById(id);
+        if (optionalWine.isPresent()) {
+            return WineMapper.wineFromModelToOutputDto(optionalWine.get());
+        }
+        else throw new RuntimeException("No wine found with id: " + id);
     }
     // Update
 
