@@ -44,6 +44,7 @@ public class WineService {
         return wineFromModelToOutputDto(wine);
     }
 
+    // Update
     public WineOutputDto updateWine(Long id, WineInputDto updatedWine) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
@@ -51,8 +52,16 @@ public class WineService {
         }
         else throw new RuntimeException("No wine found with id: " + id);
     }
-    // Update
 
     // Delete
+    public void deleteWineById(Long id) {
+        Optional<Wine> optionalWine = wineRepository.findById(id);
+        if (optionalWine.isPresent()) {
+            wineRepository.deleteById(id);
+        }
+        else throw new RuntimeException("No wine found with id: " + id);
+    }
+
+
 
 }

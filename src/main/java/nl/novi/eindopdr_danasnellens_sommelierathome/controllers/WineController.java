@@ -52,5 +52,12 @@ public class WineController {
         WineOutputDto wineOutputDto = wineService.updateWine(id, updatedWine);
         return ResponseEntity.ok().body(wineOutputDto);
     }
+
     //Delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteWineById(@PathVariable Long id) {
+        wineService.deleteWineById(id);
+        //Return a 204 status
+        return ResponseEntity.noContent().build();
+    }
 }
