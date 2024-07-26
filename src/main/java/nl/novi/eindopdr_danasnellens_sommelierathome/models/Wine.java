@@ -12,13 +12,12 @@ public class Wine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Long id;
 
     //relaties
 
-    private String name;
+    private String wineName;
     private String country;
     private String region;
     private String grapeVarietal;
@@ -39,7 +38,7 @@ public class Wine {
 
     public Wine(Long id, String name, String country, String region, String grapeVarietal, String producer, String wineStyle, String wineType, String foodPairing, String year, Double price, String aromas, String imageLink, String imageAlt, String shortDescription, String longDescription) {
         this.id = id;
-        this.name = name;
+        this.wineName = name;
         this.country = country;
         this.region = region;
         this.grapeVarietal = grapeVarietal;
