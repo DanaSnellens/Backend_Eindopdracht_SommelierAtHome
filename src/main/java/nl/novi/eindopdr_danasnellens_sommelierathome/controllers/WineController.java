@@ -4,9 +4,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,15 +19,22 @@ public class WineController {
     }
 
     //MAPPINGS
-    //Get all
+    //Get All
     @GetMapping
     public ResponseEntity<List<WineOutputDto>> getAllWines() {
         return ResponseEntity.ok().body(wineService.getAllWines());
     }
 
-
-    //Get one by id
+    //Get One
+    @GetMapping("/{id}")
+    public ResponseEntity<WineOutputDto> getWineById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(wineService.getWineById(id));
+    }
     //Create
+    @PostMapping
+    public ResponseEntity<WineOutputDto> addWine(@RequestBody Wine wine) {
+        return ResponseEntity.ok().body(wineService.createWine(wine));
+    }
     //Update
     //Delete
 }
