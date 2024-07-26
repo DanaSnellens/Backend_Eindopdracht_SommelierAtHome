@@ -35,6 +35,7 @@ public class WineController {
     }
     //Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
+    //Zie ook SpringSecurityConfig.java
     @PostMapping
     public ResponseEntity<WineOutputDto> createWine(@RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
         WineOutputDto wineOutputDto = wineService.createWine(wineInputDto/*, userDetails.getUsername()*/);
