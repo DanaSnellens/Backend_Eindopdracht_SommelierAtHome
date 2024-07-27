@@ -1,9 +1,16 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RecipeMapper;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RecipeMapper.*;
 
 @Service
 public class RecipeService {
