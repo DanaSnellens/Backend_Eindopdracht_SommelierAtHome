@@ -8,11 +8,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+
 @Entity
 @Table(name = "WineAdviceRequests")
 @Getter
 @Setter
-public class WineAdviceRequests {
+public class WineAdviceRequest {
 
     @Id
     @GeneratedValue
@@ -20,6 +22,16 @@ public class WineAdviceRequests {
     private Long id;
 
     //relaties
+    //client
+    //sommelier
+    //wineAdvice
 
+
+    private String dinnerOccasion;
+    private String requestMessage;
+    private File recipeDocument;
+    private String recipeLink;
+    private Double minPricePerBottle;
+    private Double maxPricePerBottle;
 
 }
