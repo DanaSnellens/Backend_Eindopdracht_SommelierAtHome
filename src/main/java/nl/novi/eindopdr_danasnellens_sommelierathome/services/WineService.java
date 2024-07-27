@@ -40,8 +40,8 @@ public class WineService {
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
 
     public WineOutputDto createWine(WineInputDto wineInputDto/*, String wineName */) {
-        Wine wine = wineRepository.save(wineFromInputDtoToModel(wineInputDto/*, wineName)*/));
-        return wineFromModelToOutputDto(wine);
+        Wine w = wineRepository.save(wineFromInputDtoToModel(wineInputDto/*, wineName)*/));
+        return wineFromModelToOutputDto(w);
     }
 
     // Update
