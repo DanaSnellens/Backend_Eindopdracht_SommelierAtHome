@@ -22,9 +22,9 @@ public class WineAdviceRequest {
     private Long id;
 
     //relaties
-    //client
-    //sommelier
-    //wineAdvice
+        //client
+        //sommelier
+        //wineAdvice
 
 
     private String dinnerOccasion;
@@ -33,5 +33,4 @@ public class WineAdviceRequest {
     private String recipeLink;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
-
 }
