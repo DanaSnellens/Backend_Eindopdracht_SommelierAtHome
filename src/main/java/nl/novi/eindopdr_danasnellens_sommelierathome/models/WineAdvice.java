@@ -15,7 +15,7 @@ import java.util.List;
 public class WineAdvice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.NONE)               //KLOPT DIT?
+    @Setter(AccessLevel.NONE)               //KLOPT DIT?
     private Long id;
 
     //relaties
