@@ -24,8 +24,9 @@ public class WineAdvice {
         // Client
         // WineAdviceRequest
         // WineList
+    /*    private List<Wine> wines;*/
 
     private String personalMessage;
-/*    private List<Wine> wines;*/
+
     private File adviceExplanation;
 }
