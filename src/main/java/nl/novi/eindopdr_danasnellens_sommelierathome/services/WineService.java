@@ -48,7 +48,7 @@ public class WineService {
     public WineOutputDto updateWine(Long id, WineInputDto updatedWine) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
-            return WineMapper.wineFromModelToOutputDto(optionalWine.get());
+            return wineFromModelToOutputDto(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with id: " + id);
     }
