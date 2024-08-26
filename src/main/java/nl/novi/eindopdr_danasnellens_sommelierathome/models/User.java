@@ -13,12 +13,25 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private Long id;                //Hier geen private voor?
+    private Long id;
 
-    //relaties
 
+    @Column(nullable = false, unique = true)
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
+
+    @Column(nullable = false, length = 255)
     private String password;
+
+    //relaties
+//Onderstaande gekopieerd uit TechItEasyRowan
+/*    @OneToMany(
+            targetEntity = Authority.class,
+            mappedBy = "username",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet<>();*/
 }
