@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.io.File;
 
 @Entity
-@Table(name = "WineAdviceRequests")
+@Table(name = "wineAdviceRequests")
 @Getter
 @Setter
 public class WineAdviceRequest {

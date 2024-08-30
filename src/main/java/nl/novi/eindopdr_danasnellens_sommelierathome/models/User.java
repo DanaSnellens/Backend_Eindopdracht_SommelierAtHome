@@ -5,11 +5,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
+import java.io.File;
+
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 public abstract class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -24,6 +29,10 @@ public abstract class User {
 
     @Column(nullable = false, length = 255)
     private String password;
+
+    private File profilePicture;  //TODO: Klopt dit? Of moet het een byte[] (+ @Lob annotatie) zijn?
+
+    private String getFullName() {return firstName + lastName;}
 
     //relaties
 //Onderstaande gekopieerd uit TechItEasyRowan

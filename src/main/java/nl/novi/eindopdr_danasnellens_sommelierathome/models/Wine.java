@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.List;
 @Entity
-@Table(name = "Wines")
+@Table(name = "wines")
 @Getter
 @Setter
 public class Wine {
