@@ -51,17 +51,25 @@ public class SpringSecurityConfig {
 }*/
 
     @Bean
-    protected SecurityFilterChain filter (HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(auth ->
                         auth
+                                .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/users").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/wines").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/wines/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/wines").hasRole("ADMIN")
 
                                 //ANDERE CRUD REQUESTS EN USERS TOEVOEGEN
+
+                                .requestMatchers("/authenticated").authenticated()
+                                .requestMatchers("authenticate").permitAll()
                                 .anyRequest().denyAll()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.List;
 
 @Entity
-@Table(name = "WineAdvices")
+@Table(name = "wineAdvices")
 @Getter
 @Setter
 public class WineAdvice {
