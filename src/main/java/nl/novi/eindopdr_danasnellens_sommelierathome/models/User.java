@@ -32,6 +32,21 @@ public abstract class User {
 
     private String profilePictureUrl;
 
+    public User() {
+
+    }
+
+    public User(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl) {
+        this.id = id;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+
     private String getFullName() {return firstName + lastName;}
 
     //relaties
