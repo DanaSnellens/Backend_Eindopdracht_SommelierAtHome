@@ -14,14 +14,10 @@ public class Client extends User {
     private Membership membership;
 
     public Client() {
-
     }
 
     public Client(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Membership membership) {
         super(id, userName, firstName, lastName, email, password, profilePictureUrl);
         this.membership = membership;
     }
-
-
-
 }
