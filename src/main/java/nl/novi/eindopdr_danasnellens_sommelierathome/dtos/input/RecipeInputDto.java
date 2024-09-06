@@ -2,17 +2,16 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
 import lombok.Data;
 
-@Data
 public class RecipeInputDto {
     public String recipeName;
-    private String course;
-    private String mainIngredient;
-    private String otherIngredients;
-    private Integer servings;
-    private Integer preparationTime;
-    private String winePairing;
-    private String imageLink;
-    private String imageAlt;
-    private String preparationShortDescription;
-    private String preparationLongDescription;
+    public String course;
+    public String mainIngredient;
+    public String otherIngredients;
+    public Integer servings;
+    public Integer preparationTime;
+    public String winePairing;
+    public String imageLink;
+    public String imageAlt;
+    public String preparationShortDescription;
+    public String preparationLongDescription;
 }
