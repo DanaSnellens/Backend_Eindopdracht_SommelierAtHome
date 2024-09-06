@@ -12,11 +12,6 @@ import lombok.Setter;
 public class Client extends User {
 
     //TODO: moet de enum hier of in een aparte enummeration en waar dan (model? en dan ook in de andere lagen?)? Hoe hier noteren? https://www.baeldung.com/spring-boot-enum-mapping
-    private enum Membership {
-        NONE,
-        BASIC,
-        REGULAR,
-        PREMIUM,
-    }
+
 
 }

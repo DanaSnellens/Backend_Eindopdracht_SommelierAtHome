@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientService extends UserService<Client> {
+public class ClientService {
 
     private final ClientRepository clientRepository;
     public ClientService(ClientRepository clientRepository) {
