@@ -1,17 +1,19 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
-public class SommelierInputDto {
-    public String userName;
-    public String firstName;
-    public String lastName;
-    public String email;
-    //TODO moet password wel public zijn? Of uberhaupt in de input dto staan?
-    public String password;
-    public String profilePictureUrl;
+import lombok.Data;
 
-    public String sommelierDescription;
-    public String certificates;
-    public Integer experienceInYears;
-    public String curriculumVitae;
-    public String specialization;
+@Data
+public class SommelierInputDto {
+    private String userName;
+    private String firstName;
+    private String lastName;
+    private String email;
+    //TODO moet password wel in de input dto staan?
+    private String password;private String profilePictureUrl;
+
+    private String sommelierDescription;
+    private String certificates;
+    private Integer experienceInYears;
+    private String curriculumVitae;
+    private String specialization;
 }
