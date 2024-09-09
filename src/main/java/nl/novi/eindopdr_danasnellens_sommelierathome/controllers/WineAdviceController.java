@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wineadvice")
+@RequestMapping("/wineadvices")
 public class WineAdviceController {
     private final WineAdviceService wineAdviceService;
     public WineAdviceController(WineAdviceService wineAdviceService) {
