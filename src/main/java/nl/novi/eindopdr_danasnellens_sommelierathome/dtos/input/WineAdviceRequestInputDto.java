@@ -10,10 +10,10 @@ public class WineAdviceRequestInputDto {
         //client
         //sommelier
         //wineAdvice
-    public String dinnerOccasion;
-    public String requestMessage;
-    public File recipeDocument;
-    public String recipeLink;
-    public Double minPricePerBottle;
-    public Double maxPricePerBottle;
+    private String dinnerOccasion;
+    private String requestMessage;
+    private File recipeDocument;
+    private String recipeLink;
+    private Double minPricePerBottle;
+    private Double maxPricePerBottle;
 }

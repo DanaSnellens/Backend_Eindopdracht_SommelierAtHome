@@ -11,7 +11,7 @@ public class WineMapper {
 
     //from dto to model
 
-    public static Wine wineFromInputDtoToModel(WineInputDto wineInputDto) {
+    public static Wine wineInputDtoToModel(WineInputDto wineInputDto) {
         Wine wine = new Wine();
         wine.setWineName(wineInputDto.getWineName());
         wine.setCountry(wineInputDto.getCountry());
@@ -32,7 +32,7 @@ public class WineMapper {
 
     }
     //from model to dto
-    public static WineOutputDto wineFromModelToOutputDto(Wine wine) {
+    public static WineOutputDto wineModelToOutputDto(Wine wine) {
         WineOutputDto wineOutputDto = new WineOutputDto();
         wineOutputDto.setId(wine.getId());
         wineOutputDto.setWineName(wine.getWineName());
@@ -57,7 +57,7 @@ public class WineMapper {
     public static List<WineOutputDto> wineModelListToOutputList(List<Wine> wineList) {
         List<WineOutputDto> wineOutputDtoList = new ArrayList<>();
         for (Wine wine : wineList) {
-            wineOutputDtoList.add(wineFromModelToOutputDto(wine));
+            wineOutputDtoList.add(wineModelToOutputDto(wine));
         }
         return wineOutputDtoList;
     }

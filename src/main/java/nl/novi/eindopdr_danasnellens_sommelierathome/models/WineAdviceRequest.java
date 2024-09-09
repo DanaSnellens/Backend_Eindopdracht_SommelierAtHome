@@ -33,4 +33,17 @@ public class WineAdviceRequest {
     private String recipeLink;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
+
+    public WineAdviceRequest() {
+    }
+
+    public WineAdviceRequest(Long id, String dinnerOccasion, String requestMessage, File recipeDocument, String recipeLink, Double minPricePerBottle, Double maxPricePerBottle) {
+        this.id = id;
+        this.dinnerOccasion = dinnerOccasion;
+        this.requestMessage = requestMessage;
+        this.recipeDocument = recipeDocument;
+        this.recipeLink = recipeLink;
+        this.minPricePerBottle = minPricePerBottle;
+        this.maxPricePerBottle = maxPricePerBottle;
+    }
 }

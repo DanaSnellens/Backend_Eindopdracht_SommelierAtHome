@@ -30,7 +30,22 @@ public abstract class User {
     @Column(nullable = false, length = 255)
     private String password;
 
-    private File profilePicture;  //TODO: Klopt dit? Of moet het een byte[] (+ @Lob annotatie) zijn?
+    private String profilePictureUrl;
+
+    public User() {
+
+    }
+
+    public User(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl) {
+        this.id = id;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
 
     private String getFullName() {return firstName + lastName;}
 

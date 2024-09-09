@@ -1,10 +1,9 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
 import lombok.Data;
-
 @Data
 public class RecipeInputDto {
-    public String recipeName;
+    private String recipeName;
     private String course;
     private String mainIngredient;
     private String otherIngredients;

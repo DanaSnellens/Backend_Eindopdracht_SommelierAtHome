@@ -1,11 +1,8 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.User;
-import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

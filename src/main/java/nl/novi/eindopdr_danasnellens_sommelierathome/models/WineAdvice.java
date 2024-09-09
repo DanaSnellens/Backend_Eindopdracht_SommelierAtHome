@@ -29,4 +29,13 @@ public class WineAdvice {
     private String personalMessage;
 
     private File adviceExplanation;
+
+    public WineAdvice() {
+    }
+
+    public WineAdvice(Long id, String personalMessage, File adviceExplanation) {
+        this.id = id;
+        this.personalMessage = personalMessage;
+        this.adviceExplanation = adviceExplanation;
+    }
 }

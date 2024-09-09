@@ -6,6 +6,11 @@ import java.io.File;
 
 @Data
 public class WineAdviceInputDto {
-    public String personalMessage;
-    public File adviceExplanation;
+    //relaties
+    //winesList<Wine>
+    //sommelier
+    //client
+    //wineAdviceRequest
+    private String personalMessage;
+    private File adviceExplanation;
 }

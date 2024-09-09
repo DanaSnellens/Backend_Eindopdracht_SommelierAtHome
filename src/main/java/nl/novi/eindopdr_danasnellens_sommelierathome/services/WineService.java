@@ -31,24 +31,33 @@ public class WineService {
     public WineOutputDto getWineById(Long id) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
-            return wineFromModelToOutputDto(optionalWine.get());
+            return wineModelToOutputDto(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with id: " + id);
+    }
+    
+    public WineOutputDto getWineByName(String wineName) {
+        Optional<Wine> optionalWine = wineRepository.findWineByWineName(wineName);
+        if (optionalWine.isPresent()) {
+            return wineModelToOutputDto(optionalWine.get());
+        }
+        else throw new RuntimeException("No wine found with name: " + wineName);
     }
 
     // Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
 
-    public WineOutputDto createWine(WineInputDto wineInputDto/*, String wineName */) {
-        Wine w = wineRepository.save(wineFromInputDtoToModel(wineInputDto/*, wineName)*/));
-        return wineFromModelToOutputDto(w);
+    public WineOutputDto createWine(WineInputDto wineInputDto) {
+        //TODO check if wine already exists (optional)
+        Wine wine = wineRepository.save(wineInputDtoToModel(wineInputDto));
+        return wineModelToOutputDto(wine);
     }
 
     // Update
     public WineOutputDto updateWine(Long id, WineInputDto updatedWine) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
-            return wineFromModelToOutputDto(optionalWine.get());
+            return wineModelToOutputDto(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with id: " + id);
     }

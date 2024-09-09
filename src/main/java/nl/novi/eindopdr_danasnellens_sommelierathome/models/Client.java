@@ -4,14 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
 
 @Entity
 @Table(name = "clients")
 @Getter
 @Setter
 public class Client extends User {
+    private Membership membership;
 
-    //TODO: moet de enum hier of in een aparte enummeration en waar dan (model? en dan ook in de andere lagen?)? Hoe hier noteren? https://www.baeldung.com/spring-boot-enum-mapping
+    public Client() {
+    }
 
-
+    public Client(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Membership membership) {
+        super(id, userName, firstName, lastName, email, password, profilePictureUrl);
+        this.membership = membership;
+    }
 }

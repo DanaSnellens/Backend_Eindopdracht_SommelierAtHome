@@ -16,4 +16,16 @@ public class Sommelier extends User{
     private Integer experienceInYears;
     private String curriculumVitae;
     private String specialization;
+
+    public Sommelier() {
+    }
+
+    public Sommelier(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, String sommelierDescription, String certificates, Integer experienceInYears, String curriculumVitae, String specialization) {
+        super(id, userName, firstName, lastName, email, password, profilePictureUrl);
+        this.sommelierDescription = sommelierDescription;
+        this.certificates = certificates;
+        this.experienceInYears = experienceInYears;
+        this.curriculumVitae = curriculumVitae;
+        this.specialization = specialization;
+    }
 }
