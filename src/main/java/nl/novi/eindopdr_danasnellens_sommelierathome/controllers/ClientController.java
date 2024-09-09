@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,11 +45,10 @@ public class ClientController {
 
     //create
     @PostMapping
-    public ResponseEntity<ClientOutputDto> createClient(@RequestBody ClientInputDto clientInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto, @AuthenticationPrincipal UserDetails userDetails) {
         ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto, userDetails.getUsername());
-
-        //TODO URI toevoegen
-        return ResponseEntity.created(null).body(clientOutputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientOutputDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(clientOutputDto);
     }
 
     //Update

@@ -47,7 +47,7 @@ public class WineController {
     @PostMapping
     public ResponseEntity<WineOutputDto> createWine
         (@Valid @RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
-            WineOutputDto wineOutputDto = wineService.createWine(wineInputDto/*, userDetails.getUsername()*/);
+            WineOutputDto wineOutputDto = wineService.createWine(wineInputDto); ;
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(wineOutputDto/*, userDetails.getUsername()*/);
     }

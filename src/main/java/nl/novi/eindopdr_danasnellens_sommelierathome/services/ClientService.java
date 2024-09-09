@@ -61,14 +61,14 @@ public class ClientService {
     public ClientOutputDto updateClientById(Long id, ClientInputDto updatedClient) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isPresent()) {
-            return ClientMapper.clientModelToOutput(optionalClient.get());
+            return clientModelToOutput(optionalClient.get());
         }
         else throw new UsernameNotFoundException("No client found with id: " + id);
     }
     public ClientOutputDto updateClientByUserName (String userName, ClientInputDto updatedClient) {
         Optional<Client> optionalClient = clientRepository.findClientByUserName(userName);
         if (optionalClient.isPresent()) {
-            return ClientMapper.clientModelToOutput(optionalClient.get());
+            return clientModelToOutput(optionalClient.get());
         }
         else throw new UsernameNotFoundException("No client found with username: " + userName);
     }

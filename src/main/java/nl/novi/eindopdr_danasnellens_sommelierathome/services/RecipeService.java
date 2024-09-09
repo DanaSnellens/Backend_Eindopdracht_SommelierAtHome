@@ -33,8 +33,8 @@ public class RecipeService {
     }
 
     public RecipeOutputDto createRecipe(RecipeInputDto recipeInputDto) {
-        Recipe r = recipeRepository.save(recipeFromInputDtoToModel(recipeInputDto));
-        return recipeFromModelToOutputDto(r);
+        Recipe recipe = recipeRepository.save(recipeFromInputDtoToModel(recipeInputDto));
+        return recipeFromModelToOutputDto(recipe);
     }
 
     public RecipeOutputDto updateRecipe(Long id, RecipeInputDto updatedRecipe) {

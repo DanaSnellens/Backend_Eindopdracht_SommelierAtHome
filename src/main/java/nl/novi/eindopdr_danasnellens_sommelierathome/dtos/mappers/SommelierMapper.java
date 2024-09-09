@@ -27,7 +27,7 @@ public class SommelierMapper {
     }
 
     //from model to dto
-    public static SommelierOutputDto sommelierFromModelToOutput(Sommelier sommelier) {
+    public static SommelierOutputDto sommelierModelToOutput(Sommelier sommelier) {
         SommelierOutputDto sommelierOutputDto = new SommelierOutputDto();
         sommelierOutputDto.setId(sommelier.getId());
         sommelierOutputDto.setUserName(sommelier.getUserName());
@@ -49,7 +49,7 @@ public class SommelierMapper {
         List<SommelierOutputDto> sommelierOutputDtoList = new ArrayList<>();
         //for loop
         for (Sommelier s : sommelierList) {
-            sommelierOutputDtoList.add(sommelierFromModelToOutput(s));
+            sommelierOutputDtoList.add(sommelierModelToOutput(s));
         }
         // lambda
         // sommelierList.forEach(s -> sommelierOutputDtoList.add(sommelierFromModelToOutput(s)));

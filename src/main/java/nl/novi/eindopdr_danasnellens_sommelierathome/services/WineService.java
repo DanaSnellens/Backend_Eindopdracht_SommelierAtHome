@@ -47,10 +47,9 @@ public class WineService {
     // Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
 
-    public WineOutputDto createWine(WineInputDto wineInputDto, String wineName ) {
-        Optional<Wine> optionalWine = wineRepository.findWineByWineName(wineName);
-        if (optionalWine.isEmpty()) {
-            Wine wine = wineRepository.save(wineInputDtoToModel(wineInputDto, wineName));
+    public WineOutputDto createWine(WineInputDto wineInputDto) {
+        //TODO check if wine already exists (optional)
+        Wine wine = wineRepository.save(wineInputDtoToModel(wineInputDto));
         return wineModelToOutputDto(wine);
     }
 
