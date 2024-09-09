@@ -36,6 +36,11 @@ public class WineController {
     public ResponseEntity<WineOutputDto> getWineById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(wineService.getWineById(id));
     }
+
+    @GetMapping("/{wineName}")
+    public ResponseEntity<WineOutputDto> getWineByName(@PathVariable("wineName") String wineName) {
+        return ResponseEntity.ok().body(wineService.getWineByName(wineName));
+    }
     //Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
     //Zie ook SpringSecurityConfig.java

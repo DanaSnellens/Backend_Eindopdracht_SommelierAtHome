@@ -22,7 +22,7 @@ public class ClientMapper {
         return client;
     }
     //from model to dto
-    public static ClientOutputDto clientFromModelToOutput(Client client) {
+    public static ClientOutputDto clientModelToOutput(Client client) {
         ClientOutputDto clientOutputDto = new ClientOutputDto();
         clientOutputDto.setId(client.getId());
         clientOutputDto.setUserName(client.getUserName());
@@ -39,7 +39,7 @@ public class ClientMapper {
         List<ClientOutputDto> clientOutputDtoList = new ArrayList<>();
         //for loop
         for (Client c : clientList) {
-            clientOutputDtoList.add(clientFromModelToOutput(c));
+            clientOutputDtoList.add(clientModelToOutput(c));
         }
         // lambda
         // clientList.forEach(c -> clientOutputDtoList.add(clientFromModelToOutput(c)));
