@@ -15,5 +15,4 @@ public class ClientOutputDto {
     private String profilePictureUrl;
 
     private Membership membership;
-
 }
