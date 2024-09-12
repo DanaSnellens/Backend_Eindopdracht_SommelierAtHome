@@ -43,7 +43,7 @@ public class WineAdvice {
 
         // WineAdviceRequest
     @OneToOne
-    private WineAdvice wineAdvice;
+    private WineAdviceRequest wineAdviceRequest;
 
     public WineAdvice() {
     }
