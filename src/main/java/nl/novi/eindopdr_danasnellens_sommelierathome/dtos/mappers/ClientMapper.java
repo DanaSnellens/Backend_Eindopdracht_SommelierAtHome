@@ -37,6 +37,11 @@ public class ClientMapper {
         clientOutputDto.setPassword(client.getPassword());
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
         clientOutputDto.setMembership(client.getMembership());
+
+        //relaties
+        clientOutputDto.setWineAdviceRequestSet(client.getWineAdviceRequestSet());
+        clientOutputDto.setWineAdviceSet(client.getWineAdviceSet());
+
         return clientOutputDto;
     }
     //from list to list
