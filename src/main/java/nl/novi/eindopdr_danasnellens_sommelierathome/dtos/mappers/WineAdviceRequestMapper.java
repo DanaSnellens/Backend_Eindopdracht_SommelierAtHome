@@ -2,6 +2,9 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
@@ -21,6 +24,12 @@ public class WineAdviceRequestMapper {
         wineAdviceRequest.setRecipeLink(wineAdviceRequestInputDto.getRecipeLink());
         wineAdviceRequest.setMinPricePerBottle(wineAdviceRequestInputDto.getMinPricePerBottle());
         wineAdviceRequest.setMaxPricePerBottle(wineAdviceRequestInputDto.getMaxPricePerBottle());
+
+        //relaties
+        wineAdviceRequest.setClient(wineAdviceRequestInputDto.getClient());
+        wineAdviceRequest.setSommelier(wineAdviceRequestInputDto.getSommelier());
+        wineAdviceRequest.setWineAdvice(wineAdviceRequestInputDto.getWineAdvice());
+
         return wineAdviceRequest;
     }
 
@@ -33,6 +42,12 @@ public class WineAdviceRequestMapper {
         wineAdviceRequestOutputDto.setRecipeLink(wineAdviceRequest.getRecipeLink());
         wineAdviceRequestOutputDto.setMinPricePerBottle(wineAdviceRequest.getMinPricePerBottle());
         wineAdviceRequestOutputDto.setMaxPricePerBottle(wineAdviceRequest.getMaxPricePerBottle());
+
+        //relaties
+        wineAdviceRequestOutputDto.setClient(wineAdviceRequest.getClient());
+        wineAdviceRequestOutputDto.setSommelier(wineAdviceRequest.getSommelier());
+        wineAdviceRequestOutputDto.setWineAdvice(wineAdviceRequest.getWineAdvice());
+
         return wineAdviceRequestOutputDto;
     }
 
