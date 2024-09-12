@@ -28,7 +28,7 @@ public class SpringSecurityConfig {
         };
     }
 
-    //Echter usernames en passwords toevoegen (+ roles aanpassen???)
+    //Echte usernames en passwords toevoegen (+ roles aanpassen???)
     //Zie ook WineController.java Postmapping
     @Bean
     public UserDetailsService authManager(PasswordEncoder passwordEncoder) {
@@ -50,7 +50,6 @@ public class SpringSecurityConfig {
 
         return man;
     }
-
 
     @Bean
     protected SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
@@ -86,22 +85,16 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasRole("CLIENT")
 
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/clients/{id}").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/clients/{userName}").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/clients").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/clients/{id}").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/clients/{userName}").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/clients/{id}").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/clients/{userName}").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.PUT, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.GET, "/sommeliers/{id}").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.GET, "/sommeliers/{userName}").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.GET, "/sommeliers/**").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.POST, "/sommeliers").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/sommeliers/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/sommeliers/{userName}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/sommeliers/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/sommeliers/{userName}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
 
                                 .anyRequest().denyAll()
 

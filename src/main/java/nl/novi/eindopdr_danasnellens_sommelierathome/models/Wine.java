@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "wines")
 @Getter
@@ -14,8 +16,6 @@ public class Wine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
-
-    //relaties
 
     private String wineName;
     private String country;
@@ -32,6 +32,13 @@ public class Wine {
     private String imageAlt;
     private String shortDescription;
     private String longDescription;
+
+    //relaties
+    @ManyToMany(mappedBy = "wineSet")
+    private Set<WineAdvice> wineAdviceSet;
+
+    @ManyToMany(mappedBy = "wineSet")
+    private Set<Recipe> recipeSet;
 
     public Wine() {
     }

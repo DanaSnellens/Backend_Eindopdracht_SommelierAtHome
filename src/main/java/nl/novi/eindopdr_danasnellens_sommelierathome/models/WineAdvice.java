@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "wineAdvices")
@@ -17,18 +19,31 @@ public class WineAdvice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)               //KLOPT DIT?
     private Long id;
+    private String personalMessage;
+    private File adviceExplanation;
 
     //relaties
-        // WineList<Wine>
+        // Wine
+    @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
+    @JoinTable(name = "wine_wineAdvice",
+            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wineAdvice_id",
+                    referencedColumnName = "id"))
+    private Set<Wine> wineSet = new HashSet<>();
+
         // Sommelier
-        // Client
+    @ManyToOne
+    @JoinColumn(name = "sommelier_id")
+    private Sommelier sommelier;
+
+        //Client
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
         // WineAdviceRequest
-        // WineList
-    /*    private List<Wine> wines;*/
-
-    private String personalMessage;
-
-    private File adviceExplanation;
+    @OneToOne
+    private WineAdvice wineAdvice;
 
     public WineAdvice() {
     }

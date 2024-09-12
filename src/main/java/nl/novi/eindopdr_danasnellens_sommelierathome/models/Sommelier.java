@@ -1,9 +1,13 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sommeliers")
@@ -16,6 +20,15 @@ public class Sommelier extends User{
     private Integer experienceInYears;
     private String curriculumVitae;
     private String specialization;
+
+    //Relaties
+        //WineAdviceRequest
+    @OneToMany(mappedBy = "sommelier")
+    private Set<WineAdviceRequest> WineAdviceRequestList = new HashSet<>();
+
+        //WineAdvice
+    @OneToMany(mappedBy = "sommelier")
+    private Set<WineAdvice> WineAdviceSet = new HashSet<>();
 
     public Sommelier() {
     }

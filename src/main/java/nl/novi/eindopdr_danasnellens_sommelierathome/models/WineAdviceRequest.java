@@ -1,9 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,18 +18,28 @@ public class WineAdviceRequest {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    //relaties
-        //client
-        //sommelier
-        //wineAdvice
-
-
     private String dinnerOccasion;
     private String requestMessage;
     private File recipeDocument;
     private String recipeLink;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
+
+    //relaties
+
+        //client
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    //sommelier
+    @ManyToOne
+    @JoinColumn(name = "sommelier_id)")
+    private Sommelier sommelier;
+
+    //wineAdvice
+    @OneToOne(mappedBy = "wineAdviceRequest")
+    private WineAdvice wineAdvice;
 
     public WineAdviceRequest() {
     }

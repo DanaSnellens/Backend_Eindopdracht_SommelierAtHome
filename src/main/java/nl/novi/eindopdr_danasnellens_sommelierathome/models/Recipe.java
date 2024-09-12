@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "recipes")
 @Getter
@@ -15,8 +18,6 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
-
-    //relaties
 
     private String recipeName;
     private String course;
@@ -29,6 +30,15 @@ public class Recipe {
     private String imageAlt;
     private String preparationShortDescription;
     private String preparationLongDescription;
+
+    //relaties
+        //Wine
+    @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
+    @JoinTable(name = "wine_recipe",
+            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wine_id",
+                    referencedColumnName = "id"))
+    private Set<Wine> wineSet = new HashSet<>();
 
     public Recipe() {
     }
