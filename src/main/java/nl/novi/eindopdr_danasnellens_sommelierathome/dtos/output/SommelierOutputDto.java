@@ -1,6 +1,10 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
+
+import java.util.Set;
 
 @Data
 public class SommelierOutputDto {
@@ -18,4 +22,8 @@ public class SommelierOutputDto {
     private Integer experienceInYears;
     private String curriculumVitae;
     private String specialization;
+
+    //relaties
+    private Set<WineAdviceRequest> WineAdviceRequestSet;
+    private Set<WineAdvice> WineAdviceSet;
 }

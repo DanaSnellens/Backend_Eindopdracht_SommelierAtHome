@@ -3,9 +3,12 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SommelierMapper {
     //from dto to model
@@ -23,6 +26,11 @@ public class SommelierMapper {
         sommelier.setExperienceInYears(sommelierInputDto.getExperienceInYears());
         sommelier.setCurriculumVitae(sommelierInputDto.getCurriculumVitae());
         sommelier.setSpecialization(sommelierInputDto.getSpecialization());
+
+        //relaties
+        sommelier.setWineAdviceRequestSet(sommelierInputDto.getWineAdviceRequestSet());
+        sommelier.setWineAdviceSet(sommelierInputDto.getWineAdviceSet());
+
         return sommelier;
     }
 
@@ -41,6 +49,11 @@ public class SommelierMapper {
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());
         sommelierOutputDto.setCurriculumVitae(sommelier.getCurriculumVitae());
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
+
+        //relaties
+        sommelierOutputDto.setWineAdviceRequestSet(sommelier.getWineAdviceRequestSet());
+        sommelierOutputDto.setWineAdviceSet(sommelier.getWineAdviceSet());
+
         return sommelierOutputDto;
     }
 

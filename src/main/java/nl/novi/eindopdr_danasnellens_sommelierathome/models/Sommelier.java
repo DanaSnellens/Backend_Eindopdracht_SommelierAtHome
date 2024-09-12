@@ -24,7 +24,7 @@ public class Sommelier extends User{
     //Relaties
         //WineAdviceRequest
     @OneToMany(mappedBy = "sommelier")
-    private Set<WineAdviceRequest> WineAdviceRequestList = new HashSet<>();
+    private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
 
         //WineAdvice
     @OneToMany(mappedBy = "sommelier")

@@ -45,6 +45,7 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationShortDescription(recipe.getPreparationShortDescription());
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
+        //relaties
         recipeOutputDto.setWineSet(recipe.getWineSet());
 
         return recipeOutputDto;
