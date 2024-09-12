@@ -1,10 +1,11 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,14 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientM
 public class ClientService {
     //Repository
     private final ClientRepository clientRepository;
-    public ClientService(ClientRepository clientRepository) {
+    private final WineAdviceRequestRepository wineAdviceRequestRepository;
+    private final WineAdviceRepository wineAdviceRepository;
+
+
+    public ClientService(ClientRepository clientRepository, WineAdviceRequestRepository wineAdviceRequestRepository, WineAdviceRepository wineAdviceRepository) {
         this.clientRepository = clientRepository;
+        this.wineAdviceRequestRepository = wineAdviceRequestRepository;
+        this.wineAdviceRepository = wineAdviceRepository;
     }
 
     // Get All

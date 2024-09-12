@@ -1,7 +1,11 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
+
+import java.util.Set;
 
 @Data
 public class ClientOutputDto {
@@ -15,4 +19,8 @@ public class ClientOutputDto {
     private String profilePictureUrl;
 
     private Membership membership;
+
+    //relaties
+    private Set<WineAdviceRequest> WineAdviceRequestSet;
+    private Set<WineAdvice> WineAdviceSet;
 }

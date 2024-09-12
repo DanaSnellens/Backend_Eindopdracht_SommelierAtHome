@@ -19,6 +19,11 @@ public class ClientMapper {
         client.setPassword(clientInputDto.getPassword());
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
         client.setMembership(clientInputDto.getMembership());
+
+        //relaties
+        client.setWineAdviceRequestSet(clientInputDto.getWineAdviceRequestSet());
+        client.setWineAdviceSet(clientInputDto.getWineAdviceSet());
+
         return client;
     }
     //from model to dto
