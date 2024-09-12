@@ -3,9 +3,11 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class RecipeMapper {
     public static Recipe recipeFromInputDtoToModel(RecipeInputDto recipeInputDto) {
@@ -21,6 +23,10 @@ public class RecipeMapper {
         recipe.setImageAlt(recipeInputDto.getImageAlt());
         recipe.setPreparationShortDescription(recipeInputDto.getPreparationShortDescription());
         recipe.setPreparationLongDescription(recipeInputDto.getPreparationLongDescription());
+
+        //relaties
+        recipe.setWineSet(recipeInputDto.getWineSet());
+
         return recipe;
     }
 
@@ -38,6 +44,9 @@ public class RecipeMapper {
         recipeOutputDto.setImageAlt(recipe.getImageAlt());
         recipeOutputDto.setPreparationShortDescription(recipe.getPreparationShortDescription());
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
+
+        recipeOutputDto.setWineSet(recipe.getWineSet());
+
         return recipeOutputDto;
     }
 
