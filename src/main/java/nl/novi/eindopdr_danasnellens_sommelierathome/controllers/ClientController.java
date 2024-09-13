@@ -62,6 +62,8 @@ public class ClientController {
         ClientOutputDto clientOutputDto = clientService.updateClientByUserName(userName, updatedClient);
         return ResponseEntity.ok().body(clientOutputDto);
     }
+
+
     //Delete
 
     @DeleteMapping("/{id}")
@@ -75,4 +77,13 @@ public class ClientController {
         clientService.deleteClientByUserName(userName);
         return ResponseEntity.noContent().build();
     }
+
+    //RELATIES
+    @PutMapping("/{id}/wineadvicerequest/{wineAdviceRequestId}")
+    public ResponseEntity<ClientOutputDto> assignWineAdviceRequestToClient(@PathVariable("id") Long id, @PathVariable Long wineAdviceRequestId) {
+        clientService.assignWineAdviceRequestToClient(id, wineAdviceRequestId);
+    }
+
+    @PutMapping("/{id}/wineadvice/{wineAdviceId}")
+    public ResponseEntity<ClientOutputDto> assignWineAdviceToClient(@PathVariable)
 }

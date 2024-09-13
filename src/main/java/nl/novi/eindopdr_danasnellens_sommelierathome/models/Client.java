@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class Client extends User {
+    //TODO is dit ook een OneToMany relatie?
     private Membership membership;
 
     //Relaties

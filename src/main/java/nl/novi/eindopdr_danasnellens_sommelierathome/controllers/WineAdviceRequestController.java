@@ -4,21 +4,27 @@ import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineAdviceRequestService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/wineadvicerequests")
 public class WineAdviceRequestController {
     private final WineAdviceRequestService wineAdviceRequestService;
-
-    public WineAdviceRequestController(WineAdviceRequestService wineAdviceRequestService) {
+    private final ClientService clientService;
+    public WineAdviceRequestController(WineAdviceRequestService wineAdviceRequestService, ClientService clientService) {
         this.wineAdviceRequestService = wineAdviceRequestService;
+        this.clientService = clientService;
     }
 
     @GetMapping
@@ -33,7 +39,10 @@ public class WineAdviceRequestController {
 
     @PostMapping
     public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest
-            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto) {
+            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+        // TODO Is onderstaande wel nodig (met Rowan 13-9), want dit gebeurt al in de mapper of niet?
+                /*Client c = clientService.getClientByUsernameClient(userDetails.getUsername());
+                wineAdviceRequestInputDto.setClient(c);*/
                 WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto);
                 URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceRequestOutputDto.getId()).toUri();
                 return ResponseEntity.created(uri).body(wineAdviceRequestOutputDto);
