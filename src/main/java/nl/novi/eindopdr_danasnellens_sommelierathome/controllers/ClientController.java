@@ -77,13 +77,4 @@ public class ClientController {
         clientService.deleteClientByUserName(userName);
         return ResponseEntity.noContent().build();
     }
-
-    //RELATIES
-    @PutMapping("/{id}/wineadvicerequest/{wineAdviceRequestId}")
-    public ResponseEntity<ClientOutputDto> assignWineAdviceRequestToClient(@PathVariable("id") Long id, @PathVariable Long wineAdviceRequestId) {
-        clientService.assignWineAdviceRequestToClient(id, wineAdviceRequestId);
-    }
-
-    @PutMapping("/{id}/wineadvice/{wineAdviceId}")
-    public ResponseEntity<ClientOutputDto> assignWineAdviceToClient(@PathVariable)
 }
