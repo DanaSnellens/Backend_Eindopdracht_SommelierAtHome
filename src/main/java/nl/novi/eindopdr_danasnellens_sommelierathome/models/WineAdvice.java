@@ -17,14 +17,16 @@ import java.util.Set;
 public class WineAdvice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)               //KLOPT DIT?
+    @Setter(AccessLevel.NONE)               //TODO KLOPT DIT?
     private Long id;
+
     private String personalMessage;
     private File adviceExplanation;
 
     //relaties
         // Wine
-    @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
+    //TODO Welke cascadeType? All is rigoreus, maar welke wel?
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "wine_wineAdvice",
             joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "wineAdvice_id",

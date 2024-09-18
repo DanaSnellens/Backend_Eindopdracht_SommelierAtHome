@@ -5,6 +5,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputD
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineAdviceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,10 +21,10 @@ import java.util.Optional;
 @RequestMapping("/wineadvices")
 public class WineAdviceController {
     private final WineAdviceService wineAdviceService;
-    private final ClientRepository clientRepository;
-    public WineAdviceController(WineAdviceService wineAdviceService, ClientRepository clientRepository) {
+    private final ClientService clientService;
+    public WineAdviceController(WineAdviceService wineAdviceService, ClientService clientService) {
         this.wineAdviceService = wineAdviceService;
-        this.clientRepository = clientRepository;
+        this.clientService = clientService;
     }
     @GetMapping
     public ResponseEntity<List<WineAdviceOutputDto>> getAllWineAdvices() {
@@ -55,6 +56,13 @@ public class WineAdviceController {
     public ResponseEntity<Object> deleteWineAdviceById(@PathVariable Long id) {
         wineAdviceService.deleteWineAdviceById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //RELATIES
+    @PutMapping("/{id}/wine/{wineId}")
+    public ResponseEntity<String> assignWineToWineAdvice(@PathVariable ("id")Long id, @PathVariable ("wineId") Long wineId) {
+        wineAdviceService.assignWineToWineAdvice(id, wineId);
+        return ResponseEntity.ok("Wine " + wineId + " assigned to wineadvice " + id);
     }
 
 }

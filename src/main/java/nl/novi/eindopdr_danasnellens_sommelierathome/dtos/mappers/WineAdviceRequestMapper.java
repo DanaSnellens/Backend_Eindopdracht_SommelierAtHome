@@ -6,16 +6,14 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WineAdviceRequestMapper {
+    private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
-    //relaties toevoegen bij alle3
-        //client
-        //sommelier
-        //wineAdvice
     public static WineAdviceRequest wineAdviceRequestFromInputDtoToModel(WineAdviceRequestInputDto wineAdviceRequestInputDto) {
         WineAdviceRequest wineAdviceRequest = new WineAdviceRequest();
         wineAdviceRequest.setDinnerOccasion(wineAdviceRequestInputDto.getDinnerOccasion());

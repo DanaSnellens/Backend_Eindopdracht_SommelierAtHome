@@ -12,9 +12,8 @@ import java.io.File;
 @Getter
 @Setter
 public class WineAdviceRequest {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
 

@@ -62,10 +62,10 @@ public class WineAdviceRequestController {
     }
 
     //RELATIES
-    @PutMapping("/{id}/sommelier/{sommelierId}")
-    public ResponseEntity<WineAdviceRequestOutputDto> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long id, @PathVariable ("sommelierId") Long sommelierId) {
+    //TODO is sommelierId een PathVariable of RequestParam? Dit ook checken bij WA-Wine.(@PathVariable: when the variable is part of the resource identity (eg /users/123) --> Extracts value from URI path. @RequestParam: when the variable is part of the request, like option/filter (eg /users?userId=123) --> Extracts value from the query string.
+        @PutMapping("/{id}/sommelier/{sommelierId}")
+    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long id, @PathVariable ("sommelierId") Long sommelierId) {
         wineAdviceRequestService.assignSommelierToWineAdviceRequest(id, sommelierId);
-        return ResponseEntity.ok().body(new WineAdviceRequestOutputDto());
-        //TODO message toevoegen dat hij is gekoppeld?
+        return ResponseEntity.ok("Sommelier " + sommelierId + " assigned to wineadvice request " + id);
     }
 }

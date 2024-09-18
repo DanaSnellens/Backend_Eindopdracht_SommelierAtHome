@@ -3,8 +3,12 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +19,10 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdv
 @Service
 public class WineAdviceService {
     private final WineAdviceRepository wineAdviceRepository;
-    public WineAdviceService(WineAdviceRepository wineAdviceRepository) {
+    private final WineRepository wineRepository;
+    public WineAdviceService(WineAdviceRepository wineAdviceRepository, WineRepository wineRepository) {
         this.wineAdviceRepository = wineAdviceRepository;
+        this.wineRepository = wineRepository;
     }
 
     public List<WineAdviceOutputDto> getAllWineAdvices() {
@@ -51,5 +57,20 @@ public class WineAdviceService {
             wineAdviceRepository.deleteById(id);
         }
         else throw new RuntimeException("No wine advice found with id: " + id);
+    }
+
+    //RELATIES
+    //TODO moet ik hier geen gebruik maken van DTO en mapper?
+    public void assignWineToWineAdvice(Long id, Long wineId) {
+        Optional<WineAdvice> optionalWineAdvice = wineAdviceRepository.findById(id);
+        Optional<Wine> optionalWine = wineRepository.findById(wineId);
+
+        if (optionalWineAdvice.isPresent() && optionalWine.isPresent()) {
+            Wine wine = optionalWine.get();
+            WineAdvice wa = optionalWineAdvice.get();
+
+            wa.setWine(wine);
+            wineAdviceRepository.save(wa);
+        } else throw new RuntimeException("No wine advice found with id: " + id + " or no wine found with id: " + wineId);
     }
 }
