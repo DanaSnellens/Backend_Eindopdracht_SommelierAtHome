@@ -1,3 +1,4 @@
+/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.config;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
@@ -106,3 +107,4 @@ public class SpringSecurityConfig {
         return http.build();
     }
 }
+*/

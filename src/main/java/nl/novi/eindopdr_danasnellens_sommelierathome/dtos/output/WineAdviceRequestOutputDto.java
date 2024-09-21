@@ -11,13 +11,12 @@ public class WineAdviceRequestOutputDto {
     private Long id;
     private String dinnerOccasion;
     private String requestMessage;
-    private String recipeDocument;
     private String recipeLink;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
     //relaties
-    private Client client;
-    private Sommelier sommelier;
-    private WineAdvice wineAdvice;
+    private Long clientId;
+    private Long sommelierId;
 }
+

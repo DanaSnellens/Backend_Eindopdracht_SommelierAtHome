@@ -1,13 +1,12 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,11 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdv
 @Service
 public class WineAdviceService {
     private final WineAdviceRepository wineAdviceRepository;
+    private final WineAdviceRequestRepository wineAdviceRequestRepository;
     private final WineRepository wineRepository;
-    public WineAdviceService(WineAdviceRepository wineAdviceRepository, WineRepository wineRepository) {
-        this.wineAdviceRepository = wineAdviceRepository;
+    public WineAdviceService(WineAdviceRepository wineAdviceRepository, WineAdviceRepository wineAdviceRepository1, WineAdviceRequestRepository wineAdviceRequestRepository, WineRepository wineRepository) {
+        this.wineAdviceRepository = wineAdviceRepository1;
+        this.wineAdviceRequestRepository = wineAdviceRequestRepository;
         this.wineRepository = wineRepository;
     }
 
@@ -69,8 +70,18 @@ public class WineAdviceService {
             Wine wine = optionalWine.get();
             WineAdvice wa = optionalWineAdvice.get();
 
-            wa.setWine(wine);
+            wa.getWineSet().add(wine);
+
             wineAdviceRepository.save(wa);
         } else throw new RuntimeException("No wine advice found with id: " + id + " or no wine found with id: " + wineId);
+    }
+
+    public WineAdviceRequest getWineAdviceRequestById(Long wineAdviceRequestId) {
+
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(wineAdviceRequestId);
+        if (optionalWineAdviceRequest.isPresent()) {
+            return optionalWineAdviceRequest.get();
+        }
+        else throw new RuntimeException("No wine advice request found with id: " + wineAdviceRequestId);
     }
 }

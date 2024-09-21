@@ -19,7 +19,6 @@ public class WineAdviceRequest {
 
     private String dinnerOccasion;
     private String requestMessage;
-    private File recipeDocument;
     private String recipeLink;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
@@ -37,7 +36,8 @@ public class WineAdviceRequest {
     private Sommelier sommelier;
 
     //wineAdvice
-    @OneToOne(mappedBy = "wineAdviceRequest")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wineAdvice_id")
     private WineAdvice wineAdvice;
 
     public WineAdviceRequest() {
@@ -47,7 +47,6 @@ public class WineAdviceRequest {
         this.id = id;
         this.dinnerOccasion = dinnerOccasion;
         this.requestMessage = requestMessage;
-        this.recipeDocument = recipeDocument;
         this.recipeLink = recipeLink;
         this.minPricePerBottle = minPricePerBottle;
         this.maxPricePerBottle = maxPricePerBottle;

@@ -41,9 +41,8 @@ public class WineAdviceRequestController {
     @PostMapping
     public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest
             (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, @AuthenticationPrincipal UserDetails userDetails) {
-        // TODO Is onderstaande wel nodig (met Rowan 13-9), want dit gebeurt al in de mapper of niet?
-                /*Client c = clientService.getClientByUsernameClient(userDetails.getUsername());
-                wineAdviceRequestInputDto.setClient(c);*/
+                Client c = clientService.getClientByUsernameClient(userDetails.getUsername());
+                wineAdviceRequestInputDto.setClient(c);
                 WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto);
                 URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceRequestOutputDto.getId()).toUri();
                 return ResponseEntity.created(uri).body(wineAdviceRequestOutputDto);
@@ -65,6 +64,8 @@ public class WineAdviceRequestController {
     //TODO is sommelierId een PathVariable of RequestParam? Dit ook checken bij WA-Wine.(@PathVariable: when the variable is part of the resource identity (eg /users/123) --> Extracts value from URI path. @RequestParam: when the variable is part of the request, like option/filter (eg /users?userId=123) --> Extracts value from the query string.
         @PutMapping("/{id}/sommelier/{sommelierId}")
     public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long id, @PathVariable ("sommelierId") Long sommelierId) {
+
+        //TODO Als somm=notNull, dan somm=optionalSommelier.get() ?? Of moet dit ihn de service? (Staat er al of niet?>
         wineAdviceRequestService.assignSommelierToWineAdviceRequest(id, sommelierId);
         return ResponseEntity.ok("Sommelier " + sommelierId + " assigned to wineadvice request " + id);
     }

@@ -25,12 +25,11 @@ public class WineAdvice {
 
     //relaties
         // Wine
-    //TODO Welke cascadeType? All is rigoreus, maar welke wel?
+    //TODO Welke cascadeType? All is rigoreus, maar welke wel?Ook toevoegen/wijzigen bij anderen
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "wine_wineAdvice",
+    @JoinTable(name = "wineAdvice_wine",
             joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "wineAdvice_id",
-                    referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "wineAdvice_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
 
         // Sommelier
@@ -44,7 +43,7 @@ public class WineAdvice {
     private Client client;
 
         // WineAdviceRequest
-    @OneToOne
+    @OneToOne(mappedBy = "wineAdvice")
     private WineAdviceRequest wineAdviceRequest;
 
     public WineAdvice() {

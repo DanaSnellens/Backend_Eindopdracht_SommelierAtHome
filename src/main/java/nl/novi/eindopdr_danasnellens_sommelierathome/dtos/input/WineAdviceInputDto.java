@@ -10,12 +10,13 @@ import java.util.Set;
 public class WineAdviceInputDto {
     private String personalMessage;
     private File adviceExplanation;
-
+    private Long wineAdviceRequestId;
+    private Long wineAdviceId;
     //relaties
+
+//    private Sommelier sommelier;
+//    private Client client;
     private Set<Wine> wineSet;
-    private Sommelier sommelier;
-    private Client client;
-    private WineAdviceRequest wineAdviceRequest;
 
 
     //winesList<Wine>

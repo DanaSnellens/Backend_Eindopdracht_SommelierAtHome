@@ -1,9 +1,10 @@
+// src/main/java/nl/novi/eindopdr_danasnellens_sommelierathome/models/Wine.java
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,14 +27,15 @@ public class Wine {
     private String wineType;
     private String foodPairing;
     private String year;
-    private Double price;                        //toevoegen aan frontend?
+    @Positive
+    private Double price;
     private String aromas;
     private String imageLink;
     private String imageAlt;
     private String shortDescription;
     private String longDescription;
 
-    //relaties
+    // relaties
     @ManyToMany(mappedBy = "wineSet")
     private Set<WineAdvice> wineAdviceSet;
 

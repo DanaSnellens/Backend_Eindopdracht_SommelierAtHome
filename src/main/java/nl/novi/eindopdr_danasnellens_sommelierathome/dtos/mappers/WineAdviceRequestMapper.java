@@ -2,9 +2,6 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 
@@ -18,7 +15,6 @@ public class WineAdviceRequestMapper {
         WineAdviceRequest wineAdviceRequest = new WineAdviceRequest();
         wineAdviceRequest.setDinnerOccasion(wineAdviceRequestInputDto.getDinnerOccasion());
         wineAdviceRequest.setRequestMessage(wineAdviceRequestInputDto.getRequestMessage());
-        wineAdviceRequest.setRecipeDocument(wineAdviceRequestInputDto.getRecipeDocument());
         wineAdviceRequest.setRecipeLink(wineAdviceRequestInputDto.getRecipeLink());
         wineAdviceRequest.setMinPricePerBottle(wineAdviceRequestInputDto.getMinPricePerBottle());
         wineAdviceRequest.setMaxPricePerBottle(wineAdviceRequestInputDto.getMaxPricePerBottle());
@@ -36,15 +32,14 @@ public class WineAdviceRequestMapper {
         wineAdviceRequestOutputDto.setId(wineAdviceRequest.getId());
         wineAdviceRequestOutputDto.setDinnerOccasion(wineAdviceRequest.getDinnerOccasion());
         wineAdviceRequestOutputDto.setRequestMessage(wineAdviceRequest.getRequestMessage());
-        wineAdviceRequestOutputDto.setRecipeDocument(wineAdviceRequest.getRecipeDocument().toString());
         wineAdviceRequestOutputDto.setRecipeLink(wineAdviceRequest.getRecipeLink());
         wineAdviceRequestOutputDto.setMinPricePerBottle(wineAdviceRequest.getMinPricePerBottle());
         wineAdviceRequestOutputDto.setMaxPricePerBottle(wineAdviceRequest.getMaxPricePerBottle());
 
         //relaties
-        wineAdviceRequestOutputDto.setClient(wineAdviceRequest.getClient());
-        wineAdviceRequestOutputDto.setSommelier(wineAdviceRequest.getSommelier());
-        wineAdviceRequestOutputDto.setWineAdvice(wineAdviceRequest.getWineAdvice());
+       /* wineAdviceRequestOutputDto.setClient(wineAdviceRequest.getClient());
+        wineAdviceRequestOutputDto.setSommelier(wineAdviceRequest.getSommelier());*/
+/*        wineAdviceRequestOutputDto.setWineAdviceId(wineAdviceRequest.getWineAdvice());*/
 
         return wineAdviceRequestOutputDto;
     }
@@ -56,4 +51,5 @@ public class WineAdviceRequestMapper {
         }
         return wineAdviceRequestOutputDtoList;
     }
+
 }

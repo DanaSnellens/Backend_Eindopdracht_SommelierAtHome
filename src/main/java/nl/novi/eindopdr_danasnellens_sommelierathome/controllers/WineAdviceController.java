@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineAdviceService;
@@ -39,10 +40,10 @@ public class WineAdviceController {
     @PostMapping
     public ResponseEntity<WineAdviceOutputDto> createWineAdvice
             (@Valid @RequestBody WineAdviceInputDto wineAdviceInputDto) {
-
-
+        WineAdviceRequest war = wineAdviceService.getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
+/*        wineAdviceInputDto.setWineAdviceRequest(war);*/
         WineAdviceOutputDto wineAdviceOutput = wineAdviceService.createWineAdvice(wineAdviceInputDto);
-                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceOutput.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceOutput.getId()).toUri();
         return ResponseEntity.created(uri).body(wineAdviceOutput);
     }
 

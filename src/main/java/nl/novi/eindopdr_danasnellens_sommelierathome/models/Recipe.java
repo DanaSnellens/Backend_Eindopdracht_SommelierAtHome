@@ -34,11 +34,11 @@ public class Recipe {
     //relaties
         //Wine
     @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
-    @JoinTable(name = "wine_recipe",
+    @JoinTable(name = "recipe_wine",
             joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "wine_id",
-                    referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
+
 
     public Recipe() {
     }

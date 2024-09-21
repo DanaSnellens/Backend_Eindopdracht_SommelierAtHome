@@ -65,4 +65,7 @@ public class SommelierController {
         sommelierService.deleteSommelierByUsername(userName);
         return ResponseEntity.noContent().build();
     }
+
+    //RELATIES
+    //TODO Hier nog een getmapping om alle WARs v.e. sommelier te krijgen? Of 2: 1 voor alle WARs en 1 voor alle WARs van een sommelier? (Of moet de eerste ergens anders?)
 }

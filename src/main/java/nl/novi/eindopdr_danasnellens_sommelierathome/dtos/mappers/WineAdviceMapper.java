@@ -3,12 +3,19 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.*;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class WineAdviceMapper {
+
+    private final WineAdviceRequestRepository wineAdviceRequestRepository;
+
+    public WineAdviceMapper(WineAdviceRequestRepository wineAdviceRequestRepository) {
+        this.wineAdviceRequestRepository = wineAdviceRequestRepository;
+    }
+
 
     public static WineAdvice wineAdviceFromInputDtoToModel(WineAdviceInputDto wineAdviceInputDto) {
         WineAdvice wineAdvice = new WineAdvice();
@@ -17,9 +24,10 @@ public class WineAdviceMapper {
 
         //relaties
         wineAdvice.setWineSet(wineAdviceInputDto.getWineSet());
-        wineAdvice.setSommelier(wineAdviceInputDto.getSommelier());
-        wineAdvice.setClient(wineAdviceInputDto.getClient());
-        wineAdvice.setWineAdviceRequest(wineAdviceInputDto.getWineAdviceRequest());
+/*        wineAdvice.setSommelier(wineAdviceInputDto.getWineAdviceRequest().getSommelier());
+        wineAdvice.setClient(wineAdviceInputDto.getWineAdviceRequest().getClient());*/
+/*        wineAdvice.setWineAdviceRequest(wineAdviceRequestRepository.findById());*/
+
 
         return wineAdvice;
     }
