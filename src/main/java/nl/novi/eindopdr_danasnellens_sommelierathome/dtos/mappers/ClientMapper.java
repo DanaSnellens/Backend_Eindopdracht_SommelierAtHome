@@ -2,10 +2,16 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestModelToOutput;
 
 public class ClientMapper {
     //from dto to model
@@ -20,9 +26,7 @@ public class ClientMapper {
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
         client.setMembership(clientInputDto.getMembership());
 
-        //relaties
-        client.setWineAdviceRequestSet(clientInputDto.getWineAdviceRequestSet());
-        client.setWineAdviceSet(clientInputDto.getWineAdviceSet());
+        //relaties: niet nodig want deze set de client niet zelf
 
         return client;
     }
@@ -39,6 +43,16 @@ public class ClientMapper {
         clientOutputDto.setMembership(client.getMembership());
 
         //relaties
+        if (client.getWineAdviceRequestSet() != null) {
+            Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+            Set<WineAdviceRequest> WineAdviceRequestSet = client.getWineAdviceRequestSet();
+            for (WineAdviceRequest war : WineAdviceRequestSet) {
+                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            }
+            clientOutputDto.setWineAdviceRequestOutputDtoSet();
+            WineAdviceRequestMapper.wineAdviceRequestModelListToOutputList(new ArrayList<>(client.getWineAdviceRequestSet()));
+            clientOutputDto.setWineAdviceRequestOutputDtoSet(WineAdviceRequestMapper.wineAdviceRequestModelListToOutputList(new ArrayList<>(client.getWineAdviceRequestSet())));
+        }
         clientOutputDto.setWineAdviceRequestSet(client.getWineAdviceRequestSet());
         clientOutputDto.setWineAdviceSet(client.getWineAdviceSet());
 

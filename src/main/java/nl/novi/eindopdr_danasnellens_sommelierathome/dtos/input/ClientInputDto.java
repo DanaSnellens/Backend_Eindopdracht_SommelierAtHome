@@ -18,8 +18,6 @@ public class ClientInputDto {
     private String profilePictureUrl;
     private Membership membership;
 
-    //relaties
-    private Set<WineAdviceRequest> WineAdviceRequestSet;
-    private Set<WineAdvice> WineAdviceSet;
+    //relaties --> Niet nodig in input want client maakt deze niet zelf aan
 
 }

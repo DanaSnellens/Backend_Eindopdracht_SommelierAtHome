@@ -27,7 +27,7 @@ public class WineAdviceRequestMapper {
         return wineAdviceRequest;
     }
 
-    public static WineAdviceRequestOutputDto wineAdviceRequestFromModelToOutputDto(WineAdviceRequest wineAdviceRequest) {
+    public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest wineAdviceRequest) {
         WineAdviceRequestOutputDto wineAdviceRequestOutputDto = new WineAdviceRequestOutputDto();
         wineAdviceRequestOutputDto.setId(wineAdviceRequest.getId());
         wineAdviceRequestOutputDto.setDinnerOccasion(wineAdviceRequest.getDinnerOccasion());
