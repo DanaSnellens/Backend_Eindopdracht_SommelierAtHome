@@ -5,6 +5,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,6 +19,9 @@ public class ClientInputDto {
     private String profilePictureUrl;
     private Membership membership;
 
-    //relaties --> Niet nodig in input want client maakt deze niet zelf aan
+    //relaties --> Niet nodig in input want client maakt deze niet zelf aan. Of toch wel?
+//    private Set<Long> wineAdviceRequestIds = new HashSet<>();
+  //  private Set<Long> wineAdviceIds = new HashSet<>();
+
 
 }

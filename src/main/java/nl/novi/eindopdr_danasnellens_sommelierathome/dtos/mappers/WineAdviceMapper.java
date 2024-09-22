@@ -32,7 +32,7 @@ public class WineAdviceMapper {
         return wineAdvice;
     }
 
-    public static WineAdviceOutputDto wineAdviceFromModelToOutputDto(WineAdvice wineAdvice) {
+    public static WineAdviceOutputDto wineAdviceModelToOutput(WineAdvice wineAdvice) {
         WineAdviceOutputDto wineAdviceOutputDto = new WineAdviceOutputDto();
         wineAdviceOutputDto.setId(wineAdvice.getId());
         wineAdviceOutputDto.setPersonalMessage(wineAdvice.getPersonalMessage());
@@ -50,7 +50,7 @@ public class WineAdviceMapper {
     public static List<WineAdviceOutputDto> wineAdviceModelListToOutputList(List<WineAdvice> wineAdviceList) {
         List<WineAdviceOutputDto> wineAdviceOutputDtoList = new ArrayList<>();
         for (WineAdvice wineAdvice : wineAdviceList) {
-            wineAdviceOutputDtoList.add(wineAdviceFromModelToOutputDto(wineAdvice));
+            wineAdviceOutputDtoList.add(wineAdviceModelToOutput(wineAdvice));
         }
         return wineAdviceOutputDtoList;
     }

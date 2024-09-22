@@ -22,6 +22,19 @@ public class ClientOutputDto {
 
     //relaties
     //TODO: klopt het dat ik hier OutputDtos meegeef?
-    private Set<WineAdviceRequestOutputDto> WineAdviceRequestOutputDtoSet;
-    private Set<WineAdviceOutputDto> WineAdviceOutputDtoSet;
+    private Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet;
+    private Set<WineAdviceOutputDto> wineAdviceOutputDtoSet;
+
+    //TODO Nested DTOs for related entities (checken of dit nodig is, advies chatgpt)
+ /*   public static class WineAdviceRequestOutputDto {
+        private Long id;
+        private String requestDetails; // Simplified view of the WineAdviceRequest entity
+
+    }
+
+    public static class WineAdviceOutputDto {
+        private Long id;
+        private String adviceDetails; // Simplified view of the WineAdvice entity
+
+    }*/
 }
