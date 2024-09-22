@@ -84,12 +84,10 @@ public class ClientMapper {
     //from list to list
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {
         List<ClientOutputDto> clientOutputDtoList = new ArrayList<>();
-        //for loop
+
         for (Client c : clientList) {
             clientOutputDtoList.add(clientModelToOutput(c));
         }
-        // lambda
-        // clientList.forEach(c -> clientOutputDtoList.add(clientFromModelToOutput(c)));
         return clientOutputDtoList;
     }
 }

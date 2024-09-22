@@ -20,5 +20,6 @@ public class RecipeInputDto {
     private String preparationLongDescription;
 
     //relaties
-    private Set<Wine> wineSet;
+    //TODO klopt het dat dit een object/entiteit is of moet het een InputDto zijn?
+    private Set<Long> wineIdSet;
 }

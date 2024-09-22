@@ -2,12 +2,16 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper.wineModelToOutput;
 
 public class RecipeMapper {
     public static Recipe recipeFromInputDtoToModel(RecipeInputDto recipeInputDto) {
@@ -25,7 +29,7 @@ public class RecipeMapper {
         recipe.setPreparationLongDescription(recipeInputDto.getPreparationLongDescription());
 
         //relaties
-        recipe.setWineSet(recipeInputDto.getWineSet());
+        // wijn wordt toegevoegd in de servicelaag door assignWineToRecipe
 
         return recipe;
     }
@@ -46,7 +50,15 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
         //relaties
-        recipeOutputDto.setWineSet(recipe.getWineSet());
+        if (recipe.getWineSet() != null) {
+            Set<WineOutputDto> wineOutputDtoSet = new HashSet<>();
+
+            Set<Wine> WineSet = recipe.getWineSet();
+            for (Wine wine : WineSet) {
+                wineOutputDtoSet.add(wineModelToOutput(wine));
+            }
+            recipeOutputDto.setWineOutputDtoSet(wineOutputDtoSet);
+        }
 
         return recipeOutputDto;
     }

@@ -26,6 +26,6 @@ public class WineInputDto {
     private String longDescription;
 
     //relaties
-    private Set<WineAdvice> wineAdviceSet;
-    private Set<Recipe> recipeSet;
+    private Set<Long> wineAdviceIdSet;
+    private Set<Long> recipeIdSet;
 }
