@@ -15,8 +15,10 @@ public class WineAdviceOutputDto {
     private String adviceExplanation;
 
     //relaties
-    private Set<Wine> wineSet;
-    private Sommelier sommelier;
-    private Client client;
-    private WineAdviceRequest wineAdviceRequest;
+    private Set<WineOutputDto> wineOutputDtoSet;
+
+    //TODO versimpelde outputDTO voor somm (en client?) maken? CV etc hoeft niet meegestuurd te worden met wineadvice
+    private SommelierOutputDto sommelierOutputDto;
+    private ClientOutputDto clientOutputDto;
+    private WineAdviceRequestOutputDto wineAdviceRequestOutputDto;
 }

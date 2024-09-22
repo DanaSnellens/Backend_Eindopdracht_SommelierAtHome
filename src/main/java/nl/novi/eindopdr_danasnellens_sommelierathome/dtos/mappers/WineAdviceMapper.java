@@ -23,10 +23,8 @@ public class WineAdviceMapper {
         wineAdvice.setAdviceExplanation(wineAdviceInputDto.getAdviceExplanation());
 
         //relaties
-        wineAdvice.setWineSet(wineAdviceInputDto.getWineSet());
-/*        wineAdvice.setSommelier(wineAdviceInputDto.getWineAdviceRequest().getSommelier());
-        wineAdvice.setClient(wineAdviceInputDto.getWineAdviceRequest().getClient());*/
-/*        wineAdvice.setWineAdviceRequest(wineAdviceRequestRepository.findById());*/
+//TODO Worden in de servicelaag gedaan??? Klopt dit?
+
 
 
         return wineAdvice;

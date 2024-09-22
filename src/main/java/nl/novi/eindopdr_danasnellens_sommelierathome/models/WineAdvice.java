@@ -21,7 +21,7 @@ public class WineAdvice {
     private Long id;
 
     private String personalMessage;
-    private File adviceExplanation;
+    private String adviceExplanation;
 
     //relaties
         // Wine
@@ -49,7 +49,7 @@ public class WineAdvice {
     public WineAdvice() {
     }
 
-    public WineAdvice(Long id, String personalMessage, File adviceExplanation) {
+    public WineAdvice(Long id, String personalMessage, String adviceExplanation) {
         this.id = id;
         this.personalMessage = personalMessage;
         this.adviceExplanation = adviceExplanation;

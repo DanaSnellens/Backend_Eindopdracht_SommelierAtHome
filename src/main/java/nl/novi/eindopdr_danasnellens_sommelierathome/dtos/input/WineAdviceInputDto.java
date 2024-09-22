@@ -9,18 +9,13 @@ import java.util.Set;
 @Data
 public class WineAdviceInputDto {
     private String personalMessage;
-    private File adviceExplanation;
-    private Long wineAdviceRequestId;
-    private Long wineAdviceId;
+    private String adviceExplanation;
+
     //relaties
+//TODO KLOPT DIT?
+//    private Sommelier sommelier; : ZIT AL AAN WAR GEKOPPELD
+//    private Client client; : ZIT AL AAN WAR GEKOPPELD
 
-//    private Sommelier sommelier;
-//    private Client client;
-    private Set<Wine> wineSet;
-
-
-    //winesList<Wine>
-    //sommelier
-    //client
-    //wineAdviceRequest
+    private Long wineAdviceRequestId;
+    private Set<Long> wineIdSet;
 }

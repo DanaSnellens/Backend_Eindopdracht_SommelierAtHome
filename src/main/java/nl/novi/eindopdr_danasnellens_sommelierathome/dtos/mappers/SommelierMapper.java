@@ -34,8 +34,7 @@ public class SommelierMapper {
         sommelier.setSpecialization(sommelierInputDto.getSpecialization());
 
         //relaties
-        sommelier.setWineAdviceRequestSet(sommelierInputDto.getWineAdviceRequestSet());
-        sommelier.setWineAdviceSet(sommelierInputDto.getWineAdviceSet());
+        //Wordt later toegevoegd dmv assign
 
         return sommelier;
     }
