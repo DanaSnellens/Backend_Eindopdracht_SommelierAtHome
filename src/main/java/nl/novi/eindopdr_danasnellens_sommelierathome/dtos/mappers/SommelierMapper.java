@@ -2,13 +2,19 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper.wineAdviceModelToOutput;
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestModelToOutput;
 
 public class SommelierMapper {
     //from dto to model
@@ -51,9 +57,25 @@ public class SommelierMapper {
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
 
         //relaties
-        sommelierOutputDto.setWineAdviceRequestSet(sommelier.getWineAdviceRequestSet());
-        sommelierOutputDto.setWineAdviceSet(sommelier.getWineAdviceSet());
+        if (sommelier.getWineAdviceRequestSet() != null) {
+            Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
 
+            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
+            for (WineAdviceRequest war : wineAdviceRequestSet) {
+                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            }
+            sommelierOutputDto.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
+        }
+
+        if (sommelier.getWineAdviceSet() != null) {
+            Set<WineAdviceOutputDto> wineAdviceOutputDtoSet = new HashSet<>();
+
+            Set<WineAdvice> wineAdviceSet = sommelier.getWineAdviceSet();
+            for (WineAdvice wa : wineAdviceSet) {
+                wineAdviceOutputDtoSet.add(wineAdviceModelToOutput(wa));
+            }
+            sommelierOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
+        }
         return sommelierOutputDto;
     }
 
@@ -64,8 +86,6 @@ public class SommelierMapper {
         for (Sommelier s : sommelierList) {
             sommelierOutputDtoList.add(sommelierModelToOutput(s));
         }
-        // lambda
-        // sommelierList.forEach(s -> sommelierOutputDtoList.add(sommelierFromModelToOutput(s)));
         return sommelierOutputDtoList;
     }
 }

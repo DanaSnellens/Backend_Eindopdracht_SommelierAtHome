@@ -22,7 +22,6 @@ public class SommelierInputDto {
     private String specialization;
 
     //relaties
-    private Set<WineAdviceRequest> WineAdviceRequestSet;
-    private Set<WineAdvice> WineAdviceSet;
+//worden dmv assign later toegevoegd aan de sommelier
 
 }

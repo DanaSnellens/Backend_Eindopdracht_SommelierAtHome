@@ -24,6 +24,6 @@ public class SommelierOutputDto {
     private String specialization;
 
     //relaties
-    private Set<WineAdviceRequest> WineAdviceRequestSet;
-    private Set<WineAdvice> WineAdviceSet;
+    private Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet;
+    private Set<WineAdviceOutputDto> wineAdviceOutputDtoSet;
 }
