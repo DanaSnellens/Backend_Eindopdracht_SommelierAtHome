@@ -18,7 +18,10 @@ public class WineAdviceOutputDto {
     private Set<WineOutputDto> wineOutputDtoSet;
 
     //TODO versimpelde outputDTO voor somm (en client?) maken? CV etc hoeft niet meegestuurd te worden met wineadvice
-    private SommelierOutputDto sommelierOutputDto;
-    private ClientOutputDto clientOutputDto;
-    private WineAdviceRequestOutputDto wineAdviceRequestOutputDto;
+    private SommelierOutputDtoShort sommelierOutputDtoShort;
+    private ClientOutputDtoShort clientOutputDtoShort;
+    private Long WineAdviceRequestIdOutputDto wineAdviceRequestIdOutputDto;
+
+    public void setWineAdviceRequestId(Long id) {
+    }
 }

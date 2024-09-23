@@ -24,9 +24,6 @@ public class WineAdviceMapper {
 
         //relaties
 //TODO Worden in de servicelaag gedaan??? Klopt dit?
-
-
-
         return wineAdvice;
     }
 
@@ -37,6 +34,9 @@ public class WineAdviceMapper {
         wineAdviceOutputDto.setAdviceExplanation(String.valueOf(wineAdvice.getAdviceExplanation()));
 
         //relaties
+        if (wineAdvice.getWineAdviceRequest() != null) {
+            wineAdviceOutputDto.setWineAdviceRequestId(wineAdvice.getWineAdviceRequest().getId());
+        }
         wineAdviceOutputDto.setWineSet(wineAdvice.getWineSet());
         wineAdviceOutputDto.setSommelier(wineAdvice.getSommelier());
         wineAdviceOutputDto.setClient(wineAdvice.getClient());

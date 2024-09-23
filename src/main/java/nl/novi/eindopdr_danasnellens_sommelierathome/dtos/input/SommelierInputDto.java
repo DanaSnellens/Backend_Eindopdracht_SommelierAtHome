@@ -13,7 +13,8 @@ public class SommelierInputDto {
     private String lastName;
     private String email;
     //TODO moet password wel in de input dto staan?
-    private String password;private String profilePictureUrl;
+    private String password;
+    private String profilePictureUrl;
 
     private String sommelierDescription;
     private String certificates;
