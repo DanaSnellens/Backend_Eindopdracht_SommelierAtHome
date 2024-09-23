@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
@@ -47,7 +48,6 @@ public class SommelierMapper {
         sommelierOutputDto.setFirstName(sommelier.getFirstName());
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
-        sommelierOutputDto.setPassword(sommelier.getPassword());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
@@ -76,6 +76,30 @@ public class SommelierMapper {
             sommelierOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
         }
         return sommelierOutputDto;
+    }
+
+    public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
+        SommelierOutputDtoShort sommelierOutputDtoShort = new SommelierOutputDtoShort();
+        sommelierOutputDtoShort.setId(sommelier.getId());
+        sommelierOutputDtoShort.setFirstName(sommelier.getUserName());
+        sommelierOutputDtoShort.setLastName(sommelier.getLastName());
+        sommelierOutputDtoShort.setEmail(sommelier.getEmail());
+        sommelierOutputDtoShort.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+
+/*        //relaties
+
+//TODO mapper toevoegen voor sommelierOutputDtoShort
+
+        if (sommelier.getWineAdviceRequestSet() != null) {
+            Set<WineAdviceRequestIdOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+
+            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
+            for (WineAdviceRequest war : wineAdviceRequestSet) {
+                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            }
+            sommelierOutputDtoShort.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
+        }*/
+        return sommelierOutputDtoShort;
     }
 
     //from list to list
