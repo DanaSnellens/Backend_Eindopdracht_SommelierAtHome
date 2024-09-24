@@ -47,7 +47,7 @@ public class WineAdviceRequestMapper {
     public static List<WineAdviceRequestOutputDto> wineAdviceRequestModelListToOutputList(List<WineAdviceRequest> wineAdviceRequestList) {
         List<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoList = new ArrayList<>();
         for (WineAdviceRequest wineAdviceRequest : wineAdviceRequestList) {
-            wineAdviceRequestOutputDtoList.add(wineAdviceRequestFromModelToOutputDto(wineAdviceRequest));
+            wineAdviceRequestOutputDtoList.add(wineAdviceRequestModelToOutput(wineAdviceRequest));
         }
         return wineAdviceRequestOutputDtoList;
     }

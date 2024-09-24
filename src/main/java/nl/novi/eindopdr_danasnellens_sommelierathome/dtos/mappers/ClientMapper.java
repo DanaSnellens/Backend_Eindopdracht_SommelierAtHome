@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
@@ -55,7 +56,6 @@ public class ClientMapper {
         clientOutputDto.setFirstName(client.getFirstName());
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
-        clientOutputDto.setPassword(client.getPassword());
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
         clientOutputDto.setMembership(client.getMembership());
 
@@ -80,6 +80,19 @@ public class ClientMapper {
             clientOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
         }
         return clientOutputDto;
+    }
+
+    public static ClientOutputDtoShort clientOutputDtoShort(Client client) {
+        ClientOutputDtoShort clientOutputDtoShort = new ClientOutputDtoShort();
+        clientOutputDtoShort.setId(client.getId());
+        clientOutputDtoShort.setFirstName(client.getUserName());
+        clientOutputDtoShort.setLastName(client.getLastName());
+
+        //relaties
+        //TODO mapper toevoegen voor relaties clientOutputDtoShort
+        return clientOutputDtoShort;
+
+
     }
     //from list to list
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {
