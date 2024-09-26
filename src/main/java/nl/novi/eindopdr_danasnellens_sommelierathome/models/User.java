@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.awt.*;
 import java.io.File;
@@ -13,7 +14,7 @@ import java.io.File;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public abstract class User {
+public abstract class User /*implements UserDetails*/  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

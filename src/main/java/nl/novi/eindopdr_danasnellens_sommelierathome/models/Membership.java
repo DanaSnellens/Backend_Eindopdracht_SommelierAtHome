@@ -1,4 +1,4 @@
-package nl.novi.eindopdr_danasnellens_sommelierathome.utils;
+package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 public enum Membership {
     NONE,

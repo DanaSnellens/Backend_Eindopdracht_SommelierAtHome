@@ -5,10 +5,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

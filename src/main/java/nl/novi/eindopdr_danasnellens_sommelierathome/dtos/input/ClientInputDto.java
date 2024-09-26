@@ -1,12 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
-import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
-
-import java.util.HashSet;
-import java.util.Set;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
 
 @Data
 public class ClientInputDto {

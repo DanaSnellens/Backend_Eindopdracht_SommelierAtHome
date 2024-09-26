@@ -1,9 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
-import nl.novi.eindopdr_danasnellens_sommelierathome.utils.Membership;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
 
 import java.util.Set;
 
