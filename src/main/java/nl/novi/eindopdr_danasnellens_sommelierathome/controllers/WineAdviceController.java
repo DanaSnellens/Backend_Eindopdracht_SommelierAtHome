@@ -40,7 +40,10 @@ public class WineAdviceController {
     @PostMapping
     public ResponseEntity<WineAdviceOutputDto> createWineAdvice
             (@Valid @RequestBody WineAdviceInputDto wineAdviceInputDto) {
+        //Als er een WA wordt aangemaakt, wordt deze automatisch gekoppeld aan de bijbehorende WAR (+ ingelogde client en ge-assignde sommelier)
+        //De ge-assignde sommelier kan een Wine(set) toevoegen
         WineAdviceRequest war = wineAdviceService.getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
+
 /*        wineAdviceInputDto.setWineAdviceRequest(war);*/
         WineAdviceOutputDto wineAdviceOutput = wineAdviceService.createWineAdvice(wineAdviceInputDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceOutput.getId()).toUri();

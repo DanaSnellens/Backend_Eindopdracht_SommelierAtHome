@@ -53,13 +53,13 @@ public class ClientService {
         }
         else throw new UsernameNotFoundException("No user found with the username " + userName);
     }
-    public Client getClientByUsernameClient(String userName) {
+/*    public Client getClientByUsernameClient(String userName) {
         Optional<Client> optionalClient = clientRepository.findClientByUserName(userName);
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         }
         else throw new UsernameNotFoundException("No user found with the username " + userName);
-    }
+    }*/
 
     // Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten

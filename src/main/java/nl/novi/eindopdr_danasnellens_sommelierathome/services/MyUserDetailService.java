@@ -1,4 +1,3 @@
-/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.UserRepository;
@@ -39,5 +38,4 @@ public class MyUserDetailService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(userName, password, grantedAuthorities);
     }
 }
-*/
 

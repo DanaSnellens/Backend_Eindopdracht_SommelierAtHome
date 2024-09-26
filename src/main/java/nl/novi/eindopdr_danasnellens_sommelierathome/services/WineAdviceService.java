@@ -34,20 +34,20 @@ public class WineAdviceService {
     public WineAdviceOutputDto getWineAdviceById(Long id) {
         Optional<WineAdvice> optionalWineAdvice = wineAdviceRepository.findById(id);
         if (optionalWineAdvice.isPresent()) {
-            return wineAdviceFromModelToOutputDto(optionalWineAdvice.get());
+            return wineAdviceModelToOutput(optionalWineAdvice.get());
         }
         else throw new RuntimeException("No wine advice found with id: " + id);
     }
 
     public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto wineAdviceInputDto) {
         WineAdvice wa = wineAdviceRepository.save(wineAdviceFromInputDtoToModel(wineAdviceInputDto));
-        return wineAdviceFromModelToOutputDto(wa);
+        return wineAdviceModelToOutput(wa);
     }
 
     public WineAdviceOutputDto updateWineAdvice(Long id, WineAdviceInputDto updatedWineAdvice) {
         Optional<WineAdvice> optionalWineAdvice = wineAdviceRepository.findById(id);
         if (optionalWineAdvice.isPresent()) {
-            return wineAdviceFromModelToOutputDto(optionalWineAdvice.get());
+            return wineAdviceModelToOutput(optionalWineAdvice.get());
         }
         else throw new RuntimeException("No wine advice found with id: " + id);
     }

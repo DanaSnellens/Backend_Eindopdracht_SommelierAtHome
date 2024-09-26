@@ -11,7 +11,7 @@ import java.util.List;
 public class WineAdviceRequestMapper {
     private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
-    public static WineAdviceRequest wineAdviceRequestFromInputDtoToModel(WineAdviceRequestInputDto wineAdviceRequestInputDto) {
+    public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto wineAdviceRequestInputDto) {
         WineAdviceRequest wineAdviceRequest = new WineAdviceRequest();
         wineAdviceRequest.setDinnerOccasion(wineAdviceRequestInputDto.getDinnerOccasion());
         wineAdviceRequest.setRequestMessage(wineAdviceRequestInputDto.getRequestMessage());
@@ -20,7 +20,7 @@ public class WineAdviceRequestMapper {
         wineAdviceRequest.setMaxPricePerBottle(wineAdviceRequestInputDto.getMaxPricePerBottle());
 
         //relaties
-        wineAdviceRequest.setClient(wineAdviceRequestInputDto.getClient());
+        wineAdviceRequest.setClient(userDetails.getUsername);
         wineAdviceRequest.setSommelier(wineAdviceRequestInputDto.getSommelier());
         wineAdviceRequest.setWineAdvice(wineAdviceRequestInputDto.getWineAdvice());
 

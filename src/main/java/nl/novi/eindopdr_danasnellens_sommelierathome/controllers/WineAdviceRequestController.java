@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
@@ -39,9 +40,10 @@ public class WineAdviceRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest
-            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, @AuthenticationPrincipal UserDetails userDetails) {
-                Client c = clientService.getClientByUsernameClient(userDetails.getUsername());
+    public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+        //Als er een WAR wordt aangemaakt, wordt deze automatisch gekoppeld aan de ingelogde client
+        WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto, userDetails.getUsername());
+        ClientOutputDtoShort clientOutputDtoShort = clientService.createClient(wineAdviceRequestInputDto, userDetails.getUsername());
                 wineAdviceRequestInputDto.setClient(c);
                 WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto);
                 URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceRequestOutputDto.getId()).toUri();
@@ -61,8 +63,7 @@ public class WineAdviceRequestController {
     }
 
     //RELATIES
-    //TODO is sommelierId een PathVariable of RequestParam? Dit ook checken bij WA-Wine.(@PathVariable: when the variable is part of the resource identity (eg /users/123) --> Extracts value from URI path. @RequestParam: when the variable is part of the request, like option/filter (eg /users?userId=123) --> Extracts value from the query string.
-        @PutMapping("/{id}/sommelier/{sommelierId}")
+    @PutMapping("/{id}/sommelier/{sommelierId}")
     public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long id, @PathVariable ("sommelierId") Long sommelierId) {
 
         //TODO Als somm=notNull, dan somm=optionalSommelier.get() ?? Of moet dit ihn de service? (Staat er al of niet?>

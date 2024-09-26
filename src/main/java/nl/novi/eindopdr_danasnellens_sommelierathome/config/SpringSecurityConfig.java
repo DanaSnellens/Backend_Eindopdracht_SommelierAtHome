@@ -35,7 +35,8 @@ public class SpringSecurityConfig {
     public UserDetailsService authManager(PasswordEncoder passwordEncoder) {
         InMemoryUserDetailsManager man = new InMemoryUserDetailsManager();
 
-        UserDetails u1 = User.withUsername("user1")
+        UserDetails u1 = User
+                .withUsername("user1")
                 .password(passwordEncoder
                         .encode("user1"))
                 .roles("USER")
@@ -82,11 +83,12 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests/{id}").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasRole("CLIENT")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
 
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
+                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen account kunnen zien
                                 .requestMatchers(HttpMethod.POST, "/clients").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.PUT, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
@@ -103,6 +105,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("authenticate").permitAll()
                                 .anyRequest().denyAll()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

@@ -7,6 +7,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.SommelierRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,20 +33,20 @@ public class WineAdviceRequestService {
     public WineAdviceRequestOutputDto getWineAdviceRequestById(Long id) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(id);
         if (optionalWineAdviceRequest.isPresent()) {
-            return wineAdviceRequestFromModelToOutputDto(optionalWineAdviceRequest.get());
+            return wineAdviceRequestModelToOutput(optionalWineAdviceRequest.get());
         }
         else throw new RuntimeException("No wine advice request found with id: " + id);
     }
 
-    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto wineAdviceRequestInputDto) {
-        WineAdviceRequest war = wineAdviceRequestRepository.save(wineAdviceRequestFromInputDtoToModel(wineAdviceRequestInputDto));
-        return wineAdviceRequestFromModelToOutputDto(war);
+    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto wineAdviceRequestInputDto, UserDetails userName) {
+        WineAdviceRequest war = wineAdviceRequestRepository.save(wineAdviceRequestInputToModel(wineAdviceRequestInputDto, userName));
+        return wineAdviceRequestModelToOutput(war);
     }
 
     public WineAdviceRequestOutputDto updateWineAdviceRequest(Long id, WineAdviceRequestInputDto updatedWineAdviceRequest) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(id);
         if (optionalWineAdviceRequest.isPresent()) {
-            return WineAdviceRequestMapper.wineAdviceRequestFromModelToOutputDto(optionalWineAdviceRequest.get());
+            return WineAdviceRequestMapper.wineAdviceRequestModelToOutput(optionalWineAdviceRequest.get());
         }
         else throw new RuntimeException("No wine advice request found with id: " + id);
     }
@@ -59,8 +60,8 @@ public class WineAdviceRequestService {
 
     //RELATIES
     //TODO moet ik hier geen gebruik maken van DTO en mapper?
-    public void assignSommelierToWineAdviceRequest(Long id, Long sommelierId) {
-        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(id);
+    public void assignSommelierToWineAdviceRequest(Long WarId, Long sommelierId) {
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(WarId);
         Optional<Sommelier> optionalSommelier = sommelierRepository.findById(sommelierId);
 
         if (optionalWineAdviceRequest.isPresent() && optionalSommelier.isPresent()) {
@@ -69,7 +70,7 @@ public class WineAdviceRequestService {
 
             war.setSommelier(sommelier);
             wineAdviceRequestRepository.save(war);
-        } else throw new RuntimeException("No wine advice request found with id: " + id + " or no sommelier found with id: " + sommelierId);
+        } else throw new RuntimeException("No wine advice request found with id: " + WarId + " or no sommelier found with id: " + sommelierId);
     }
 }
 

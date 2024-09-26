@@ -33,8 +33,8 @@ public class WineMapper {
         wine.setLongDescription(wineInputDto.getLongDescription());
 
         //relaties
-        wine.setWineAdviceSet(wineInputDto.getWineAdviceSet());
-        wine.setRecipeSet(wineInputDto.getRecipeSet());
+/*        wine.setWineAdviceSet(wineInputDto.getWineAdviceSet());
+        wine.setRecipeSet(wineInputDto.getRecipeSet());*/
 
         return wine;
 
