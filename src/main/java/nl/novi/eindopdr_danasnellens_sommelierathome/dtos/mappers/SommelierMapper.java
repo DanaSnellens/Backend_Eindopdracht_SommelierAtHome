@@ -5,6 +5,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutput
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
@@ -28,6 +29,7 @@ public class SommelierMapper {
         sommelier.setEmail(sommelierInputDto.getEmail());
         sommelier.setPassword(sommelierInputDto.getPassword());
         sommelier.setProfilePictureUrl(sommelierInputDto.getProfilePictureUrl());
+        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
         sommelier.setSommelierDescription(sommelierInputDto.getSommelierDescription());
         sommelier.setCertificates(sommelierInputDto.getCertificates());
         sommelier.setExperienceInYears(sommelierInputDto.getExperienceInYears());
@@ -49,6 +51,7 @@ public class SommelierMapper {
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+        sommelierOutputDto.setRoleSet(sommelier.getRoleSet());
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());
@@ -85,6 +88,7 @@ public class SommelierMapper {
         sommelierOutputDtoShort.setLastName(sommelier.getLastName());
         sommelierOutputDtoShort.setEmail(sommelier.getEmail());
         sommelierOutputDtoShort.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+        sommelierOutputDtoShort.setRoleSet(sommelier.getRoleSet());
 
 /*        //relaties
 

@@ -8,13 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.awt.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
-public abstract class User /*implements UserDetails*/  {
+public abstract class User implements UserDetails  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +35,17 @@ public abstract class User /*implements UserDetails*/  {
 
     private String profilePictureUrl;
 
-    public User() {
+    //Klopt onderstaande? Ivm enum geen manytomany annotatie?
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roleSet = new HashSet<>();
 
+
+    public User() {
     }
 
-    public User(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl) {
+    public User(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Set<Role> roleSet) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -45,6 +53,7 @@ public abstract class User /*implements UserDetails*/  {
         this.email = email;
         this.password = password;
         this.profilePictureUrl = profilePictureUrl;
+        this.roleSet = roleSet;
     }
 
 

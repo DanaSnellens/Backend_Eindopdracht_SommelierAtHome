@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "recipes")
-@Getter
-@Setter
+@Data
 public class Recipe {
 
     @Id
@@ -39,22 +39,4 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
 
-
-    public Recipe() {
-    }
-
-    public Recipe(Long id, String recipeName, String course, String mainIngredient, String otherIngredients, Integer servings, Integer preparationTime, String preparationShortDescription, String preparationLongDescription, String winePairing, String imageLink, String imageAlt) {
-        this.id = id;
-        this.recipeName = recipeName;
-        this.course = course;
-        this.mainIngredient = mainIngredient;
-        this.otherIngredients = otherIngredients;
-        this.servings = servings;
-        this.preparationTime = preparationTime;
-        this.winePairing = winePairing;
-        this.imageLink = imageLink;
-        this.imageAlt = imageAlt;
-        this.preparationShortDescription = preparationShortDescription;
-        this.preparationLongDescription = preparationLongDescription;
-    }
 }

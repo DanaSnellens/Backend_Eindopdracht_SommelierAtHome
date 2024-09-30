@@ -29,8 +29,8 @@ public class Client extends User {
     public Client() {
     }
 
-    public Client(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Membership membership) {
-        super(id, userName, firstName, lastName, email, password, profilePictureUrl);
+    public Client(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Set<Role> roleSet, Membership membership) {
+        super(id, userName, firstName, lastName, email, password, profilePictureUrl, roleSet);
         this.membership = membership;
     }
 }

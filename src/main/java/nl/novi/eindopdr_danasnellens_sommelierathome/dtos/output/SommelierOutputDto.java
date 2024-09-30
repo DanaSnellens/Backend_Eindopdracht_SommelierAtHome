@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
@@ -14,6 +15,7 @@ public class SommelierOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
+    private Set<Role> roleSet;
     private String sommelierDescription;
     private String certificates;
     private Integer experienceInYears;

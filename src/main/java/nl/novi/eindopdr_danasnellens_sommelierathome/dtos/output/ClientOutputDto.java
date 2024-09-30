@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 
 import java.util.Set;
 
@@ -13,8 +14,11 @@ public class ClientOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
+    private Set<Role> roleSet;
 
     private Membership membership;
+
+
 
     //relaties
     //TODO: klopt het dat ik hier OutputDtos meegeef?

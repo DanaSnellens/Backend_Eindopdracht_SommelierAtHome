@@ -28,6 +28,7 @@ public class ClientMapper {
         client.setEmail(clientInputDto.getEmail());
         client.setPassword(clientInputDto.getPassword());
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
+        client.setRoleSet(clientInputDto.getRoleSet() );
         client.setMembership(clientInputDto.getMembership());
 
         //relaties: niet nodig want deze set de client niet zelf. Of toch wel?
@@ -57,6 +58,7 @@ public class ClientMapper {
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+        clientOutputDto.setRoleSet(client.getRoleSet());
         clientOutputDto.setMembership(client.getMembership());
 
         //relaties
@@ -87,6 +89,7 @@ public class ClientMapper {
         clientOutputDtoShort.setId(client.getId());
         clientOutputDtoShort.setFirstName(client.getUserName());
         clientOutputDtoShort.setLastName(client.getLastName());
+        clientOutputDtoShort.setRoleSet(client.getRoleSet());
 
         //relaties
         //TODO mapper toevoegen voor relaties clientOutputDtoShort

@@ -26,28 +26,33 @@ public class MyUserDetailService implements UserDetailsService {
         this.sommelierService = sommelierService;
     }
 
-
     @Override
-    public UserDetails loadUserByUserName(String UserName) {
-        ClientOutputDto clientOutputDto = clientService.getClientByUsername(UserName);
+    public UserDetails loadUserByUserName(String userName) {
+        ClientOutputDto clientOutputDto = clientService.getClientByUsername(userName);
         if (clientOutputDto == null) {
-            throw new UsernameNotFoundException("User not found with username: " + UserName);
+            throw new UsernameNotFoundException("There is no client found with username: " + userName);
         }
 
-        SommelierOutputDto sommelierOutputDto = sommelierService.getSommelierByUserName(UserName);
-        if (sommelierOutputDto == null) {
-            throw new UsernameNotFoundException("User not found with username: " + UserName);
+        SommelierOutputDto sommelierOutputDto = sommelierService.getSommelierByUserName(userName);
+        if  (sommelierOutputDto == null) {
+            throw new UsernameNotFoundException("There is no sommelier found with username: " + userName);
+        }
+        else {
+            String password = clientOutputDto.getPassword();
+
+            Set<Authority> authorities = clientOutputDto.getAuthorities();
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            for (Authority authority : authorities) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
+            }
+
+            return new org.springframework.security.core.userdetails.User(userName, password, grantedAuthorities);
+
+
+
         }
 
-        String password = clientOutputDto.getPassword();
 
-        Set<Authority> authorities = clientOutputDto.getAuthorities();
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Authority authority : authorities) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
-        }
-
-        return new org.springframework.security.core.userdetails.User(userName, password, grantedAuthorities);
     }
 }
 

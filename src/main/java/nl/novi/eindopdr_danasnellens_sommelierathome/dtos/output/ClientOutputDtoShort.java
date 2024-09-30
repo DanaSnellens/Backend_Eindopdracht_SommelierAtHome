@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 
 import java.util.Set;
 
@@ -10,7 +11,9 @@ public class ClientOutputDtoShort {
     private String firstName;
     private String lastName;
     private String email;
+    private Set<Role> roleSet;
     //membership??
+
 
 
     //relaties

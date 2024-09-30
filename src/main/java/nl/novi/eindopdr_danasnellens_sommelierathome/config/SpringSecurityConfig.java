@@ -1,11 +1,14 @@
-/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.config;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
+import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,10 +20,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
+
+    //TODO Klopt onderstaande? Tm @Bean? Nav Tini, maar niet hetzelfde als lessen
+    private final JwtRequestFilter jwtRequestFilter;
+    private final MyUserDetailService myUserDetailService;
+    private final static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public SpringSecurityConfig(JwtRequestFilter jwtRequestFilter, MyUserDetailService myUserDetailService) {
+        this.jwtRequestFilter = jwtRequestFilter;
+        this.myUserDetailService = myUserDetailService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,28 +43,14 @@ public class SpringSecurityConfig {
         };
     }
 
-    //Echte usernames en passwords toevoegen (+ roles aanpassen???)
-    //Zie ook WineController.java Postmapping
+    //TODO Klopt dit zo? is nu een samenvoeging van verschillende lessen/methodes. Echte usernames en passwords toevoegen (+ roles aanpassen???)Zie ook WineController.java Postmapping + Mss Exception nog specificieren?
     @Bean
-    public UserDetailsService authManager(PasswordEncoder passwordEncoder) {
-        InMemoryUserDetailsManager man = new InMemoryUserDetailsManager();
-
-        UserDetails u1 = User
-                .withUsername("user1")
-                .password(passwordEncoder
-                        .encode("user1"))
-                .roles("USER")
-                .build();
-        man.createUser(u1);
-
-        UserDetails u2 = User.withUsername("user2")
-                .password(passwordEncoder
-                        .encode("user2"))
-                .roles("ADMIN")
-                .build();
-        man.createUser(u2);
-
-        return man;
+    public AuthenticationManager authManager(HttpSecurity httpSecurity) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder
+                .userDetailsService(myUserDetailService)
+                .passwordEncoder(passwordEncoder);
+        return authenticationManagerBuilder.build();
     }
 
     @Bean
@@ -104,10 +104,22 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/authenticated").authenticated()
                                 .requestMatchers("authenticate").permitAll()
                                 .anyRequest().denyAll()
-                ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-                .csrf(csrf -> csrf.disable());
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+                //TODO Of zoals in voorbeeld les17jwt: .csrf(csrf. -> csrf.disable())
+        //                                .addFilterBefore(new JwtRequestFilter(jwtRequestFilter, myUserDetailService()), UsernamePasswordAuthenticationFilter.class;
 
         return http.build();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager (HttpSecurity httpSecurity) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder
+                .userDetailsService(myUserDetailService)
+                .passwordEncoder(passwordEncoder);
+        return authenticationManagerBuilder.build();
+    }
 }
-*/

@@ -2,6 +2,9 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
+
+import java.util.Set;
 
 @Data
 public class ClientInputDto {
@@ -13,6 +16,7 @@ public class ClientInputDto {
     private String password;
     private String profilePictureUrl;
     private Membership membership;
+    private Set<Role> roleSet;
 
     //relaties --> Niet nodig in input want client maakt deze niet zelf aan. Of toch wel?
 //    private Set<Long> wineAdviceRequestIds = new HashSet<>();

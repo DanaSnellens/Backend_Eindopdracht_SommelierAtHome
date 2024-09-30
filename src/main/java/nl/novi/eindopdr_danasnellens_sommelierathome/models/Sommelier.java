@@ -33,8 +33,8 @@ public class Sommelier extends User{
     public Sommelier() {
     }
 
-    public Sommelier(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, String sommelierDescription, String certificates, Integer experienceInYears, String curriculumVitae, String specialization) {
-        super(id, userName, firstName, lastName, email, password, profilePictureUrl);
+    public Sommelier(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Set<Role> roleSet, String sommelierDescription, String certificates, Integer experienceInYears, String curriculumVitae, String specialization) {
+        super(id, userName, firstName, lastName, email, password, profilePictureUrl, roleSet);
         this.sommelierDescription = sommelierDescription;
         this.certificates = certificates;
         this.experienceInYears = experienceInYears;
