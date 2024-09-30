@@ -63,6 +63,4 @@ import java.util.function.Function;
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
-
-
 }

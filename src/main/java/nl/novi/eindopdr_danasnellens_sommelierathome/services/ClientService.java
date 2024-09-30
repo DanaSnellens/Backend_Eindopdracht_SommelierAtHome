@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
@@ -17,18 +18,12 @@ import java.util.Optional;
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientMapper.*;
 
 @Service
+@Data
 public class ClientService {
     //Repository
     private final ClientRepository clientRepository;
     private final WineAdviceRequestRepository wineAdviceRequestRepository;
     private final WineAdviceRepository wineAdviceRepository;
-
-
-    public ClientService(ClientRepository clientRepository, WineAdviceRequestRepository wineAdviceRequestRepository, WineAdviceRepository wineAdviceRepository) {
-        this.clientRepository = clientRepository;
-        this.wineAdviceRequestRepository = wineAdviceRequestRepository;
-        this.wineAdviceRepository = wineAdviceRepository;
-    }
 
     // Get All
     public List<ClientOutputDto> getAllClients() {
