@@ -1,6 +1,5 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
-import jakarta.validation.constraints.Positive;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthenticationRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
@@ -36,7 +35,7 @@ public class AuthenticationController {
 //TODO Onderstaande overgenomen uit Les17-jwt, maar is dit volledig? Tini heeft een andere manier. Sowieso de exception nog specifieceren + message
     @PostMapping(value = "/authenticate")
     public ResponseEntity<Object> signIn(@RequestBody AuthenticationRequest authenticationRequest) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authenticationRequest.userName, authenticationRequest.password);
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(), authenticationRequest.getPassword());
         try {
             Authentication auth = authenticationManager.authenticate(upToken);
 

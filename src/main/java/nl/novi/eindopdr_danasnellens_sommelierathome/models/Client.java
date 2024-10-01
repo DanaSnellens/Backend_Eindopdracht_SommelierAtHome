@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
-
+// @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "clients")
 @Data

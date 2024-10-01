@@ -20,7 +20,7 @@ public class WineAdviceRequestMapper {
         wineAdviceRequest.setMaxPricePerBottle(wineAdviceRequestInputDto.getMaxPricePerBottle());
 
         //relaties
-        wineAdviceRequest.setClient(userDetails.getUsername);
+        wineAdviceRequest.setClient(wineAdviceRequestInputDto.getClient());
         wineAdviceRequest.setSommelier(wineAdviceRequestInputDto.getSommelier());
         wineAdviceRequest.setWineAdvice(wineAdviceRequestInputDto.getWineAdvice());
 

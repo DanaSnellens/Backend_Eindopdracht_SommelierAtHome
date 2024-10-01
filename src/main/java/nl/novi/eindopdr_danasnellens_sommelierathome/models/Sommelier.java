@@ -4,12 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
+// @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "sommeliers")
 @Data

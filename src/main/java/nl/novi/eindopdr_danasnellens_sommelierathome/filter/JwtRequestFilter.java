@@ -4,7 +4,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
@@ -40,7 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.myUserDetailService.loadUserByUserName(userName);
+            UserDetails userDetails = this.myUserDetailService.loadUserByUsername(userName);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new
