@@ -1,17 +1,12 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.User;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.SommelierRepository;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientMapper.clientModelToOutput;
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientMapper.clientOutputDtoShort;
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.SommelierMapper.sommelierOutputDtoShort;
 

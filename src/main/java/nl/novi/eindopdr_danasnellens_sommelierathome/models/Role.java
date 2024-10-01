@@ -1,6 +1,18 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-public enum Role {
-    ROLE_CLIENT,
-    ROLE_SOMMELIER
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.Set;
+
+@Entity
+@Data
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String roleName;
+
+    @ManyToMany(mappedBy = "roleSet")
+    private Set<User> userSet;
 }

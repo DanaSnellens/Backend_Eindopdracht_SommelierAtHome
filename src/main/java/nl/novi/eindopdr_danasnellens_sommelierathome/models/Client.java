@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,26 +12,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "clients")
-@Getter
-@Setter
+@Data
 public class Client extends User {
 
     private Membership membership;
 
-    //Relaties
-        //WineAdviceRequest
     @OneToMany(mappedBy = "client")
     private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
 
-        //WineAdvice
     @OneToMany(mappedBy = "client")
     private Set<WineAdvice> WineAdviceSet = new HashSet<>();
-
-    public Client() {
-    }
-
-    public Client(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl, Set<Role> roleSet, Membership membership) {
-        super(id, userName, firstName, lastName, email, password, profilePictureUrl, roleSet);
-        this.membership = membership;
-    }
 }
