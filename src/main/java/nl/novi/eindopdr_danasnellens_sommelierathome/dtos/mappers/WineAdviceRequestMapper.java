@@ -11,37 +11,37 @@ import java.util.List;
 public class WineAdviceRequestMapper {
     private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
-    public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto wineAdviceRequestInputDto) {
-        WineAdviceRequest wineAdviceRequest = new WineAdviceRequest();
-        wineAdviceRequest.setDinnerOccasion(wineAdviceRequestInputDto.getDinnerOccasion());
-        wineAdviceRequest.setRequestMessage(wineAdviceRequestInputDto.getRequestMessage());
-        wineAdviceRequest.setRecipeLink(wineAdviceRequestInputDto.getRecipeLink());
-        wineAdviceRequest.setMinPricePerBottle(wineAdviceRequestInputDto.getMinPricePerBottle());
-        wineAdviceRequest.setMaxPricePerBottle(wineAdviceRequestInputDto.getMaxPricePerBottle());
+    public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, MyUserDetails userDetails) {
+        WineAdviceRequest war = new WineAdviceRequest();
+        war.setDinnerOccasion(warInputDto.getDinnerOccasion());
+        war.setRequestMessage(warInputDto.getRequestMessage());
+        war.setRecipeLink(warInputDto.getRecipeLink());
+        war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
+        war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
         //relaties
-        wineAdviceRequest.setClient(wineAdviceRequestInputDto.getClient());
-        wineAdviceRequest.setSommelier(wineAdviceRequestInputDto.getSommelier());
-        wineAdviceRequest.setWineAdvice(wineAdviceRequestInputDto.getWineAdvice());
+        war.setClient(userDetails.getUsername());
+/*        war.setSommelier(warInputDto.getSommelier());
+        war.setWineAdvice(warInputDto.getWineAdvice());*/
 
-        return wineAdviceRequest;
+        return war;
     }
 
-    public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest wineAdviceRequest) {
-        WineAdviceRequestOutputDto wineAdviceRequestOutputDto = new WineAdviceRequestOutputDto();
-        wineAdviceRequestOutputDto.setId(wineAdviceRequest.getId());
-        wineAdviceRequestOutputDto.setDinnerOccasion(wineAdviceRequest.getDinnerOccasion());
-        wineAdviceRequestOutputDto.setRequestMessage(wineAdviceRequest.getRequestMessage());
-        wineAdviceRequestOutputDto.setRecipeLink(wineAdviceRequest.getRecipeLink());
-        wineAdviceRequestOutputDto.setMinPricePerBottle(wineAdviceRequest.getMinPricePerBottle());
-        wineAdviceRequestOutputDto.setMaxPricePerBottle(wineAdviceRequest.getMaxPricePerBottle());
+    public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
+        WineAdviceRequestOutputDto warOutputDto = new WineAdviceRequestOutputDto();
+        warOutputDto.setId(war.getId());
+        warOutputDto.setDinnerOccasion(war.getDinnerOccasion());
+        warOutputDto.setRequestMessage(war.getRequestMessage());
+        warOutputDto.setRecipeLink(war.getRecipeLink());
+        warOutputDto.setMinPricePerBottle(war.getMinPricePerBottle());
+        warOutputDto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
         //relaties
-       /* wineAdviceRequestOutputDto.setClient(wineAdviceRequest.getClient());
-        wineAdviceRequestOutputDto.setSommelier(wineAdviceRequest.getSommelier());*/
-/*        wineAdviceRequestOutputDto.setWineAdviceId(wineAdviceRequest.getWineAdvice());*/
+        warOutputDto.setClientId(war.getClientId());
+        warOutputDto.setSommelier(wineAdviceRequest.getSommelier());
+        warOutputDto.setWineAdviceId(wineAdviceRequest.getWineAdvice());
 
-        return wineAdviceRequestOutputDto;
+        return warDto;
     }
 
     public static List<WineAdviceRequestOutputDto> wineAdviceRequestModelListToOutputList(List<WineAdviceRequest> wineAdviceRequestList) {

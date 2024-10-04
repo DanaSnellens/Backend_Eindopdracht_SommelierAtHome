@@ -18,5 +18,6 @@ public class WineAdviceRequestOutputDto {
     //relaties
     private Long clientId;
     private Long sommelierId;
+    private Long wineAdviceId;
 }
 

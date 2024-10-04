@@ -1,7 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthenticationRequest;
-import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,15 +18,13 @@ import java.security.Principal;
 @RestController
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
-    private final MyUserDetailService myUserDetailService;
     private final JwtUtil jwtUtil;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, MyUserDetailService myUserDetailService, JwtUtil jwtUtil) {
+    public AuthenticationController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-        this.myUserDetailService = myUserDetailService;
         this.jwtUtil = jwtUtil;
     }
-
+//TODO getMapping nog checken
     @GetMapping(value = "/authenticated")
     public ResponseEntity<Object> authenticated(Authentication authentication, Principal principal) {
         return ResponseEntity.ok().body(principal);

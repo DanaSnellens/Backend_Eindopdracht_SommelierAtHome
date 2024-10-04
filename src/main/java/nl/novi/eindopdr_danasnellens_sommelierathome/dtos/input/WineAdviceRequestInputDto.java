@@ -16,8 +16,8 @@ public class WineAdviceRequestInputDto {
     private Double maxPricePerBottle;
 
     //relaties
-    private Client client;
-    private Sommelier sommelier;
-    private WineAdvice wineAdvice;
+    private Long clientId;
+    private Long sommelierId;
+    private Long wineAdviceId;
 
 }

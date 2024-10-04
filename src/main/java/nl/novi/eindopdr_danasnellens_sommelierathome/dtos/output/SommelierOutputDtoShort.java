@@ -2,6 +2,8 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.Set;
 
@@ -14,7 +16,7 @@ public class SommelierOutputDtoShort {
     private String profilePictureUrl;
     private Set<Role> roleSet;
     //relaties
-    private Set<Long> wineAdviceIdOutputDtoSet;
-    private Set<Long> wineAdviceRequestIdOutputDtoSet;
+    private Set<WineAdvice> wineAdviceSet;
+    private Set<WineAdviceRequest> wineAdviceRequestSet;
 
 }

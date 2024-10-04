@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.config;
 
+import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.filter.JwtRequestFilter;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
@@ -19,17 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@Data
 public class SpringSecurityConfig {
 
     //TODO Klopt onderstaande? Tm @Bean? Nav Tini, maar niet hetzelfde als lessen
     private final JwtRequestFilter jwtRequestFilter;
     private final MyUserDetailService myUserDetailService;
     private final static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    public SpringSecurityConfig(JwtRequestFilter jwtRequestFilter, MyUserDetailService myUserDetailService) {
-        this.jwtRequestFilter = jwtRequestFilter;
-        this.myUserDetailService = myUserDetailService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -7,6 +7,7 @@ import lombok.Setter;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,8 +36,9 @@ public class Wine {
     private String shortDescription;
     private String longDescription;
 
-    //TODO Relaties nog aanpassen
     //relaties
-    private Set<Long> wineAdviceIdSet;
-    private Set<Long> recipeIdSet;
+    @ManyToMany(mappedBy = "wineSet")
+    private Set<WineAdvice> wineAdviceSet;
+    @ManyToMany(mappedBy = "wineSet")
+    private Set<Recipe> recipeSet;
 }

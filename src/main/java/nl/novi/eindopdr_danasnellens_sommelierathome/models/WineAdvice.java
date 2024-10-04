@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +13,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "wineAdvices")
-@Getter
-@Setter
+@Data
 public class WineAdvice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)               //TODO KLOPT DIT?
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     private String personalMessage;
@@ -45,13 +45,4 @@ public class WineAdvice {
         // WineAdviceRequest
     @OneToOne(mappedBy = "wineAdvice")
     private WineAdviceRequest wineAdviceRequest;
-
-    public WineAdvice() {
-    }
-
-    public WineAdvice(Long id, String personalMessage, String adviceExplanation) {
-        this.id = id;
-        this.personalMessage = personalMessage;
-        this.adviceExplanation = adviceExplanation;
-    }
 }

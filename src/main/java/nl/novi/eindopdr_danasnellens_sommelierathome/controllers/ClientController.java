@@ -1,14 +1,10 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
-import nl.novi.eindopdr_danasnellens_sommelierathome.config.MyUserDetails;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
-import nl.novi.eindopdr_danasnellens_sommelierathome.services.MyUserDetailService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/clients")
@@ -82,7 +75,6 @@ public class ClientController {
         ClientOutputDto clientOutputDto = clientService.updateClientByUserName(userName, updatedClient);
         return ResponseEntity.ok().body(clientOutputDto);
     }
-
 
     //Delete
     @DeleteMapping("/{id}")

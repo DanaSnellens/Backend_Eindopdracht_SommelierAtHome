@@ -7,7 +7,6 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.SommelierRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +37,11 @@ public class WineAdviceRequestService {
         else throw new RuntimeException("No wine advice request found with id: " + id);
     }
 
-    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto wineAdviceRequestInputDto, UserDetails userName) {
-        WineAdviceRequest war = wineAdviceRequestRepository.save(wineAdviceRequestInputToModel(wineAdviceRequestInputDto, userName));
-        return wineAdviceRequestModelToOutput(war);
+    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto wineAdviceRequestInputDto, MyUserDetails userDetails) {
+        WineAdviceRequest war = wineAdviceRequestInputToModel(wineAdviceRequestInputDto, userDetails);
+        WineAdviceRequest.setClient(userDetails.getUsername());
+        WineAdviceRequest savedWar = wineAdviceRequestRepository.save(war);
+        return wineAdviceRequestModelToOutput(savedWar);
     }
 
     public WineAdviceRequestOutputDto updateWineAdviceRequest(Long id, WineAdviceRequestInputDto updatedWineAdviceRequest) {
