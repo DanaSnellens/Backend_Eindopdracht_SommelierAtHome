@@ -28,9 +28,6 @@ public class RecipeMapper {
         recipe.setPreparationShortDescription(recipeInputDto.getPreparationShortDescription());
         recipe.setPreparationLongDescription(recipeInputDto.getPreparationLongDescription());
 
-        //relaties
-        // wijn wordt toegevoegd in de servicelaag door assignWineToRecipe
-
         return recipe;
     }
 
@@ -52,7 +49,7 @@ public class RecipeMapper {
         //relaties
         if (recipe.getWineSet() != null) {
             Set<WineOutputDto> wineOutputDtoSet = new HashSet<>();
-
+//TODO Klopt dit? Of moet ik hier ook outputdto gebruiken?
             Set<Wine> WineSet = recipe.getWineSet();
             for (Wine wine : WineSet) {
                 wineOutputDtoSet.add(wineModelToOutput(wine));

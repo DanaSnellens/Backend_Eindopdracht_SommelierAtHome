@@ -12,15 +12,7 @@ public class ClientInputDto {
     private String firstName;
     private String lastName;
     private String email;
-    //TODO moet password wel public zijn? Of uberhaupt in de input dto staan?
     private String password;
     private String profilePictureUrl;
     private Membership membership;
-    private Set<Role> roleSet;
-
-    //relaties --> Niet nodig in input want client maakt deze niet zelf aan. Of toch wel?
-//    private Set<Long> wineAdviceRequestIds = new HashSet<>();
-  //  private Set<Long> wineAdviceIds = new HashSet<>();
-
-
 }

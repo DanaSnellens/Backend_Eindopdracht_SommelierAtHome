@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;

@@ -18,10 +18,6 @@ public class ClientOutputDto {
 
     private Membership membership;
 
-
-
-    //relaties
-    //TODO: klopt het dat ik hier OutputDtos meegeef?
     private Set<WineAdviceRequestOutputDto> wineAdviceRequestIdOutputDtoSet;
     private Set<WineAdviceOutputDto> wineAdviceOutputDtoSet;
 
