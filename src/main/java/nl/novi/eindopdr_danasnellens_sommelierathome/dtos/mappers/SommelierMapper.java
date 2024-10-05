@@ -2,10 +2,20 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper.wineAdviceModelToOutput;
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestModelToOutput;
 
 public class SommelierMapper {
     //from dto to model
@@ -18,11 +28,16 @@ public class SommelierMapper {
         sommelier.setEmail(sommelierInputDto.getEmail());
         sommelier.setPassword(sommelierInputDto.getPassword());
         sommelier.setProfilePictureUrl(sommelierInputDto.getProfilePictureUrl());
+        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
         sommelier.setSommelierDescription(sommelierInputDto.getSommelierDescription());
         sommelier.setCertificates(sommelierInputDto.getCertificates());
         sommelier.setExperienceInYears(sommelierInputDto.getExperienceInYears());
         sommelier.setCurriculumVitae(sommelierInputDto.getCurriculumVitae());
         sommelier.setSpecialization(sommelierInputDto.getSpecialization());
+
+        //relaties
+        //Wordt later toegevoegd dmv assign
+
         return sommelier;
     }
 
@@ -34,14 +49,60 @@ public class SommelierMapper {
         sommelierOutputDto.setFirstName(sommelier.getFirstName());
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
-        sommelierOutputDto.setPassword(sommelier.getPassword());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+        sommelierOutputDto.setRoleSet(sommelier.getRoleSet());
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());
         sommelierOutputDto.setCurriculumVitae(sommelier.getCurriculumVitae());
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
+
+        //relaties
+        if (sommelier.getWineAdviceRequestSet() != null) {
+            Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+
+            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
+            for (WineAdviceRequest war : wineAdviceRequestSet) {
+                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            }
+            sommelierOutputDto.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
+        }
+
+        if (sommelier.getWineAdviceSet() != null) {
+            Set<WineAdviceOutputDto> wineAdviceOutputDtoSet = new HashSet<>();
+
+            Set<WineAdvice> wineAdviceSet = sommelier.getWineAdviceSet();
+            for (WineAdvice wa : wineAdviceSet) {
+                wineAdviceOutputDtoSet.add(wineAdviceModelToOutput(wa));
+            }
+            sommelierOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
+        }
         return sommelierOutputDto;
+    }
+
+    public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
+        SommelierOutputDtoShort sommelierOutputDtoShort = new SommelierOutputDtoShort();
+        sommelierOutputDtoShort.setId(sommelier.getId());
+        sommelierOutputDtoShort.setFirstName(sommelier.getUserName());
+        sommelierOutputDtoShort.setLastName(sommelier.getLastName());
+        sommelierOutputDtoShort.setEmail(sommelier.getEmail());
+        sommelierOutputDtoShort.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+        sommelierOutputDtoShort.setRoleSet(sommelier.getRoleSet());
+
+/*        //relaties
+
+//TODO mapper toevoegen voor sommelierOutputDtoShort
+
+        if (sommelier.getWineAdviceRequestSet() != null) {
+            Set<WineAdviceRequestIdOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+
+            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
+            for (WineAdviceRequest war : wineAdviceRequestSet) {
+                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            }
+            sommelierOutputDtoShort.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
+        }*/
+        return sommelierOutputDtoShort;
     }
 
     //from list to list
@@ -51,8 +112,6 @@ public class SommelierMapper {
         for (Sommelier s : sommelierList) {
             sommelierOutputDtoList.add(sommelierModelToOutput(s));
         }
-        // lambda
-        // sommelierList.forEach(s -> sommelierOutputDtoList.add(sommelierFromModelToOutput(s)));
         return sommelierOutputDtoList;
     }
 }

@@ -3,8 +3,8 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/clients")
@@ -34,13 +33,27 @@ public class ClientController {
 
     //get One
     @GetMapping("/{id}")
-    public ResponseEntity<ClientOutputDto> getClientById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(clientService.getClientById(id));
+    public ResponseEntity<ClientOutputDto> getClientById(@PathVariable("id") Long id,
+                                                         @AuthenticationPrincipal UserDetails userDetails) {
+        MyUserDetails myUserDetails = (MyUserDetails) userDetails;
+        if (id.equals(myUserDetails.getId())) {
+            return ResponseEntity.ok().body(clientService.getClientById(id));
+        }
+        else {
+            //TODO vervangen door nettere exception
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/{userName}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("userName") String userName) {
-        return ResponseEntity.ok().body(clientService.getClientByUsername(userName));
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("userName") String userName,
+                                                               @AuthenticationPrincipal UserDetails userDetails) {
+        if (userName.equals(userDetails.getUsername())) {
+            return ResponseEntity.ok().body(clientService.getClientByUsername(userName));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     //create
@@ -62,8 +75,8 @@ public class ClientController {
         ClientOutputDto clientOutputDto = clientService.updateClientByUserName(userName, updatedClient);
         return ResponseEntity.ok().body(clientOutputDto);
     }
-    //Delete
 
+    //Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteClientById(@PathVariable Long id) {
         clientService.deleteClientById(id);

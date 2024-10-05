@@ -2,17 +2,20 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.awt.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
-@Getter
-@Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)   //TODO Of moet dit JOINED zijn?
+@Data
 public abstract class User {
 
     @Id
@@ -32,30 +35,11 @@ public abstract class User {
 
     private String profilePictureUrl;
 
-    public User() {
-
-    }
-
-    public User(Long id, String userName, String firstName, String lastName, String email, String password, String profilePictureUrl) {
-        this.id = id;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.profilePictureUrl = profilePictureUrl;
-    }
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roleSet = new HashSet<>();
 
     private String getFullName() {return firstName + lastName;}
-
-    //relaties
-//Onderstaande gekopieerd uit TechItEasyRowan
-/*    @OneToMany(
-            targetEntity = Authority.class,
-            mappedBy = "username",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
-    private Set<Authority> authorities = new HashSet<>();*/
 }

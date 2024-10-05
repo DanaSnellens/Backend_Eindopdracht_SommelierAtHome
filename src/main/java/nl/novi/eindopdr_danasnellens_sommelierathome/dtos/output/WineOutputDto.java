@@ -1,6 +1,10 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+
+import java.util.Set;
 
 @Data
 public class WineOutputDto {
@@ -20,6 +24,10 @@ public class WineOutputDto {
     private String imageAlt;
     private String shortDescription;
     private String longDescription;
+
+    //relaties
+    private Set<WineAdvice> wineAdviceSet;
+    private Set<Recipe> recipeSet;
 }
 
 

@@ -2,40 +2,47 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "wineAdvices")
-@Getter
-@Setter
+@Data
 public class WineAdvice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)               //KLOPT DIT?
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    //relaties
-        // WineList<Wine>
-        // Sommelier
-        // Client
-        // WineAdviceRequest
-        // WineList
-    /*    private List<Wine> wines;*/
-
     private String personalMessage;
+    private String adviceExplanation;
 
-    private File adviceExplanation;
+    //relaties
+        // Wine
+    //TODO Welke cascadeType? All is rigoreus, maar welke wel?Ook toevoegen/wijzigen bij anderen
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "wineAdvice_wine",
+            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wineAdvice_id", referencedColumnName = "id"))
+    private Set<Wine> wineSet = new HashSet<>();
 
-    public WineAdvice() {
-    }
+        // Sommelier
+    @ManyToOne
+    @JoinColumn(name = "sommelier_id")
+    private Sommelier sommelier;
 
-    public WineAdvice(Long id, String personalMessage, File adviceExplanation) {
-        this.id = id;
-        this.personalMessage = personalMessage;
-        this.adviceExplanation = adviceExplanation;
-    }
+        //Client
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+        // WineAdviceRequest
+    @OneToOne(mappedBy = "wineAdvice")
+    private WineAdviceRequest wineAdviceRequest;
 }

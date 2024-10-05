@@ -8,21 +8,15 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import java.util.Set;
 
 @Data
-public class SommelierOutputDto {
+public class SommelierOutputDtoShort {
     private Long id;
-    private String userName;
     private String firstName;
     private String lastName;
     private String email;
     private String profilePictureUrl;
     private Set<Role> roleSet;
-    private String sommelierDescription;
-    private String certificates;
-    private Integer experienceInYears;
-    private String curriculumVitae;
-    private String specialization;
-
     //relaties
-    private Set<WineAdviceRequest> wineAdviceRequestSet;
     private Set<WineAdvice> wineAdviceSet;
+    private Set<WineAdviceRequest> wineAdviceRequestSet;
+
 }
