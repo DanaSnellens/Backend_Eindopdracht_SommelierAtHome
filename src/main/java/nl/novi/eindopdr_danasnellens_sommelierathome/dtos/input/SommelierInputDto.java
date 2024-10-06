@@ -14,15 +14,11 @@ public class SommelierInputDto {
     //TODO moet password wel in de input dto staan?
     private String password;
     private String profilePictureUrl;
-    private Set<Role> roleSet;
+//    private Set<Role> roleSet;
 
     private String sommelierDescription;
     private String certificates;
     private Integer experienceInYears;
     private String curriculumVitae;
     private String specialization;
-
-    //relaties
-//worden dmv assign later toegevoegd aan de sommelier
-
 }

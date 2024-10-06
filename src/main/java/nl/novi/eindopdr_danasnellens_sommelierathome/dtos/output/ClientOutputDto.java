@@ -18,19 +18,9 @@ public class ClientOutputDto {
 
     private Membership membership;
 
-    private Set<WineAdviceRequestOutputDto> wineAdviceRequestIdOutputDtoSet;
-    private Set<WineAdviceOutputDto> wineAdviceOutputDtoSet;
+    //TODO Of OutputDto hier weg? Dus gewoon WineAdviceRequestIdSet? Zelfde voor overige output DTOs
+    private Set<Long> WineAdviceRequestIdOutputDtoSet;
 
-    //TODO Nested DTOs for related entities (checken of dit nodig is, advies chatgpt)
- /*   public static class WineAdviceRequestOutputDto {
-        private Long id;
-        private String requestDetails; // Simplified view of the WineAdviceRequest entity
-
-    }
-
-    public static class WineAdviceOutputDto {
-        private Long id;
-        private String adviceDetails; // Simplified view of the WineAdvice entity
-
-    }*/
+    //TODO Is onderstaande nodig? Want automatisch gekoppeld aan request
+    //private Set<Long> wineAdviceIdOutputDtoSet;
 }

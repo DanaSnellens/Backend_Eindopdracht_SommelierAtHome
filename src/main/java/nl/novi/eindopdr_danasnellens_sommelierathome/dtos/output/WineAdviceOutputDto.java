@@ -11,10 +11,11 @@ public class WineAdviceOutputDto {
     private String adviceExplanation;
 
     //relaties
-    private Set<WineOutputDto> wineOutputDtoSet;
+    private Set<Long> wineIdSet;
 
     //TODO versimpelde outputDTO voor somm (en client?) maken? CV etc hoeft niet meegestuurd te worden met wineadvice
-    private SommelierOutputDtoShort sommelierOutputDtoShort;
-    private ClientOutputDtoShort clientOutputDtoShort;
-    private Long wineAdviceRequestIdOutputDto;
+    private Long sommelierId;
+    //TODO is clientId en somm ID nodig? Of zit die automatisch gekoppeld via WAR?
+    private Long clientId;
+    private Long wineAdviceRequestId;
 }

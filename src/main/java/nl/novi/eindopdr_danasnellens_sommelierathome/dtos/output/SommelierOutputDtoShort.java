@@ -15,8 +15,10 @@ public class SommelierOutputDtoShort {
     private String email;
     private String profilePictureUrl;
     private Set<Role> roleSet;
+
     //relaties
-    private Set<WineAdvice> wineAdviceSet;
-    private Set<WineAdviceRequest> wineAdviceRequestSet;
+    //TODO of moeten dit output dto sets van id's zijn? + moet WAR hier ook gekoppeld zijn of gebeurt dat automatisch via WA koppeling met WAR?
+//    private Set<Long> wineAdviceRequestIdSet;
+    private Set<Long> wineAdviceIdSet;
 
 }

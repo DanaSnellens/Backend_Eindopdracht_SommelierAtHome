@@ -10,5 +10,5 @@ import java.util.Set;
 public class RoleOutputDto {
     private Long id;
     private String roleName;
-    private Set<UserOutputDtoShort> userOutputDtoShortSet;
+    private Set<Long> userIdSet;
 }

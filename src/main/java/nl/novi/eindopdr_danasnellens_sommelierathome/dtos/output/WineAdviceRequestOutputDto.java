@@ -5,6 +5,8 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
+import java.util.Set;
+
 @Data
 public class WineAdviceRequestOutputDto {
 
@@ -15,9 +17,10 @@ public class WineAdviceRequestOutputDto {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    //relaties
-    private Long clientId;
+    //TODO versimpelde outputDTO voor somm (en client?) maken? CV etc hoeft niet meegestuurd te worden met wineadvice
     private Long sommelierId;
-    private Long wineAdviceId;
+    //TODO is clientId en somm ID nodig? Of zit die automatisch gekoppeld via WAR?
+    private Long clientId;
+    private Long wineAdviceRequestId;
 }
 

@@ -23,6 +23,7 @@ public class SommelierOutputDto {
     private String specialization;
 
     //relaties
-    private Set<WineAdviceRequest> wineAdviceRequestSet;
-    private Set<WineAdvice> wineAdviceSet;
+    //TODO of moeten dit output dto sets van id's zijn? + moet WAR hier ook gekoppeld zijn of gebeurt dat automatisch via WA koppeling met WAR?
+//    private Set<Long> wineAdviceRequestIdSet;
+    private Set<Long> wineAdviceIdSet;
 }

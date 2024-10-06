@@ -15,4 +15,6 @@ public class ClientInputDto {
     private String password;
     private String profilePictureUrl;
     private Membership membership;
+
+    //    private Set<Role> roleSet;
 }
