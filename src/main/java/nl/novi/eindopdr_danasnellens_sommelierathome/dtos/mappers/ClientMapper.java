@@ -18,38 +18,20 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdv
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestModelToOutput;
 //@Component
 public class ClientMapper {
-    //from dto to model
-    public static Client clientInputDtoToModel(ClientInputDto clientInputDto, String userName) {
+
+    public static Client clientInputDtoToModel(ClientInputDto clientInputDto) {
         Client client = new Client();
-        //UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
-        client.setUserName(userName);
+        client.setUserName(clientInputDto.getUserName());
         client.setFirstName(clientInputDto.getFirstName());
         client.setLastName(clientInputDto.getLastName());
         client.setEmail(clientInputDto.getEmail());
         client.setPassword(clientInputDto.getPassword());
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
-        client.setRoleSet(clientInputDto.getRoleSet() );
         client.setMembership(clientInputDto.getMembership());
-
-        //relaties: niet nodig want deze set de client niet zelf. Of toch wel?
-        // Set the IDs of related entities (would be mapped to actual entities in service layer)
-/*        client.setWineAdviceRequestSet(clientInputDto.getWineAdviceRequestIds().stream()
-                .map(id -> {
-                    WineAdviceRequest wineAdviceRequest = new WineAdviceRequest();
-                    wineAdviceRequest.setId(id);
-                    return wineAdviceRequest;
-                }).collect(Collectors.toSet()));
-
-        client.setWineAdviceSet(clientInputDTO.getWineAdviceIds().stream()
-                .map(id -> {
-                    WineAdvice wineAdvice = new WineAdvice();
-                    wineAdvice.setId(id);
-                    return wineAdvice;
-                }).collect(Collectors.toSet()));*/
 
         return client;
     }
-    //from model to dto
+
     public static ClientOutputDto clientModelToOutput(Client client) {
         ClientOutputDto clientOutputDto = new ClientOutputDto();
         clientOutputDto.setId(client.getId());
@@ -60,8 +42,6 @@ public class ClientMapper {
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
         clientOutputDto.setRoleSet(client.getRoleSet());
         clientOutputDto.setMembership(client.getMembership());
-
-        //relaties
 
         if (client.getWineAdviceRequestSet() != null) {
             Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
