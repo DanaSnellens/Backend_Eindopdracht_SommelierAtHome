@@ -15,6 +15,5 @@ public class WineAdviceRequestInputDto {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    //relaties
-    private Long clientId;
+    private Long clientId;  // Deze nog automatisch koppelen aan de client die ingelogd is
 }

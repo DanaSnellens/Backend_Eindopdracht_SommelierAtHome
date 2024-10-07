@@ -39,32 +39,38 @@ public class ClientMapper {
         clientOutputDto.setFirstName(client.getFirstName());
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
-        clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
         clientOutputDto.setRoleSet(client.getRoleSet());
         clientOutputDto.setMembership(client.getMembership());
 
         if (client.getWineAdviceRequestSet() != null) {
-            Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceRequestIdOutputDtoSet = new HashSet<>();
 
-            Set<WineAdviceRequest> WineAdviceRequestSet = client.getWineAdviceRequestSet();
-            for (WineAdviceRequest war : WineAdviceRequestSet) {
-                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            for (WineAdviceRequest war : client.getWineAdviceRequestSet()) {
+                wineAdviceRequestIdOutputDtoSet.add(war.getId());
             }
-            clientOutputDto.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
-        }
-        if (client.getWineAdviceSet() != null) {
-            Set<WineAdviceOutputDto> wineAdviceOutputDtoSet = new HashSet<>();
-
-            Set<WineAdvice> WineAdviceSet = client.getWineAdviceSet();
-            for (WineAdvice wa : WineAdviceSet) {
-                wineAdviceOutputDtoSet.add(wineAdviceModelToOutput(wa));
-            }
-            clientOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
+            clientOutputDto.setWineAdviceRequestIdOutputDtoSet(wineAdviceRequestIdOutputDtoSet);
         }
         return clientOutputDto;
     }
 
-    public static ClientOutputDtoShort clientOutputDtoShort(Client client) {
+
+
+        //TODO Niet nodig want wordt niet direct aan de client gekoppeld maar aan de WAR??
+
+
+/*        if (client.getWineAdviceSet() != null) {
+            Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
+
+            for (WineAdvice wa : client.getWineAdviceSet()) {
+                wineAdviceIdOutputDtoSet.add(wa.getId());
+            }
+            clientOutputDto.setWineAdviceIdOutputDtoSet(wineAdviceIdOutputDtoSet);
+        }
+        return clientOutputDto;
+    }*/
+// TODO Niet nodig want ik gebruik nu alleen ID's?
+
+/*    public static ClientOutputDtoShort clientOutputDtoShort(Client client) {
         ClientOutputDtoShort clientOutputDtoShort = new ClientOutputDtoShort();
         clientOutputDtoShort.setId(client.getId());
         clientOutputDtoShort.setFirstName(client.getUserName());
@@ -74,9 +80,8 @@ public class ClientMapper {
         //relaties
         //TODO mapper toevoegen voor relaties clientOutputDtoShort
         return clientOutputDtoShort;
+    }*/
 
-
-    }
     //from list to list
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {
         List<ClientOutputDto> clientOutputDtoList = new ArrayList<>();

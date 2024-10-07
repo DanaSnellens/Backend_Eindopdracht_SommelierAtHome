@@ -17,10 +17,11 @@ public class WineAdviceRequestOutputDto {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    //TODO versimpelde outputDTO voor somm (en client?) maken? CV etc hoeft niet meegestuurd te worden met wineadvice
-    private Long sommelierId;
-    //TODO is clientId en somm ID nodig? Of zit die automatisch gekoppeld via WAR?
     private Long clientId;
-    private Long wineAdviceRequestId;
+    private Long sommelierId; // Als deze is assigned
+    private Long wineAdviceId; // Als deze is assigned
+
+
+
 }
 

@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class WineAdviceRequestMapper {
     private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
-    public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, MyUserDetails userDetails) {
+    public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, Client client) {
         WineAdviceRequest war = new WineAdviceRequest();
         war.setDinnerOccasion(warInputDto.getDinnerOccasion());
         war.setRequestMessage(warInputDto.getRequestMessage());
@@ -19,10 +20,7 @@ public class WineAdviceRequestMapper {
         war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
-        //relaties
-        war.setClient(userDetails.getUsername());
-/*        war.setSommelier(warInputDto.getSommelier());
-        war.setWineAdvice(warInputDto.getWineAdvice());*/
+        war.setClient(client); // Automatisch koppelen aan de client die ingelogd is
 
         return war;
     }
@@ -36,12 +34,16 @@ public class WineAdviceRequestMapper {
         warOutputDto.setMinPricePerBottle(war.getMinPricePerBottle());
         warOutputDto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        //relaties
-        warOutputDto.setClientId(war.getClientId());
-        warOutputDto.setSommelier(wineAdviceRequest.getSommelier());
-        warOutputDto.setWineAdviceId(wineAdviceRequest.getWineAdvice());
+        warOutputDto.setClientId(war.getClient().getId());
 
-        return warDto;
+        if (war.getSommelier() != null) {
+            warOutputDto.setSommelierId(war.getSommelier().getId());
+        }
+        if (war.getWineAdvice() != null) {
+            warOutputDto.setWineAdviceId(war.getWineAdvice().getId());
+        }
+
+        return warOutputDto;
     }
 
     public static List<WineAdviceRequestOutputDto> wineAdviceRequestModelListToOutputList(List<WineAdviceRequest> wineAdviceRequestList) {
