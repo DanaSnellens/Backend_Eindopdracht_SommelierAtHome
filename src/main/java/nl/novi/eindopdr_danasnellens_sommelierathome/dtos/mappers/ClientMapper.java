@@ -50,15 +50,8 @@ public class ClientMapper {
             }
             clientOutputDto.setWineAdviceRequestIdOutputDtoSet(wineAdviceRequestIdOutputDtoSet);
         }
-        return clientOutputDto;
-    }
 
-
-
-        //TODO Niet nodig want wordt niet direct aan de client gekoppeld maar aan de WAR??
-
-
-/*        if (client.getWineAdviceSet() != null) {
+        if (client.getWineAdviceSet() != null) {
             Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
 
             for (WineAdvice wa : client.getWineAdviceSet()) {
@@ -67,20 +60,9 @@ public class ClientMapper {
             clientOutputDto.setWineAdviceIdOutputDtoSet(wineAdviceIdOutputDtoSet);
         }
         return clientOutputDto;
-    }*/
-// TODO Niet nodig want ik gebruik nu alleen ID's?
+    }
 
-/*    public static ClientOutputDtoShort clientOutputDtoShort(Client client) {
-        ClientOutputDtoShort clientOutputDtoShort = new ClientOutputDtoShort();
-        clientOutputDtoShort.setId(client.getId());
-        clientOutputDtoShort.setFirstName(client.getUserName());
-        clientOutputDtoShort.setLastName(client.getLastName());
-        clientOutputDtoShort.setRoleSet(client.getRoleSet());
 
-        //relaties
-        //TODO mapper toevoegen voor relaties clientOutputDtoShort
-        return clientOutputDtoShort;
-    }*/
 
     //from list to list
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {

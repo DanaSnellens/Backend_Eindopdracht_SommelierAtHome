@@ -28,15 +28,12 @@ public class SommelierMapper {
         sommelier.setEmail(sommelierInputDto.getEmail());
         sommelier.setPassword(sommelierInputDto.getPassword());
         sommelier.setProfilePictureUrl(sommelierInputDto.getProfilePictureUrl());
-        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
+//        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
         sommelier.setSommelierDescription(sommelierInputDto.getSommelierDescription());
         sommelier.setCertificates(sommelierInputDto.getCertificates());
         sommelier.setExperienceInYears(sommelierInputDto.getExperienceInYears());
         sommelier.setCurriculumVitae(sommelierInputDto.getCurriculumVitae());
         sommelier.setSpecialization(sommelierInputDto.getSpecialization());
-
-        //relaties
-        //Wordt later toegevoegd dmv assign
 
         return sommelier;
     }
@@ -59,27 +56,26 @@ public class SommelierMapper {
 
         //relaties
         if (sommelier.getWineAdviceRequestSet() != null) {
-            Set<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceRequestIdOutputDtoSet = new HashSet<>();
 
-            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
-            for (WineAdviceRequest war : wineAdviceRequestSet) {
-                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
+            for (WineAdviceRequest war : sommelier.getWineAdviceRequestSet()) {
+                wineAdviceRequestIdOutputDtoSet.add(war.getId());
             }
-            sommelierOutputDto.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
+            sommelierOutputDto.setWineAdviceRequestIdOutputDtoSet(wineAdviceRequestIdOutputDtoSet);
         }
 
         if (sommelier.getWineAdviceSet() != null) {
-            Set<WineAdviceOutputDto> wineAdviceOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
 
-            Set<WineAdvice> wineAdviceSet = sommelier.getWineAdviceSet();
-            for (WineAdvice wa : wineAdviceSet) {
-                wineAdviceOutputDtoSet.add(wineAdviceModelToOutput(wa));
+            for (WineAdvice wa : sommelier.getWineAdviceSet()) {
+                wineAdviceIdOutputDtoSet.add(wa.getId());
             }
-            sommelierOutputDto.setWineAdviceOutputDtoSet(wineAdviceOutputDtoSet);
+            sommelierOutputDto.setWineAdviceIdOutputDtoSet(wineAdviceIdOutputDtoSet);
         }
         return sommelierOutputDto;
     }
 
+/*
     public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
         SommelierOutputDtoShort sommelierOutputDtoShort = new SommelierOutputDtoShort();
         sommelierOutputDtoShort.setId(sommelier.getId());
@@ -89,21 +85,9 @@ public class SommelierMapper {
         sommelierOutputDtoShort.setProfilePictureUrl(sommelier.getProfilePictureUrl());
         sommelierOutputDtoShort.setRoleSet(sommelier.getRoleSet());
 
-/*        //relaties
+*/
 
-//TODO mapper toevoegen voor sommelierOutputDtoShort
 
-        if (sommelier.getWineAdviceRequestSet() != null) {
-            Set<WineAdviceRequestIdOutputDto> wineAdviceRequestOutputDtoSet = new HashSet<>();
-
-            Set<WineAdviceRequest> wineAdviceRequestSet = sommelier.getWineAdviceRequestSet();
-            for (WineAdviceRequest war : wineAdviceRequestSet) {
-                wineAdviceRequestOutputDtoSet.add(wineAdviceRequestModelToOutput(war));
-            }
-            sommelierOutputDtoShort.setWineAdviceRequestOutputDtoSet(wineAdviceRequestOutputDtoSet);
-        }*/
-        return sommelierOutputDtoShort;
-    }
 
     //from list to list
     public static List<SommelierOutputDto> sommelierModelListToOutputList(List<Sommelier> sommelierList) {

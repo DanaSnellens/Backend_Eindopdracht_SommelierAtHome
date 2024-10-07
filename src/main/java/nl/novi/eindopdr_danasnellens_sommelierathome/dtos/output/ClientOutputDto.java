@@ -18,9 +18,6 @@ public class ClientOutputDto {
 
     private Membership membership;
 
-    //TODO Of OutputDto hier weg? Dus gewoon WineAdviceRequestIdSet? Zelfde voor overige output DTOs
     private Set<Long> WineAdviceRequestIdOutputDtoSet;
-
-    //TODO Is onderstaande nodig? Want automatisch gekoppeld aan request
-    //private Set<Long> wineAdviceIdOutputDtoSet;
+    private Set<Long> wineAdviceIdOutputDtoSet;
 }
