@@ -25,10 +25,8 @@ public class WineOutputDto {
     private String shortDescription;
     private String longDescription;
 
-    //relaties
-    //TODO Onderstaande niet nodig?
-    //private Set<WineAdviceOutputDto> wineAdviceOutputDtoSet;
-    private Set<Long> recipeIdSet;
+    private Set<Long> wineAdviceIdSet;
+//    private Set<Long> recipeIdSet;
 }
 
 

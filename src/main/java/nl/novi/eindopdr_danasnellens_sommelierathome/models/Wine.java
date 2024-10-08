@@ -39,6 +39,6 @@ public class Wine {
     //relaties
     @ManyToMany(mappedBy = "wineSet")
     private Set<WineAdvice> wineAdviceSet;
-    @ManyToMany(mappedBy = "wineSet")
-    private Set<Recipe> recipeSet;
+//    @ManyToMany(mappedBy = "wineSet")
+//    private Set<Recipe> recipeSet;
 }

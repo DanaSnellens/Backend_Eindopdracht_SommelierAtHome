@@ -55,6 +55,7 @@ public class SommelierMapper {
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
 
         //relaties
+        //TODO Klpt het dat ik t hier OutputDto noem? of is dat als je ids gebruikt niet nodig?
         if (sommelier.getWineAdviceRequestSet() != null) {
             Set<Long> wineAdviceRequestIdOutputDtoSet = new HashSet<>();
 
@@ -86,13 +87,10 @@ public class SommelierMapper {
         sommelierOutputDtoShort.setRoleSet(sommelier.getRoleSet());
 
 */
-
-
-
     //from list to list
     public static List<SommelierOutputDto> sommelierModelListToOutputList(List<Sommelier> sommelierList) {
         List<SommelierOutputDto> sommelierOutputDtoList = new ArrayList<>();
-        //for loop
+
         for (Sommelier s : sommelierList) {
             sommelierOutputDtoList.add(sommelierModelToOutput(s));
         }
