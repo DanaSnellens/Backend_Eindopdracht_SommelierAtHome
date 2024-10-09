@@ -12,6 +12,7 @@ import java.util.List;
 public class WineAdviceRequestMapper {
     private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
+    //TODO Client vervangen door clientOutputDto?
     public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, Client client) {
         WineAdviceRequest war = new WineAdviceRequest();
         war.setDinnerOccasion(warInputDto.getDinnerOccasion());
@@ -20,6 +21,7 @@ public class WineAdviceRequestMapper {
         war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
+        //TODO Vervangen door outputDTO? En if statement toevoegen?
         war.setClient(client); // Automatisch koppelen aan de client die ingelogd is
 
         return war;

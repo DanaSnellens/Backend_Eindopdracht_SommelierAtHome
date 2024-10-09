@@ -40,7 +40,11 @@ public class WineAdviceService {
     }
 
     public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto wineAdviceInputDto) {
-        WineAdvice wa = wineAdviceRepository.save(wineAdviceFromInputDtoToModel(wineAdviceInputDto));
+        WineAdviceRequest war = getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
+        for (Long wineId : wineAdviceInputDto.getWineIdSet()) {
+            assignWineToWineAdvice(war.getId(), wineId);
+        }
+        WineAdvice wa = wineAdviceRepository.save(wineAdviceInputToModel(wineAdviceInputDto));
         return wineAdviceModelToOutput(wa);
     }
 

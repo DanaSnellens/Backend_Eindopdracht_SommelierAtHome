@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
@@ -17,14 +18,16 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMap
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper.wineModelToOutput;
 
 public class WineAdviceMapper {
-
-    public static WineAdvice wineAdviceInputToModel(WineAdviceInputDto wineAdviceInputDto, WineAdviceRequest war) {
+    //TODO WAR vervangen door DTO of warId? Zelfde voor WineSet?
+    public static WineAdvice wineAdviceInputToModel(WineAdviceInputDto wineAdviceInputDto, WineAdviceRequest wineAdviceRequest, Set<Wine> wineSet) {
         WineAdvice wineAdvice = new WineAdvice();
         wineAdvice.setPersonalMessage(wineAdviceInputDto.getPersonalMessage());
         wineAdvice.setAdviceExplanation(wineAdviceInputDto.getAdviceExplanation());
+//TODO vervangen door outputDTO of id? En if statement toevoegen?
+        wineAdvice.setWineAdviceRequest(wineAdviceRequest);
+        //sommelier zit al gekoppeld aan de war, dus hoeft hier niet meer ingevoerd te worden.
 
-        wineAdvice.setWineAdviceRequest(war);
-        //wine(Id?)Set toevoegen?
+        wineAdvice.setWineSet(wineSet);
 
         return wineAdvice;
     }
@@ -36,23 +39,31 @@ public class WineAdviceMapper {
         wineAdviceOutputDto.setPersonalMessage(wineAdvice.getPersonalMessage());
         wineAdviceOutputDto.setAdviceExplanation(wineAdvice.getAdviceExplanation());
 
+
+        if (wineAdvice.getWineSet() != null) {
+            Set<Long> wineIdSet = new HashSet<>();
+
+            for (Wine wine : wineAdvice.getWineSet()) {
+                wineIdSet.add(wine.getId());
+            }
+            wineAdviceOutputDto.setWineIdSet(wineIdSet);
+        }
+
+        if (wineAdvice.getSommelier() != null) {
+            wineAdviceOutputDto.setSommelierId(wineAdvice.getSommelier().getId());
+        }
+
+        if (wineAdvice.getClient() != null) {
+            wineAdviceOutputDto.setClientId(wineAdvice.getClient().getId());
+        }
+
+        if (wineAdvice.getWineAdviceRequest() != null) {
+            wineAdviceOutputDto.setWineAdviceRequestId(wineAdvice.getWineAdviceRequest().getId());
+        }
+
         return wineAdviceOutputDto;
     }
 
-
-
-/*        //relaties
-        if (wineAdvice.getWineSet() != null) {
-            Set<WineOutputDto> wineOutputDtoSet = new HashSet<>();
-
-            Set<Wine> WineSet = wineAdvice.getWineSet();
-            for (Wine wine : WineSet) {
-                wineOutputDtoSet.add(wineModelToOutput(wine));
-            }
-            wineAdviceOutputDto.setWineOutputDtoSet(wineOutputDtoSet);
-        }*/
-
-//andere relaties? (sommelier, client, wineAdviceRequest)
 
     public static List<WineAdviceOutputDto> wineAdviceModelListToOutputList(List<WineAdvice> wineAdviceList) {
         List<WineAdviceOutputDto> wineAdviceOutputDtoList = new ArrayList<>();

@@ -13,5 +13,6 @@ public class WineAdviceInputDto {
     private Set<Long> wineIdSet;
 
     private Long wineAdviceRequestId;
+    //sommelier niet koppelen, omdat die al aan war zit gekoppeld? Of omdat de sommelier al ingelogd is?
 
 }

@@ -20,18 +20,16 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.ClientM
 @Service
 @Data
 public class ClientService {
-    //Repository
+
     private final ClientRepository clientRepository;
     private final WineAdviceRequestRepository wineAdviceRequestRepository;
     private final WineAdviceRepository wineAdviceRepository;
 
-    // Get All
     public List<ClientOutputDto> getAllClients() {
         List<Client> clientList = clientRepository.findAll();
         return clientModelListToOutputList(clientList);
     }
 
-    // Get One
     public ClientOutputDto getClientById(Long id) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isPresent()) {

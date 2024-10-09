@@ -10,7 +10,6 @@ public class WineAdviceOutputDto {
     private String personalMessage;
     private String adviceExplanation;
 
-    //relaties
     private Set<Long> wineIdSet;
 
     private Long sommelierId;

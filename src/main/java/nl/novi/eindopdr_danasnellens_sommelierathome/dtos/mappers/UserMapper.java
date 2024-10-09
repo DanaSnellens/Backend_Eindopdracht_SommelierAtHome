@@ -8,7 +8,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.User;
 import java.util.HashSet;
 import java.util.Set;
 
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RoleMapper.roleFromModelToOutputDto;
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RoleMapper.roleModelToOutput;
 
 public class UserMapper {
     public static UserOutputDtoShort userFromModelToOutputDtoShort (User user) {
@@ -22,7 +22,7 @@ public class UserMapper {
 
             Set<Role> roleSet = user.getRoleSet();
             for (Role role : roleSet) {
-                roleOutputDtoSet.add(roleFromModelToOutputDto(role));
+                roleOutputDtoSet.add(roleModelToOutput(role));
             }
             userOutputDtoShort.setRoleOutputDtoSet(roleOutputDtoSet);
         }

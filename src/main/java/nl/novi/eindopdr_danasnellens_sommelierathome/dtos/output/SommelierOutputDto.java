@@ -26,6 +26,6 @@ public class SommelierOutputDto {
 
 
     //relaties
-    private Set<Long> wineAdviceRequestIdOutputDtoSet;
-    private Set<Long> wineAdviceIdOutputDtoSet;
+    private Set<Long> wineAdviceRequestIdSet;
+    private Set<Long> wineAdviceIdSet;
 }

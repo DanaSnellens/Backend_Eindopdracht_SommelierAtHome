@@ -57,21 +57,21 @@ public class SommelierMapper {
         //relaties
         //TODO Klpt het dat ik t hier OutputDto noem? of is dat als je ids gebruikt niet nodig?
         if (sommelier.getWineAdviceRequestSet() != null) {
-            Set<Long> wineAdviceRequestIdOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceRequestIdSet = new HashSet<>();
 
             for (WineAdviceRequest war : sommelier.getWineAdviceRequestSet()) {
-                wineAdviceRequestIdOutputDtoSet.add(war.getId());
+                wineAdviceRequestIdSet.add(war.getId());
             }
-            sommelierOutputDto.setWineAdviceRequestIdOutputDtoSet(wineAdviceRequestIdOutputDtoSet);
+            sommelierOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
         }
 
         if (sommelier.getWineAdviceSet() != null) {
-            Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceIdSet = new HashSet<>();
 
             for (WineAdvice wa : sommelier.getWineAdviceSet()) {
-                wineAdviceIdOutputDtoSet.add(wa.getId());
+                wineAdviceIdSet.add(wa.getId());
             }
-            sommelierOutputDto.setWineAdviceIdOutputDtoSet(wineAdviceIdOutputDtoSet);
+            sommelierOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
         }
         return sommelierOutputDto;
     }
