@@ -5,6 +5,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,11 +22,11 @@ public class SommelierOutputDto {
     private String curriculumVitae;
     private String specialization;
 
-    private Set<Role> roleSet;
+    private Set<RoleOutputDto> roleOutputDtoSet = new HashSet<>();
 
 
 
     //relaties
-    private Set<Long> wineAdviceRequestIdSet;
-    private Set<Long> wineAdviceIdSet;
+    private Set<Long> wineAdviceRequestIdSet = new HashSet<>();
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
 }

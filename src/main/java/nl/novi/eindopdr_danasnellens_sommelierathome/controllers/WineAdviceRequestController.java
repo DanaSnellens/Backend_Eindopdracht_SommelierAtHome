@@ -1,12 +1,11 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.WineAdviceRequestService;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +16,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/wineadvicerequests")
 public class WineAdviceRequestController {
+
     private final WineAdviceRequestService wineAdviceRequestService;
+
     private final ClientService clientService;
+
     public WineAdviceRequestController(WineAdviceRequestService wineAdviceRequestService, ClientService clientService) {
         this.wineAdviceRequestService = wineAdviceRequestService;
         this.clientService = clientService;
@@ -40,10 +41,12 @@ public class WineAdviceRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest
+            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, ClientInputDto clientInputDto,
+             @AuthenticationPrincipal UserDetails userDetails) {
         //Als er een WAR wordt aangemaakt, wordt deze automatisch gekoppeld aan de ingelogde client
-        WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto, userDetails.getUsername());
-        ClientOutputDtoShort clientOutputDtoShort = clientService.createClient(wineAdviceRequestInputDto, userDetails.getUsername());
+        WineAdviceRequestOutputDto warOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto, userDetails.getUsername());
+        ClientOutputDtoShort clientOutputDtoShort = clientService.assignWineAdviceRequestToClient(clientInputDto, userDetails.getUsername());
                 wineAdviceRequestInputDto.setClient(c);
                 WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto);
                 URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceRequestOutputDto.getId()).toUri();
@@ -64,10 +67,11 @@ public class WineAdviceRequestController {
 
     //RELATIES
     @PutMapping("/{id}/sommelier/{sommelierId}")
-    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long id, @PathVariable ("sommelierId") Long sommelierId) {
+    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long warId, @PathVariable ("sommelierId") String sommelierUserName) {
 
         //TODO Als somm=notNull, dan somm=optionalSommelier.get() ?? Of moet dit ihn de service? (Staat er al of niet?>
-        wineAdviceRequestService.assignSommelierToWineAdviceRequest(id, sommelierId);
-        return ResponseEntity.ok("Sommelier " + sommelierId + " assigned to wineadvice request " + id);
+        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, sommelierUserName);
+        return ResponseEntity.ok("Sommelier " + sommelierUserName + " assigned to wineadvice request " + warId);
     }
 }
+

@@ -32,6 +32,8 @@ public class WineAdvice {
             inverseJoinColumns = @JoinColumn(name = "wineAdvice_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
 
+    //Deze kunnen weg, want zijn al in WineAdviceRequest
+    /*
         // Sommelier
     @ManyToOne
     @JoinColumn(name = "sommelier_id")
@@ -40,9 +42,10 @@ public class WineAdvice {
         //Client
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client client;
+    private Client client;*/
 
         // WineAdviceRequest
-    @OneToOne(mappedBy = "wineAdvice")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wineAdvice_id")
     private WineAdviceRequest wineAdviceRequest;
 }

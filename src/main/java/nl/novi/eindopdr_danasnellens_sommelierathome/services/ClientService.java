@@ -1,8 +1,11 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import jakarta.validation.Valid;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
@@ -100,18 +103,22 @@ public class ClientService {
         else throw new UsernameNotFoundException("No user found with username: " + userName);
     }
 
-    //RELATIES
-//    public void assignWineAdviceRequestToClient(Long id, Long wineAdviceRequestId) {
-//        Optional<Client> optionalClient = clientRepository.findById(id);
-//        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(wineAdviceRequestId);
-//
-//        if (optionalClient.isPresent() && optionalWineAdviceRequest.isPresent()) {
-//            //TODO klopt dit? In de techItEasy uitwerkingen wordt var gebruikt
-//            Client c = optionalClient.get();
-//            WineAdviceRequest war = optionalWineAdviceRequest.get();
-//
-//            c.setWineAdviceRequest()
-//        }
-//    }
+
+    public void assignWineAdviceRequestToClient(Long id, Long wineAdviceRequestId) {
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(wineAdviceRequestId);
+
+        if (optionalClient.isPresent() && optionalWineAdviceRequest.isPresent()) {
+            //TODO klopt dit? In de techItEasy uitwerkingen wordt var gebruikt
+            Client c = optionalClient.get();
+            WineAdviceRequest war = optionalWineAdviceRequest.get();
+
+            c.setWineAdviceRequest()
+        }
+    }
+
+    }
+
+
 }
 

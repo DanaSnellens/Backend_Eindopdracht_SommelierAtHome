@@ -14,7 +14,7 @@ public class SommelierInputDto {
     //TODO moet password wel in de input dto staan?
     private String password;
     private String profilePictureUrl;
-//    private Set<Role> roleSet;
+//    private Set<RoleOutput> roleOutputDtoSet;
 
     private String sommelierDescription;
     private String certificates;

@@ -20,8 +20,9 @@ public class WineAdviceService {
     private final WineAdviceRepository wineAdviceRepository;
     private final WineAdviceRequestRepository wineAdviceRequestRepository;
     private final WineRepository wineRepository;
-    public WineAdviceService(WineAdviceRepository wineAdviceRepository, WineAdviceRepository wineAdviceRepository1, WineAdviceRequestRepository wineAdviceRequestRepository, WineRepository wineRepository) {
-        this.wineAdviceRepository = wineAdviceRepository1;
+
+    public WineAdviceService(WineAdviceRepository wineAdviceRepository, WineAdviceRequestRepository wineAdviceRequestRepository, WineRepository wineRepository) {
+        this.wineAdviceRepository = wineAdviceRepository;
         this.wineAdviceRequestRepository = wineAdviceRequestRepository;
         this.wineRepository = wineRepository;
     }
@@ -40,9 +41,11 @@ public class WineAdviceService {
     }
 
     public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto wineAdviceInputDto) {
-        WineAdviceRequest war = getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
+        //Optional
+        WineAdviceRequest  war = getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
+        WineAdvice wa = wineAdviceInputToModel(wineAdviceInputDto);
         for (Long wineId : wineAdviceInputDto.getWineIdSet()) {
-            assignWineToWineAdvice(war.getId(), wineId);
+            assignWineToWineAdvice(wa.getId(), wineId);
         }
         WineAdvice wa = wineAdviceRepository.save(wineAdviceInputToModel(wineAdviceInputDto));
         return wineAdviceModelToOutput(wa);

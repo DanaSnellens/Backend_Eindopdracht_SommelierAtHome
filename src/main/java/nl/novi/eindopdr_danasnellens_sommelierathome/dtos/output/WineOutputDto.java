@@ -4,6 +4,7 @@ import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -25,8 +26,8 @@ public class WineOutputDto {
     private String shortDescription;
     private String longDescription;
 
-    private Set<Long> wineAdviceIdSet;
-//    private Set<Long> recipeIdSet;
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
+    private Set<Long> recipeIdSet = new HashSet<>();
 }
 
 

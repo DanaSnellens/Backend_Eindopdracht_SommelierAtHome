@@ -4,6 +4,7 @@ import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -14,10 +15,10 @@ public class ClientOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
-    private Set<Role> roleSet;
+    private Set<RoleOutputDto> roleOutputDtoSet = new HashSet<>();
 
     private Membership membership;
 
-    private Set<Long> WineAdviceRequestIdOutputDtoSet;
-    private Set<Long> wineAdviceIdOutputDtoSet;
+    private Set<Long> WineAdviceRequestIdSet = new HashSet<>();
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
 }

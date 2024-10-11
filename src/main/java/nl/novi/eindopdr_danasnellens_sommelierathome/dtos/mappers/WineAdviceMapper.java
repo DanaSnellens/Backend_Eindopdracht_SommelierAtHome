@@ -25,7 +25,7 @@ public class WineAdviceMapper {
         wineAdvice.setAdviceExplanation(wineAdviceInputDto.getAdviceExplanation());
 //TODO vervangen door outputDTO of id? En if statement toevoegen?
         wineAdvice.setWineAdviceRequest(wineAdviceRequest);
-        //sommelier zit al gekoppeld aan de war, dus hoeft hier niet meer ingevoerd te worden.
+        //sommelier zit al gekoppeld aan de war, dus hoeft hier niet meer ingevoerd te worden.???
 
         wineAdvice.setWineSet(wineSet);
 

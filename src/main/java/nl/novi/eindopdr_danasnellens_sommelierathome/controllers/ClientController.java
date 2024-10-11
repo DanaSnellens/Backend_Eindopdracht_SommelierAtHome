@@ -20,7 +20,6 @@ public class ClientController {
 
     //service
     private final ClientService clientService;
-    private final Role
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;

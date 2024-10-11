@@ -17,7 +17,7 @@ public class ClientOutputDtoShort {
 
 
     //relaties
-    private Set<Long> wineAdviceRequestId;
+    private Set<Long> wineAdviceRequestIdSet;
     //TODO Is onderstaande nodig? Want automatisch gekoppeld aan request
     //private Set<Long> wineAdviceIdOutputDtoSet;
 

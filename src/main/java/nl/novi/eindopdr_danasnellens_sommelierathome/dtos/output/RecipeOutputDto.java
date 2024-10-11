@@ -21,5 +21,5 @@ public class RecipeOutputDto {
     private String preparationLongDescription;
 
     //relaties
-    private Set<Long> wineIdOutputDtoSet;
+    private Set<Long> wineIdSet;
 }

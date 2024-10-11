@@ -22,30 +22,30 @@ public class WineAdviceRequestMapper {
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
         //TODO Vervangen door outputDTO? En if statement toevoegen?
-        war.setClient(client); // Automatisch koppelen aan de client die ingelogd is
+        war.setClient(client); // set authenticated client
 
         return war;
     }
 
     public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
-        WineAdviceRequestOutputDto warOutputDto = new WineAdviceRequestOutputDto();
-        warOutputDto.setId(war.getId());
-        warOutputDto.setDinnerOccasion(war.getDinnerOccasion());
-        warOutputDto.setRequestMessage(war.getRequestMessage());
-        warOutputDto.setRecipeLink(war.getRecipeLink());
-        warOutputDto.setMinPricePerBottle(war.getMinPricePerBottle());
-        warOutputDto.setMaxPricePerBottle(war.getMaxPricePerBottle());
+        WineAdviceRequestOutputDto dto = new WineAdviceRequestOutputDto();
+        dto.setId(war.getId());
+        dto.setDinnerOccasion(war.getDinnerOccasion());
+        dto.setRequestMessage(war.getRequestMessage());
+        dto.setRecipeLink(war.getRecipeLink());
+        dto.setMinPricePerBottle(war.getMinPricePerBottle());
+        dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        warOutputDto.setClientId(war.getClient().getId());
+        dto.setClientUserName(war.getClient().getId());
 
         if (war.getSommelier() != null) {
-            warOutputDto.setSommelierId(war.getSommelier().getId());
+            dto.setSommelierUserName(war.getSommelier().getId());
         }
         if (war.getWineAdvice() != null) {
-            warOutputDto.setWineAdviceId(war.getWineAdvice().getId());
+            dto.setWineAdviceId(war.getWineAdvice().getId());
         }
 
-        return warOutputDto;
+        return dto;
     }
 
     public static List<WineAdviceRequestOutputDto> wineAdviceRequestModelListToOutputList(List<WineAdviceRequest> wineAdviceRequestList) {
