@@ -22,17 +22,16 @@ public class WineAdviceRequest {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    //relaties
+    //Deze kunnen weg, want worden al aan WAR meegegeven
 
-    //client
-    @ManyToOne
+/*  @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
     //sommelier
     @ManyToOne
     @JoinColumn(name = "sommelier_id)")
-    private Sommelier sommelier;
+    private Sommelier sommelier;*/
 
     //wineAdvice
     @OneToOne(mappedBy = "wineAdviceRequest")

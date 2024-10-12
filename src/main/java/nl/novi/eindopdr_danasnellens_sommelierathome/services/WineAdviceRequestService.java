@@ -41,10 +41,10 @@ public class WineAdviceRequestService {
         else throw new RuntimeException("No wine advice request found with id: " + id);
     }
 
-    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String userName) {
+    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String username) {
 
         WineAdviceRequest war = wineAdviceRequestInputToModel(wineAdviceRequestInputDto, userDetails);
-        Optional<Client> optionalClient = clientRepository.findByUserName(userName);
+        Optional<Client> optionalClient = clientRepository.findByUserName(username);
         WineAdviceRequest.setClient(userDetails.getUsername());
         WineAdviceRequest savedWar = wineAdviceRequestRepository.save(war);
         return wineAdviceRequestModelToOutput(savedWar);
