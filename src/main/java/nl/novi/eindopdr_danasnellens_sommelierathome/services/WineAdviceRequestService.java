@@ -42,9 +42,11 @@ public class WineAdviceRequestService {
     }
 
     public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String username) {
-
-        WineAdviceRequest war = wineAdviceRequestInputToModel(wineAdviceRequestInputDto, userDetails);
+        WineAdviceRequest war = wineAdviceRequestInputDtoToModel(warInputDto);
         Optional<Client> optionalClient = clientRepository.findByUserName(username);
+        if (optionalClient.isPresent()) {
+            war.setClient(optionalClient.get());
+        } else throw new RuntimeException("No client found with username: " + username);
         WineAdviceRequest.setClient(userDetails.getUsername());
         WineAdviceRequest savedWar = wineAdviceRequestRepository.save(war);
         return wineAdviceRequestModelToOutput(savedWar);

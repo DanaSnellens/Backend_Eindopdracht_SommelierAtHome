@@ -36,7 +36,7 @@ public class WineAdviceRequestMapper {
         dto.setMinPricePerBottle(war.getMinPricePerBottle());
         dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        dto.setClientUserName(war.getClient().getId());
+        dto.setClientUsername(war.getClient().getId());
 
         if (war.getSommelier() != null) {
             dto.setSommelierUserName(war.getSommelier().getId());

@@ -26,7 +26,8 @@ public class WineOutputDto {
     private String shortDescription;
     private String longDescription;
 
-    private Set<Long> wineAdviceIdSet = new HashSet<>();
+    //Deze kan denk ik ook weg(??), omdat relatie via WineAdvice loopt
+/*    private Set<Long> wineAdviceIdSet = new HashSet<>();*/
     private Set<Long> recipeIdSet = new HashSet<>();
 }
 

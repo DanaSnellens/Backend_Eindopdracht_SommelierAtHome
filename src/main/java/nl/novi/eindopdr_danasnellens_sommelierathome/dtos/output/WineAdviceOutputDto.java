@@ -13,7 +13,8 @@ public class WineAdviceOutputDto {
 
     private Set<Long> wineIdSet = new HashSet<>();
 
-    private Long sommelierId;
-    private Long clientId;
+    //Kunnen weg, want verloopt via WAR
+/*    private Long sommelierId;
+    private Long clientId;*/
     private Long wineAdviceRequestId;
 }

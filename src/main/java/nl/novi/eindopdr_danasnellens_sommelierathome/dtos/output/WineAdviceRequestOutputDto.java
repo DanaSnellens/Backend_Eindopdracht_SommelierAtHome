@@ -12,7 +12,7 @@ public class WineAdviceRequestOutputDto {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    private String clientUserName;
+    private String clientUsername;
     private String sommelierUserName; // Als deze is assigned
     private Long wineAdviceId; // Als deze is assigned
 

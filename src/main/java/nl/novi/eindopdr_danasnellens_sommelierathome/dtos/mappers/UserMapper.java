@@ -14,7 +14,7 @@ public class UserMapper {
     public static UserOutputDtoShort userFromModelToOutputDtoShort (User user) {
         UserOutputDtoShort userOutputDtoShort = new UserOutputDtoShort();
         userOutputDtoShort.setId(user.getId());
-        userOutputDtoShort.setUserName(user.getUserName());
+        userOutputDtoShort.setUserName(user.getUsername());
 
         //TODO: Klopt het dat ik het zowel bij user als bij role zo aanpak, of creeert dit een infinite loop?
         if (user.getRoleSet() != null) {

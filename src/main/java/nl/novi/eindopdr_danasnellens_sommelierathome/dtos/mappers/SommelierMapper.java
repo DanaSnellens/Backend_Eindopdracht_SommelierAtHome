@@ -2,9 +2,6 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
@@ -14,15 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper.wineAdviceModelToOutput;
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestModelToOutput;
-
 public class SommelierMapper {
     //from dto to model
     public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto, String userName) {
         Sommelier sommelier = new Sommelier();
         //UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
-        sommelier.setUserName(userName);
+        sommelier.setUsername(userName);
         sommelier.setFirstName(sommelierInputDto.getFirstName());
         sommelier.setLastName(sommelierInputDto.getLastName());
         sommelier.setEmail(sommelierInputDto.getEmail());
@@ -42,7 +36,7 @@ public class SommelierMapper {
     public static SommelierOutputDto sommelierModelToOutput(Sommelier sommelier) {
         SommelierOutputDto sommelierOutputDto = new SommelierOutputDto();
         sommelierOutputDto.setId(sommelier.getId());
-        sommelierOutputDto.setUserName(sommelier.getUserName());
+        sommelierOutputDto.setUserName(sommelier.getUsername());
         sommelierOutputDto.setFirstName(sommelier.getFirstName());
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());

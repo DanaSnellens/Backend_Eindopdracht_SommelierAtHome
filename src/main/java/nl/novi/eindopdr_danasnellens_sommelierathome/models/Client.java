@@ -20,6 +20,8 @@ public class Client extends User {
     @OneToMany(mappedBy = "client")
     private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "client")
-    private Set<WineAdvice> WineAdviceSet = new HashSet<>();
+    //Deze kan (denk ik) weg, want deze relatie verloopt via WineAdviceRequest
+    //MSs een aparte outputDTO maken waar ook WA bij zit
+/*    @OneToMany(mappedBy = "client")
+    private Set<WineAdvice> WineAdviceSet = new HashSet<>();*/
 }

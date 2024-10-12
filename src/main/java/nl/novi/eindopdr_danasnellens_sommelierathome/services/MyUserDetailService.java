@@ -44,7 +44,7 @@ public class MyUserDetailService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         client.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
-                client.getUserName(),
+                client.getUsername(),
                 client.getPassword(),
                 authorities
         );
@@ -54,7 +54,7 @@ public class MyUserDetailService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
        sommelier.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
-                sommelier.getUserName(),
+                sommelier.getUsername(),
                 sommelier.getPassword(),
                 authorities
         );

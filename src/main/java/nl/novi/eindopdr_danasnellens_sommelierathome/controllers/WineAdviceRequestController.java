@@ -42,15 +42,12 @@ public class WineAdviceRequestController {
 
     @PostMapping
     public ResponseEntity<WineAdviceRequestOutputDto> createWineAdviceRequest
-            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, ClientInputDto clientInputDto,
+            (@Valid @RequestBody WineAdviceRequestInputDto wineAdviceRequestInputDto, /*ClientInputDto clientInputDto,*/
              @AuthenticationPrincipal UserDetails userDetails) {
         //Als er een WAR wordt aangemaakt, wordt deze automatisch gekoppeld aan de ingelogde client
         WineAdviceRequestOutputDto warOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto, userDetails.getUsername());
-        ClientOutputDtoShort clientOutputDtoShort = clientService.assignWineAdviceRequestToClient(clientInputDto, userDetails.getUsername());
-                wineAdviceRequestInputDto.setClient(c);
-                WineAdviceRequestOutputDto wineAdviceRequestOutputDto = wineAdviceRequestService.createWineAdviceRequest(wineAdviceRequestInputDto);
-                URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceRequestOutputDto.getId()).toUri();
-                return ResponseEntity.created(uri).body(wineAdviceRequestOutputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(warOutputDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(warOutputDto);
     }
 
     @PutMapping("/{id}")

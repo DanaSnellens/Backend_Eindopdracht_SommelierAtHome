@@ -3,12 +3,8 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.awt.*;
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +21,7 @@ public abstract class User {
 
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
