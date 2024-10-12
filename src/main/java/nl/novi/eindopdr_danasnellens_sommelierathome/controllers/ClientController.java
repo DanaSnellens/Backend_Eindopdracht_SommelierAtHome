@@ -30,7 +30,7 @@ public class ClientController {
     public ResponseEntity<List<ClientOutputDto>> getAllClients() {
         return ResponseEntity.ok().body(clientService.getAllClients());
     }
-
+/*
     //get One
     @GetMapping("/{id}")
     public ResponseEntity<ClientOutputDto> getClientById(@PathVariable("id") Long id,
@@ -43,7 +43,7 @@ public class ClientController {
             //TODO vervangen door nettere exception
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-    }
+    }*/
 
     @GetMapping("/{userName}")
     public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("userName") String userName,

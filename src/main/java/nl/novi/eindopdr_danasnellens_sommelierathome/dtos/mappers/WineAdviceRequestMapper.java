@@ -12,7 +12,6 @@ import java.util.List;
 public class WineAdviceRequestMapper {
     private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
-    //TODO Client vervangen door clientOutputDto?
     public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, Client client) {
         WineAdviceRequest war = new WineAdviceRequest();
         war.setDinnerOccasion(warInputDto.getDinnerOccasion());
@@ -21,7 +20,7 @@ public class WineAdviceRequestMapper {
         war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
-        //TODO Vervangen door outputDTO? En if statement toevoegen?
+        //TODO Vervangen door outputDTO? En if statement toevoegen om te checken of authenticated?
         war.setClient(client); // set authenticated client
 
         return war;
@@ -36,24 +35,22 @@ public class WineAdviceRequestMapper {
         dto.setMinPricePerBottle(war.getMinPricePerBottle());
         dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        dto.setClientUsername(war.getClient().getId());
+        dto.setClientUsername(war.getClient().getUsername());
 
         if (war.getSommelier() != null) {
-            dto.setSommelierUserName(war.getSommelier().getId());
+            dto.setSommelierUsername(war.getSommelier().getUsername());
         }
         if (war.getWineAdvice() != null) {
             dto.setWineAdviceId(war.getWineAdvice().getId());
         }
-
         return dto;
     }
 
     public static List<WineAdviceRequestOutputDto> wineAdviceRequestModelListToOutputList(List<WineAdviceRequest> wineAdviceRequestList) {
         List<WineAdviceRequestOutputDto> wineAdviceRequestOutputDtoList = new ArrayList<>();
-        for (WineAdviceRequest wineAdviceRequest : wineAdviceRequestList) {
-            wineAdviceRequestOutputDtoList.add(wineAdviceRequestModelToOutput(wineAdviceRequest));
+        for (WineAdviceRequest war : wineAdviceRequestList) {
+            wineAdviceRequestOutputDtoList.add(wineAdviceRequestModelToOutput(war));
         }
         return wineAdviceRequestOutputDtoList;
     }
-
 }
