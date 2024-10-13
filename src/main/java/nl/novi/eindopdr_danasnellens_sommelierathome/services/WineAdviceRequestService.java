@@ -70,17 +70,16 @@ public class WineAdviceRequestService {
 
     //RELATIES
     //TODO moet ik hier geen gebruik maken van DTO en mapper?
-    public void assignSommelierToWineAdviceRequest(Long WarId, String sommelierUserName) {
-        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(WarId);
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(sommelierUserName);
+    public void assignSommelierToWineAdviceRequest(Long warId, String sommelierUsername) {
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(sommelierUsername);
 
         if (optionalWineAdviceRequest.isPresent() && optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();
             WineAdviceRequest war = optionalWineAdviceRequest.get();
-
             war.setSommelier(sommelier);
             wineAdviceRequestRepository.save(war);
-        } else throw new RuntimeException("No wine advice request found with id: " + WarId + " or no sommelier found with id: " + sommelierUserName);
+        } else throw new RuntimeException("No wine advice request found with id: " + warId + " or no sommelier found with id: " + sommelierUsername);
     }
 }
 

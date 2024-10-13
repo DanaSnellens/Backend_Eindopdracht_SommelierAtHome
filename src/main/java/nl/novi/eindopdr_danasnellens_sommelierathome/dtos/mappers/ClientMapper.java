@@ -3,7 +3,6 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.Set;
 //@Component
 public class ClientMapper {
 
-    public static Client clientInputDtoToModel(ClientInputDto clientInputDto) {
+    public static Client clientInputDtoToModel(ClientInputDto clientInputDto, String clientUsername) {
         Client client = new Client();
         client.setUsername(clientInputDto.getUsername());
         client.setFirstName(clientInputDto.getFirstName());

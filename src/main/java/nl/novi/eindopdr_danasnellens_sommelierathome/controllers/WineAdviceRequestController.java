@@ -63,12 +63,10 @@ public class WineAdviceRequestController {
     }
 
     //RELATIES
-    @PutMapping("/{id}/sommelier/{sommelierId}")
-    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("id")Long warId, @PathVariable ("sommelierId") String sommelierUserName) {
-
-        //TODO Als somm=notNull, dan somm=optionalSommelier.get() ?? Of moet dit ihn de service? (Staat er al of niet?>
-        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, sommelierUserName);
-        return ResponseEntity.ok("Sommelier " + sommelierUserName + " assigned to wineadvice request " + warId);
+    @PutMapping("/{warId}/sommelier/{sommelierId}")
+    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("warId")Long warId, @PathVariable ("sommelierId") String sommelierUsername) {
+        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, sommelierUsername);
+        return ResponseEntity.ok("Sommelier " + sommelierUsername + " assigned to wineadvice request " + warId);
     }
 }
 

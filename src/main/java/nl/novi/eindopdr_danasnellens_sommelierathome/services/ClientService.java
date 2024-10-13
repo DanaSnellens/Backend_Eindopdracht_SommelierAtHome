@@ -37,12 +37,12 @@ public class ClientService {
     }*/
 
     //TODO Deze verwijderen? Rowan heeft die eronder toegevoegd (optionalclient ipv clientModelToOutput)
-    public ClientOutputDto getClientByUsername(String userName) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(userName);
+    public ClientOutputDto getClientByUsername(String clientUsername) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
             return clientModelToOutput(optionalClient.get());
         }
-        else throw new UsernameNotFoundException("No user found with the username " + userName);
+        else throw new UsernameNotFoundException("No user found with the username " + clientUsername);
     }
 /*    public Client getClientByUsernameClient(String userName) {
         Optional<Client> optionalClient = clientRepository.findClientByUserName(userName);
@@ -54,48 +54,47 @@ public class ClientService {
 
     // Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
-    public ClientOutputDto createClient(ClientInputDto clientInputDto, String username) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
+    public ClientOutputDto createClient(ClientInputDto clientInputDto, String clientUsername) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isEmpty()) {
-            Client client = clientRepository.save(clientInputDtoToModel(clientInputDto, username));
+            Client client = clientRepository.save(clientInputDtoToModel(clientInputDto, clientUsername));
             return clientModelToOutput(client);
         }
         else {
-            throw new UsernameNotFoundException("User with username: " + username + "already exists" );
+            throw new UsernameNotFoundException("User with clientUsername: " + clientUsername + "already exists" );
         }
     }
 
-    // Update
-    public ClientOutputDto updateClientById(Long id, ClientInputDto updatedClient) {
+/*    public ClientOutputDto updateClientById(Long id, ClientInputDto updatedClient) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isPresent()) {
             return clientModelToOutput(optionalClient.get());
         }
         else throw new UsernameNotFoundException("No client found with id: " + id);
-    }
-    public ClientOutputDto updateClientByUserName (String userName, ClientInputDto updatedClient) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(userName);
+    }*/
+    //TODO nog iets doen met updatedClient
+    public ClientOutputDto updateClientByUsername(String clientUsername, ClientInputDto updatedClient) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
             return clientModelToOutput(optionalClient.get());
         }
-        else throw new UsernameNotFoundException("No client found with username: " + userName);
+        else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
     }
 
-    // Delete
-    public void deleteClientById(Long id) {
+/*    public void deleteClientById(Long id) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isPresent()) {
             clientRepository.deleteById(id);
         }
         else throw new UsernameNotFoundException("No user found with id: " + id);
-    }
+    }*/
 
-    public void deleteClientByUserName(String userName) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(userName);
+    public void deleteClientByUsername(String clientUsername) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
-            clientRepository.deleteByUserName(userName);
+            clientRepository.deleteByUserName(clientUsername);
         }
-        else throw new UsernameNotFoundException("No user found with username: " + userName);
+        else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
     }
 }
 
