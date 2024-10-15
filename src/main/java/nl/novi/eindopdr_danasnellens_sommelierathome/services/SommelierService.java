@@ -25,16 +25,16 @@ public class SommelierService {
         return sommelierModelListToOutputList(sommelierList);
     }
     
-    public SommelierOutputDto getSommelierById(Long id) {
+/*    public SommelierOutputDto getSommelierById(Long id) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
         else throw new RuntimeException("No sommelier found with id: " + id);
-    }
+    }*/
     
-    public SommelierOutputDto getSommelierByUserName(String userName) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+    public SommelierOutputDto getSommelierByUsername(String userName) {
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
@@ -42,7 +42,7 @@ public class SommelierService {
     }
     
     public SommelierOutputDto createSommelier(SommelierInputDto sommelierInputDto, String userName) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
         if (optionalSommelier.isEmpty()) {
             Sommelier sommelier = sommelierRepository.save(sommelierInputDtoToModel(sommelierInputDto, userName));
             return sommelierModelToOutput(sommelier);
@@ -51,34 +51,34 @@ public class SommelierService {
         }
     }
     
-    public SommelierOutputDto updateSommelierById(Long id, SommelierInputDto updatedSommelier) {
+/*    public SommelierOutputDto updateSommelierById(Long id, SommelierInputDto updatedSommelier) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
         else throw new RuntimeException("No sommelier found with id: " + id);
-    }
+    }*/
     
-    public SommelierOutputDto updateSommelierByUserName(String userName, SommelierInputDto updatedSommelier) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+    public SommelierOutputDto updateSommelierByUsername(String userName, SommelierInputDto updatedSommelier) {
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
         else throw new UsernameNotFoundException("No sommelier found with username: " + userName);
     }
     
-    public void deleteSommelierById(Long id) {
+/*    public void deleteSommelierById(Long id) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
         if (optionalSommelier.isPresent()) {
             sommelierRepository.deleteById(id);
         }
         else throw new RuntimeException("No sommelier found with id: " + id);
-    }
+    }*/
     
     public void deleteSommelierByUserName(String userName) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
         if (optionalSommelier.isPresent()) {
-            sommelierRepository.deleteSommelierByUserName(userName);
+            sommelierRepository.deleteSommelierByUsername(userName);
         }
         else throw new UsernameNotFoundException("No sommelier found with username: " + userName);
     }

@@ -1,3 +1,4 @@
+/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
@@ -15,7 +16,8 @@ import java.util.Set;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipes_sequence_2021")
+    @SequenceGenerator(name = "recipes_sequence_2021", sequenceName = "recipes_sequence_2021", initialValue = 2021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -40,3 +42,4 @@ public class Recipe {
     private Set<Wine> wineSet = new HashSet<>();
 
 }
+*/

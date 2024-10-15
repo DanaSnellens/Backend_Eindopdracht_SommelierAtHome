@@ -33,24 +33,23 @@ public class WineAdviceRequestService {
         return wineAdviceRequestModelListToOutputList(wineAdviceRequestList);
     }
 
-    public WineAdviceRequestOutputDto getWineAdviceRequestById(Long id) {
-        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(id);
+    public WineAdviceRequestOutputDto getWineAdviceRequestById(Long warId) {
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
         if (optionalWineAdviceRequest.isPresent()) {
             return wineAdviceRequestModelToOutput(optionalWineAdviceRequest.get());
         }
-        else throw new RuntimeException("No wine advice request found with id: " + id);
+        else throw new RuntimeException("No wine advice request found with warId: " + warId);
     }
 
-    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String username) {
-        Optional<Client> optionalClient = clientRepository.findByUsername(username);
+    public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String clientUsername) {
+        Optional<Client> optionalClient = clientRepository.findByUsername(clientUsername);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             WineAdviceRequest war = wineAdviceRequestInputToModel(warInputDto, client);
             WineAdviceRequest savedWar = wineAdviceRequestRepository.save(war);
             return wineAdviceRequestModelToOutput(savedWar);
         }
-        else throw new RuntimeException("No client found with username: " + username);
-
+        else throw new RuntimeException("No client found with clientUsername: " + clientUsername);
     }
 
     public WineAdviceRequestOutputDto updateWineAdviceRequest(Long id, WineAdviceRequestInputDto updatedWineAdviceRequest) {

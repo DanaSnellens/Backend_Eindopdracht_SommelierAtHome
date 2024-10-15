@@ -26,14 +26,14 @@ public class SommelierController {
         return ResponseEntity.ok().body(sommelierService.getAllSommeliers());
     }
 
-    @GetMapping("/{id}")
+/*    @GetMapping("/{id}")
     public ResponseEntity<SommelierOutputDto> getSommelierById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(sommelierService.getSommelierById(id));
-    }
+    }*/
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<SommelierOutputDto> getSommelierByUsername(@PathVariable("userName") String userName) {
-        return ResponseEntity.ok().body(sommelierService.getSommelierByUserName(userName));
+    @GetMapping("/{username}")
+    public ResponseEntity<SommelierOutputDto> getSommelierByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(sommelierService.getSommelierByUsername(username));
     }
 
     @PostMapping
@@ -44,26 +44,26 @@ public class SommelierController {
         return ResponseEntity.created(uri).body(sommelierOutputDto);
     }
 
-    @PutMapping("/{id}")
+/*    @PutMapping("/{id}")
     public ResponseEntity<SommelierOutputDto> updateSommelierById(@PathVariable Long id, @Valid @RequestBody SommelierInputDto updatedSommelier) {
         SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierById(id, updatedSommelier);
         return ResponseEntity.ok().body(sommelierOutputDto);
-    }
-    @PutMapping("/{userName}")
-    public ResponseEntity<SommelierOutputDto> updateSommelierByUsername(@PathVariable String userName, @Valid @RequestBody SommelierInputDto updatedSommelier) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierByUserName(userName, updatedSommelier);
+    }*/
+    @PutMapping("/{username}")
+    public ResponseEntity<SommelierOutputDto> updateSommelierByUsername(@PathVariable String username, @Valid @RequestBody SommelierInputDto updatedSommelier) {
+        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierByUsername(username, updatedSommelier);
         return ResponseEntity.ok().body(sommelierOutputDto);
     }
 
-    @DeleteMapping("/{id}")
+/*    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteSommelierById(@PathVariable Long id) {
         sommelierService.deleteSommelierById(id);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
-    @DeleteMapping("/{userName}")
-    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable String userName) {
-        sommelierService.deleteSommelierByUsername(userName);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable String username) {
+        sommelierService.deleteSommelierByUsername(username);
         return ResponseEntity.noContent().build();
     }
 

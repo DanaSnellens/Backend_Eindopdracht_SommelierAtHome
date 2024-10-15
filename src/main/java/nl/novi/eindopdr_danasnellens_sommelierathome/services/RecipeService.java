@@ -1,3 +1,4 @@
+/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
@@ -53,3 +54,4 @@ public class RecipeService {
         else throw new RuntimeException("No recipe found with id: " + id);
     }
 }
+*/

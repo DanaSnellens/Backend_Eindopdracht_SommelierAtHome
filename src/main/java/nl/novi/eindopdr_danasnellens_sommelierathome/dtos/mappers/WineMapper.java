@@ -2,7 +2,6 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
@@ -15,11 +14,12 @@ public class WineMapper {
 
     //from dto to model
 
-    public static Wine wineInputDtoToModel(WineInputDto wineInputDto) {
+    public static Wine wineInputToModel(WineInputDto wineInputDto) {
         Wine wine = new Wine();
         wine.setWineName(wineInputDto.getWineName());
         wine.setCountry(wineInputDto.getCountry());
         wine.setRegion(wineInputDto.getRegion());
+
         wine.setGrapeVarietal(wineInputDto.getGrapeVarietal());
         wine.setProducer(wineInputDto.getProducer());
         wine.setWineStyle(wineInputDto.getWineStyle());

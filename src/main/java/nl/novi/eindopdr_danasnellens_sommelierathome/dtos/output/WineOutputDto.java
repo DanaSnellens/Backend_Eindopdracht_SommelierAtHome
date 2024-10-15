@@ -1,7 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
 import java.util.HashSet;
@@ -27,8 +26,8 @@ public class WineOutputDto {
     private String longDescription;
 
     //Deze kan denk ik ook weg(??), omdat relatie via WineAdvice loopt
-/*    private Set<Long> wineAdviceIdSet = new HashSet<>();*/
-    private Set<Long> recipeIdSet = new HashSet<>();
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
+/*    private Set<Long> recipeIdSet = new HashSet<>();*/
 }
 
 

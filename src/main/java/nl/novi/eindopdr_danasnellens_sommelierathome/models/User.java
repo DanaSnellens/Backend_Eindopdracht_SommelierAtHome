@@ -10,12 +10,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)   //TODO Of moet dit JOINED zijn?
+@Inheritance(strategy = InheritanceType.JOINED)   //TODO Of moet dit JOINED zijn?
+@DiscriminatorColumn(name = "user_type")  // Optional: You can use this to differentiate types in the table
 @Data
 public abstract class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_21")
+    @SequenceGenerator(name = "user_sequence_21", sequenceName = "user_sequence_21", initialValue = 21, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 

@@ -44,13 +44,13 @@ public class ClientService {
         }
         else throw new UsernameNotFoundException("No user found with the username " + clientUsername);
     }
-/*    public Client getClientByUsernameClient(String userName) {
-        Optional<Client> optionalClient = clientRepository.findClientByUserName(userName);
+    public Client getClientByUsernameClient(String userName) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(userName);
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         }
         else throw new UsernameNotFoundException("No user found with the username " + userName);
-    }*/
+    }
 
     // Create
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
@@ -92,7 +92,7 @@ public class ClientService {
     public void deleteClientByUsername(String clientUsername) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
-            clientRepository.deleteByUserName(clientUsername);
+            clientRepository.deleteByUsername(clientUsername);
         }
         else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
     }

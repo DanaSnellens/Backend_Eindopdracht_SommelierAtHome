@@ -1,3 +1,4 @@
+/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
@@ -23,3 +24,4 @@ public class RecipeOutputDto {
     //relaties
     private Set<Long> wineIdSet;
 }
+*/

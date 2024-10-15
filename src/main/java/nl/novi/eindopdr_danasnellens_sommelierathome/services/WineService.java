@@ -31,7 +31,7 @@ public class WineService {
     public WineOutputDto getWineById(Long id) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
-            return wineModelToOutputDto(optionalWine.get());
+            return wineModelToOutput(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with id: " + id);
     }
@@ -39,7 +39,7 @@ public class WineService {
     public WineOutputDto getWineByName(String wineName) {
         Optional<Wine> optionalWine = wineRepository.findWineByWineName(wineName);
         if (optionalWine.isPresent()) {
-            return wineModelToOutputDto(optionalWine.get());
+            return wineModelToOutput(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with name: " + wineName);
     }
@@ -49,15 +49,15 @@ public class WineService {
 
     public WineOutputDto createWine(WineInputDto wineInputDto) {
         //TODO check if wine already exists (optional)
-        Wine wine = wineRepository.save(wineInputDtoToModel(wineInputDto));
-        return wineModelToOutputDto(wine);
+        Wine wine = wineRepository.save(wineInputToModel(wineInputDto));
+        return wineModelToOutput(wine);
     }
 
     // Update
     public WineOutputDto updateWine(Long id, WineInputDto updatedWine) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
-            return wineModelToOutputDto(optionalWine.get());
+            return wineModelToOutput(optionalWine.get());
         }
         else throw new RuntimeException("No wine found with id: " + id);
     }

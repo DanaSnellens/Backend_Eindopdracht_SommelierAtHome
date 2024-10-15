@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WineAdviceRequestMapper {
-    private static WineAdviceRequestRepository wineAdviceRequestRepository;
 
     public static WineAdviceRequest wineAdviceRequestInputToModel(WineAdviceRequestInputDto warInputDto, Client client) {
         WineAdviceRequest war = new WineAdviceRequest();

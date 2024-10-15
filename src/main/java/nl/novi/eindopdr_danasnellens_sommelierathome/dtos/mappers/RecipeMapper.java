@@ -1,4 +1,4 @@
-package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
+/*package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
@@ -67,4 +67,4 @@ public class RecipeMapper {
         }
         return recipeOutputDtoList;
     }
-}
+}*/

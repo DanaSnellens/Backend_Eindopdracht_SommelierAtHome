@@ -1,3 +1,4 @@
+/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
@@ -50,3 +51,4 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 }
+*/

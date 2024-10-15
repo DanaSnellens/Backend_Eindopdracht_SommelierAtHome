@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
 import java.util.HashSet;
@@ -13,10 +13,11 @@ import java.util.Set;
 @Entity
 @Table(name = "wines")
 @Data
-public class Wine {
+public class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Wine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wines_sequence_1021")
+    @SequenceGenerator(name = "wines_sequence_1021", sequenceName = "wines_sequence_1021", initialValue = 1021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 

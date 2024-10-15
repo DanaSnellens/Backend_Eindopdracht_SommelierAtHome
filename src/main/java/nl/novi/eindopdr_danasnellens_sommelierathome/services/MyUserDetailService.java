@@ -24,20 +24,20 @@ public class MyUserDetailService implements UserDetailsService {
     private final SommelierRepository sommelierRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(userName);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             return createUserDetails(client);
         }
 
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();
             return createUserDetails(sommelier);
         }
 
-        throw new UsernameNotFoundException("There is no user found with username: " + userName);
+        throw new UsernameNotFoundException("There is no user found with username: " + username);
     }
 
     private UserDetails createUserDetails(Client client) {

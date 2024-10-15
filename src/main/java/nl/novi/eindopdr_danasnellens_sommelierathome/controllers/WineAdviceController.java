@@ -39,16 +39,13 @@ public class WineAdviceController {
 
     @PostMapping
     public ResponseEntity<WineAdviceOutputDto> createWineAdvice
-            (@Valid @RequestBody WineAdviceInputDto wineAdviceInputDto, @AuthenticationPrincipal UserDetails userDetails) {
+            (@Valid @RequestBody WineAdviceInputDto waInputDto, Long warId/*, @AuthenticationPrincipal UserDetails userDetails*/) {
         //Als er een WA wordt aangemaakt, wordt deze automatisch gekoppeld aan de bijbehorende WAR (+ ingelogde client en ge-assignde sommelier)
         //De ge-assignde sommelier kan een Wine(set) toevoegen
         //Is de UserName van de ingelogde somm gelijk aan de sommelier van de WAR? --> helperfunctie
-/*        WineAdviceRequest war = wineAdviceService.getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
-
-        wineAdviceInputDto.setWineAdviceRequest(war);*/
-        WineAdviceOutputDto wineAdviceOutput = wineAdviceService.createWineAdvice(wineAdviceInputDto, userDetails.getUsername());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineAdviceOutput.getId()).toUri();
-        return ResponseEntity.created(uri).body(wineAdviceOutput);
+        WineAdviceOutputDto createdAdvice = wineAdviceService.createWineAdvice(waInputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdAdvice.getId()).toUri();
+        return ResponseEntity.created(uri).body(createdAdvice);
     }
 
     @PutMapping("/{id}")
@@ -63,11 +60,5 @@ public class WineAdviceController {
         return ResponseEntity.noContent().build();
     }
 
-    //RELATIES
-    @PutMapping("/{id}/wine/{wineId}")
-    public ResponseEntity<String> assignWineToWineAdvice(@PathVariable ("id")Long id, @PathVariable ("wineId") Long wineId) {
-        wineAdviceService.assignWineToWineAdvice(id, wineId);
-        return ResponseEntity.ok("Wine " + wineId + " assigned to wineadvice " + id);
-    }
 
 }

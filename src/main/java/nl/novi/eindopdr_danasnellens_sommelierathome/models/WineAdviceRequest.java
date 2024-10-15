@@ -12,7 +12,8 @@ import java.io.File;
 @Data
 public class WineAdviceRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "war_sequence_3021")
+    @SequenceGenerator(name = "war_sequence_3021", sequenceName = "war_sequence_3021", initialValue = 3021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 

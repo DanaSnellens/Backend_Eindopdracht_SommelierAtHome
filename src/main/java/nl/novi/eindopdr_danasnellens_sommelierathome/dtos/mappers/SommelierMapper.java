@@ -3,7 +3,6 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
@@ -36,12 +35,14 @@ public class SommelierMapper {
     public static SommelierOutputDto sommelierModelToOutput(Sommelier sommelier) {
         SommelierOutputDto sommelierOutputDto = new SommelierOutputDto();
         sommelierOutputDto.setId(sommelier.getId());
-        sommelierOutputDto.setUserName(sommelier.getUsername());
+        sommelierOutputDto.setUsername(sommelier.getUsername());
         sommelierOutputDto.setFirstName(sommelier.getFirstName());
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+/*
         sommelierOutputDto.setRoleSet(sommelier.getRoleSet());
+*/
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());
@@ -58,8 +59,10 @@ public class SommelierMapper {
             }
             sommelierOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
         }
+        return sommelierOutputDto;
+    }
 
-        if (sommelier.getWineAdviceSet() != null) {
+/*        if (sommelier.getWineAdviceSet() != null) {
             Set<Long> wineAdviceIdSet = new HashSet<>();
 
             for (WineAdvice wa : sommelier.getWineAdviceSet()) {
@@ -68,7 +71,7 @@ public class SommelierMapper {
             sommelierOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
         }
         return sommelierOutputDto;
-    }
+    }*/
 
 /*
     public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
@@ -84,10 +87,7 @@ public class SommelierMapper {
     //from list to list
     public static List<SommelierOutputDto> sommelierModelListToOutputList(List<Sommelier> sommelierList) {
         List<SommelierOutputDto> sommelierOutputDtoList = new ArrayList<>();
-
-        for (Sommelier s : sommelierList) {
-            sommelierOutputDtoList.add(sommelierModelToOutput(s));
-        }
+        sommelierList.forEach( (sommelier) -> sommelierOutputDtoList.add(sommelierModelToOutput(sommelier)));
         return sommelierOutputDtoList;
     }
 }

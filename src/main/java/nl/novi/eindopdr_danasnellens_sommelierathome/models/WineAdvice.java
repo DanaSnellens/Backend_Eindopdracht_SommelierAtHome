@@ -16,36 +16,23 @@ import java.util.Set;
 @Data
 public class WineAdvice {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wa_sequence_4021")
+    @SequenceGenerator(name = "wa_sequence_4021", sequenceName = "wa_sequence_4021", initialValue = 4021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 
     private String personalMessage;
     private String adviceExplanation;
 
-    //relaties
-        // Wine
     //TODO Welke cascadeType? All is rigoreus, maar welke wel?Ook toevoegen/wijzigen bij anderen
+    // Volgens mij zei Mark dat joinColumns & inversecolums omgedraaid moeten worden (wine_id en wine_advice), maar toch teruggedraaid, omdat code niet werkte en dit als oplossing werd aangedragen
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "wineAdvice_wine",
-            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "wineAdvice_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "wineAdvice_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
 
-    //Deze kunnen weg, want zijn al in WineAdviceRequest
-    /*
-        // Sommelier
-    @ManyToOne
-    @JoinColumn(name = "sommelier_id")
-    private Sommelier sommelier;
-
-        //Client
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;*/
-
-        // WineAdviceRequest
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "wineAdvice_id")
+    @JoinColumn(name = "wineAdviceRequest_id")
     private WineAdviceRequest wineAdviceRequest;
 }

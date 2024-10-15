@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
@@ -10,8 +11,11 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequ
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceMapper.*;
 
@@ -40,15 +44,22 @@ public class WineAdviceService {
         else throw new RuntimeException("No wine advice found with id: " + id);
     }
 
-    public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto wineAdviceInputDto) {
-        //Optional
-        WineAdviceRequest  war = getWineAdviceRequestById(wineAdviceInputDto.getWineAdviceRequestId());
-        WineAdvice wa = wineAdviceInputToModel(wineAdviceInputDto);
-        for (Long wineId : wineAdviceInputDto.getWineIdSet()) {
-            assignWineToWineAdvice(wa.getId(), wineId);
-        }
-        WineAdvice wa = wineAdviceRepository.save(wineAdviceInputToModel(wineAdviceInputDto));
-        return wineAdviceModelToOutput(wa);
+    public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto waInputDto) {
+
+
+        WineAdviceRequest war = wineAdviceRequestRepository.findById(waInputDto.getWineAdviceRequestId())
+                .orElseThrow(() -> new EntityNotFoundException("No wine advice request found with id: " + waInputDto.getWineAdviceRequestId()));
+
+
+
+        Set<Wine> wineSet = waInputDto.getWineIdSet().stream()
+                .map(wineId -> wineRepository.findById(wineId)
+                        .orElseThrow(() -> new EntityNotFoundException("No wine found with id: " + wineId)))
+                .collect(Collectors.toSet());
+
+
+        WineAdvice wa = wineAdviceInputToModel(waInputDto, war, wineSet);
+        return wineAdviceModelToOutput(wineAdviceRepository.save(wa));
     }
 
     public WineAdviceOutputDto updateWineAdvice(Long id, WineAdviceInputDto updatedWineAdvice) {
@@ -65,30 +76,5 @@ public class WineAdviceService {
             wineAdviceRepository.deleteById(id);
         }
         else throw new RuntimeException("No wine advice found with id: " + id);
-    }
-
-    //RELATIES
-    //TODO moet ik hier geen gebruik maken van DTO en mapper?
-    public void assignWineToWineAdvice(Long id, Long wineId) {
-        Optional<WineAdvice> optionalWineAdvice = wineAdviceRepository.findById(id);
-        Optional<Wine> optionalWine = wineRepository.findById(wineId);
-
-        if (optionalWineAdvice.isPresent() && optionalWine.isPresent()) {
-            Wine wine = optionalWine.get();
-            WineAdvice wa = optionalWineAdvice.get();
-
-            wa.getWineSet().add(wine);
-
-            wineAdviceRepository.save(wa);
-        } else throw new RuntimeException("No wine advice found with id: " + id + " or no wine found with id: " + wineId);
-    }
-
-    public WineAdviceRequest getWineAdviceRequestById(Long wineAdviceRequestId) {
-
-        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(wineAdviceRequestId);
-        if (optionalWineAdviceRequest.isPresent()) {
-            return optionalWineAdviceRequest.get();
-        }
-        else throw new RuntimeException("No wine advice request found with id: " + wineAdviceRequestId);
     }
 }
