@@ -1,4 +1,3 @@
-/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
@@ -42,4 +41,3 @@ public class Recipe {
     private Set<Wine> wineSet = new HashSet<>();
 
 }
-*/

@@ -45,8 +45,6 @@ public class WineAdviceService {
     }
 
     public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto waInputDto) {
-
-
         WineAdviceRequest war = wineAdviceRequestRepository.findById(waInputDto.getWineAdviceRequestId())
                 .orElseThrow(() -> new EntityNotFoundException("No wine advice request found with id: " + waInputDto.getWineAdviceRequestId()));
 

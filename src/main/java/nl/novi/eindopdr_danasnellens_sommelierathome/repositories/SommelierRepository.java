@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SommelierRepository extends JpaRepository<Sommelier, String> {
+public interface SommelierRepository extends JpaRepository<Sommelier, Long> {
     Optional<Sommelier> findSommelierByUsername(String username);
 
     void deleteSommelierByUsername(String username);

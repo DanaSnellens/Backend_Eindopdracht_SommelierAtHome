@@ -10,8 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)   //TODO Of moet dit JOINED zijn?
-@DiscriminatorColumn(name = "user_type")  // Optional: You can use this to differentiate types in the table
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public abstract class User {
 
@@ -20,7 +19,6 @@ public abstract class User {
     @SequenceGenerator(name = "user_sequence_21", sequenceName = "user_sequence_21", initialValue = 21, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
-
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -34,10 +32,11 @@ public abstract class User {
     private String profilePictureUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
+//@JoinTable weg???
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
-
-    private String getFullName() {return firstName + lastName;}
 }
+
+/*  private String getFullName() {return firstName + lastName;}*/

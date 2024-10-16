@@ -1,10 +1,10 @@
-INSERT INTO users (id, username, firstName, lastName, email, password, profilePictureUrl)
-VALUES (1,'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg'),
-       (2,'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$10$a', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg'),
-       (3,'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$10$b', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg'),
-       (4,'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$10$c', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg'),
-       (5,'client5', 'Sophia', 'Garcia', 'sophiagarcia@gmail.com', '$2a$10$d', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg'),
-       (6,'client6', 'Mason', 'Brown', 'masonbrown@gmail.com', '$2a$10$e', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg'),
+INSERT INTO users (id, username, first_name, last_name, email, password, profile_picture_url)
+VALUES (1, 'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg'),
+       (2, 'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$10$a', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg'),
+       (3, 'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$10$b', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg'),
+       (4, 'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$10$c', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg'),
+       (5, 'client5', 'Sophia', 'Garcia', 'sophiagarcia@gmail.com', '$2a$10$d', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg'),
+       (6, 'client6', 'Mason', 'Brown', 'masonbrown@gmail.com', '$2a$10$e', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg'),
        (7,'sommelier1', 'Alice', 'Smith', 'alicesmith@gmail.com', '$2a$10$3', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg'),
        (8,'sommelier2', 'James', 'Anderson', 'jamesanderson@gmail.com', '$2a$10$4', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg'),
        (9,'sommelier3', 'Laura', 'Gonzalez', 'lauragonzalez@gmail.com', '$2a$10$5', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg'),
@@ -12,15 +12,15 @@ VALUES (1,'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'ht
        (11,'sommelier5', 'Sophie', 'Dupont', 'sophiedupont@gmail.com', '$2a$10$7', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg'),
        (12,'sommelier6', 'David', 'Nguyen', 'davidnguyen@gmail.com', '$2a$10$8', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg');
 
-INSERT INTO clients (user_id, membership)
+INSERT INTO clients (id, membership)
 VALUES (1, 'REGULAR'),
        (2, 'BASIC'),
-       (3, 'PREMIUM'),
+       (3,'PREMIUM'),
        (4, 'REGULAR'),
        (5, 'PREMIUM'),
        (6, 'BASIC');
 
-INSERT INTO sommeliers (user_id, sommelierDescription, certificates, experienceInYears, curriculumVitae, specialization)
+INSERT INTO sommeliers (id, sommelier_description, certificates, experience_in_years, curriculum_vitae, specialization)
 VALUES (7, 'Certified sommelier with a passion for wine and food pairing. I have extensive experience in the wine industry and love helping clients discover new wines.', 'Certified Sommelier (CMS)', 10, '2020-2024: Winebar VinVin, 2018-2020: Restaurant The Elephant, 2014-2018: Winebar Lefebre', 'Wine and Food Pairing'),
        (8, 'A seasoned sommelier with a focus on Old World wines and a deep understanding of Burgundy and Bordeaux regions. Dedicated to creating memorable wine experiences.', 'Advanced Sommelier (CMS)', 12, '2012-2024: Restaurant La Table, 2008-2012: Winehouse Bar & Grill', 'Old World Wines'),
        (9, 'Specializing in South American wines, I am passionate about highlighting the uniqueness of wines from Argentina and Chile. Extensive experience in guiding clients through food and wine pairing.', 'Certified Specialist of Wine (CSW)', 8, '2016-2024: The Wine Cellar, 2014-2016: Buenos Aires Bistro', 'South American Wines'),
@@ -28,7 +28,25 @@ VALUES (7, 'Certified sommelier with a passion for wine and food pairing. I have
        (11, 'Experienced sommelier with a focus on organic and biodynamic wines. Passionate about sustainable viticulture and educating clients on eco-friendly wine choices.', 'Certified Sommelier (CMS), Organic Wine Specialist', 7, '2017-2024: Restaurant Green Vine, 2013-2017: Bistro Naturelle', 'Organic and Biodynamic Wines'),
        (12, 'With a focus on New World wines, I have years of experience in pairing wines from Australia, New Zealand, and California. I enjoy curating unique wine lists for modern restaurants.', 'Advanced Sommelier (CMS)', 9, '2015-2024: Winehouse 1920, 2010-2015: The Modern Palate', 'New World Wines');
 
-INSERT INTO wines (id, name, country, region, grapeVarietal, producer, wineStyle, wineType, foodPairing, year, price, imageLink, imageAlt, shortDescription, longDescription)
+INSERT INTO roles (id, role_name)
+VALUES (1, 'ROLE_CLIENT'),
+       (2, 'ROLE_ADMIN');
+
+INSERT INTO user_roles (user_id, role_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (4, 1),
+       (5, 1),
+       (6, 1),
+       (7, 2),
+       (8, 2),
+       (9, 2),
+       (10, 2),
+       (11, 2),
+       (12, 2);
+
+INSERT INTO wines (id, wine_name, country, region, grape_varietal, producer, wine_style, wine_type, food_pairing, year, price, image_link, image_alt, short_description, long_description)
 VALUES (1001,'Chateau Montelena Chardonnay', 'United States', 'California', 'Chardonnay', 'Chateau Montelena', 'White', 'Still', 'Chicken, Pork, Rich Fish (Salmon, Tuna etc), Vegetarian, Poultry', 2016, 50.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Chateau Montelena Chardonnay', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.'),
        (1002, 'Domaine de la Romanée-Conti La Tâche', 'France', 'Burgundy', 'Pinot Noir', 'Domaine de la Romanée-Conti', 'Red', 'Still', 'Beef, Game (Deer, Venison), Poultry', 2015, 4200.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Domaine de la Romanée-Conti La Tâche', 'A legendary Burgundy Pinot Noir, offering rich complexity with aromas of red fruit, truffle, and spice.', 'A prestigious and rare Burgundy red wine with earthy notes, perfect for game and beef dishes.'),
        (1003, 'Penfolds Grange', 'Australia', 'South Australia', 'Shiraz', 'Penfolds', 'Red', 'Still', 'Beef, Lamb, Spicy Food', 2018, 850.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Penfolds Grange', 'Australia’s most iconic Shiraz, offering rich blackberry, plum, and spicy oak.', 'Penfolds Grange is known for its bold, complex flavors of dark fruits, spices, and oak, making it an excellent match for rich red meats.'),
@@ -42,8 +60,8 @@ VALUES (1001,'Chateau Montelena Chardonnay', 'United States', 'California', 'Cha
        (1011,'Bollinger La Grande Année', 'France', 'Champagne', 'Pinot Noir, Chardonnay', 'Bollinger', 'Sparkling', 'Champagne', 'Shellfish, Caviar, Poultry', 2012, 180.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Bollinger-La-Grande-Annee-2012.jpg', 'Bollinger La Grande Année', 'A prestigious Champagne with notes of citrus, brioche, and toasted almond.', 'Bollinger La Grande Année is a rich and complex Champagne, ideal for celebrations or pairing with seafood and fine dining.'),
        (1012,'Almaviva', 'Chile', 'Maipo Valley', 'Cabernet Sauvignon, Carmenere', 'Almaviva', 'Red', 'Still', 'Beef, Lamb, Poultry', 2019, 145.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'Almaviva', 'A top-tier Chilean red blend offering deep fruit flavors and a smooth finish.', 'Almaviva is a bold and well-balanced red blend, combining Cabernet Sauvignon and Carmenere, making it perfect for grilled meats and robust dishes.');
 
-INSERT INTO recipes (id, recipeName, course, mainIngredient, otherIngredients,servings, preparationTime, winePairing, imageLink, imageAlt, preparationShortDescription, preparationLongDescription)
-VALUES (2001,'Beef Wellington', 'Main Course', 'Beef', 'Mushrooms, Puff Pastry, Prosciutto, Duxelles, Egg Wash', 4, 120, 'Cabernet Sauvignon, Bordeaux', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Beef Wellington', 'A classic British dish featuring beef tenderloin wrapped in puff pastry, perfect for special occasions.', 'Beef Wellington is a luxurious and elegant dish that combines tender beef, savory mushrooms, and flaky pastry for a show-stopping meal. It is often served with a rich red wine, such as Cabernet Sauvignon or Bordeaux, to complement the bold flavors of the dish.'),
+INSERT INTO recipes (id, recipe_name, course, main_ingredient, other_ingredients,servings, preparation_time, wine_pairing, image_link, image_alt, preparation_short_description, preparation_long_description)
+VALUES (2001,'Beef Wellington', 'Main Course', 'Beef', 'Mushrooms, Puff Pastry, Prosciutto, Duxelles, Egg Wash', 4, 120, 'Cabernet Sauvignon, Bordeaux', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Beef Wellington', 'A classic British dish featuring beef tenderloin wrapped in puff pastry, perfect for special occasions.', 'Beef Wellington is a luxurious dish that combines tender beef, savory mushrooms, and flaky pastry for a show-stopping meal. It is often served with a rich red wine, such as Cabernet Sauvignon or Bordeaux.'),
        (2002, 'Coq au Vin', 'Main Course', 'Chicken', 'Bacon, Red Wine, Mushrooms, Pearl Onions, Garlic', 4, 150, 'Pinot Noir, Burgundy', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Coq au Vin', 'A French classic where chicken is braised in red wine, often served with mashed potatoes or crusty bread.', 'Coq au Vin is a rich, comforting dish made by slow-cooking chicken with bacon, wine, and mushrooms. The depth of the red wine sauce is beautifully balanced by a good Pinot Noir.'),
        (2003,'Spaghetti Carbonara', 'Main Course', 'Pasta', 'Eggs, Pancetta, Parmesan, Black Pepper', 4, 20, 'Chardonnay, Pinot Grigio', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Spaghetti Carbonara', 'A quick and creamy Italian pasta dish made with eggs, pancetta, and Parmesan cheese.', 'Spaghetti Carbonara is a comforting Roman pasta dish that’s quick to prepare. The richness of the egg-based sauce pairs well with a crisp white wine, like Chardonnay or Pinot Grigio.'),
        (2004, 'Lamb Shank Tagine', 'Main Course', 'Lamb', 'Apricots, Almonds, Chickpeas, Cumin, Cinnamon', 4, 180, 'Syrah, Zinfandel', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Lamb Shank Tagine', 'A Moroccan-inspired dish with slow-cooked lamb and spices, perfect for a hearty dinner.', 'Lamb Shank Tagine is a fragrant, slow-cooked Moroccan dish with tender lamb and a sweet-spicy blend of apricots, almonds, and warm spices. A bold red wine, such as Syrah or Zinfandel, pairs well with its richness.'),
@@ -56,7 +74,7 @@ VALUES (2001,'Beef Wellington', 'Main Course', 'Beef', 'Mushrooms, Puff Pastry, 
        (2011,'Shrimp Scampi', 'Main Course', 'Shrimp', 'Garlic, White Wine, Lemon, Butter, Parsley', 4, 25, 'Sauvignon Blanc, Pinot Grigio', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'Shrimp Scampi', 'A quick and easy shrimp dish with a buttery garlic and lemon sauce.', 'Shrimp Scampi is a quick and flavorful dish where shrimp is cooked in a garlic butter sauce with white wine and lemon. This light and bright dish is best paired with a crisp white wine like Sauvignon Blanc or Pinot Grigio.');
 
 
-INSERT INTO wineAdviceRequests (id, dinnerOccasion, requestMessage, recipeLink, minPricePerBottle, maxPricePerBottle)
+INSERT INTO wine_advice_requests (id, dinner_occasion, request_message, recipe_link, min_price_per_bottle, max_price_per_bottle)
     VALUES (3001,'Anniversary Dinner', 'Looking for a special wine to pair with our anniversary dinner. We are planning to cook Beef Wellington.', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 50.00, 100.00),
     (3002,'Dinner Party', 'Hosting a dinner party and need wine recommendations for a multi-course meal. We are planning to serve Coq au Vin as the main course.', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 100.00, 200.00),
     (3003,'Weeknight Dinner', 'Looking for an affordable wine to pair with a quick and easy pasta dish. We are planning to make Spaghetti Carbonara.', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 20.00, 50.00),
@@ -70,7 +88,7 @@ INSERT INTO wineAdviceRequests (id, dinnerOccasion, requestMessage, recipeLink, 
     (3011,'Quick Dinner', 'Looking for an easy wine pairing for a quick shrimp dish. We are planning to make Shrimp Scampi for dinner.', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 20.00, 50.00);
 
 
-INSERT INTO wineAdvices (id, personalMessage, adviceExplanation)
+INSERT INTO wine_advices (id, personal_message, advice_explanation)
     VALUES (4001,'Happy Anniversary! Chateau Montelena Chardonnay is a classic choice for special occasions, with its rich and creamy flavors that will complement the Beef Wellington perfectly.', 'Chateau Montelena Chardonnay is a full-bodied white wine with rich flavors of apple, pear, and vanilla, making it an excellent match for the bold flavors of Beef Wellington.'),
     (4002,'For your dinner party, Domaine de la Romanée-Conti La Tâche is a prestigious Burgundy Pinot Noir that will impress your guests with its complexity and elegance.', 'Domaine de la Romanée-Conti La Tâche is a legendary Burgundy Pinot Noir with rich complexity and aromas of red fruit, truffle, and spice, making it a perfect pairing for the rich flavors of Coq au Vin.'),
     (4003,'For your weeknight dinner, Penfolds Grange is an iconic Australian Shiraz that offers bold blackberry and plum flavors, ideal for a quick and easy pasta dish like Spaghetti Carbonara.', 'Penfolds Grange is known for its bold flavors of dark fruits and spices, making it a great match for the creamy and savory flavors of Spaghetti Carbonara.'),
@@ -84,4 +102,4 @@ INSERT INTO wineAdvices (id, personalMessage, adviceExplanation)
     (4011,'For your quick dinner, Chateau Montelena Chardonnay is a classic choice with its rich and creamy flavors that will complement the buttery garlic sauce of Shrimp Scampi.', 'Chateau Montelena Chardonnay is a full-bodied white wine with rich flavors of apple, pear, and vanilla, making it an excellent match for the light and bright Shrimp Scampi.');
 
 
-//wineAdvice_wine (wineAdvice_id, wine_id)
+

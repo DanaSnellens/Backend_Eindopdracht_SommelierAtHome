@@ -1,9 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +11,7 @@ import java.util.Set;
 
 // @EqualsAndHashCode(callSuper = true)
 @Entity
-/*@Table(name = "sommeliers")*/
+@Table(name = "sommeliers")
 @Data
 public class Sommelier extends User{
 
@@ -26,4 +23,6 @@ public class Sommelier extends User{
 
     @OneToMany(mappedBy = "sommelier", cascade = CascadeType.ALL)
     private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
+
+
 }

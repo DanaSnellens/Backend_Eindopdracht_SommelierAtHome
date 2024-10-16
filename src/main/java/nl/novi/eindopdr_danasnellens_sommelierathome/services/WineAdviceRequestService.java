@@ -42,7 +42,7 @@ public class WineAdviceRequestService {
     }
 
     public WineAdviceRequestOutputDto createWineAdviceRequest(WineAdviceRequestInputDto warInputDto, String clientUsername) {
-        Optional<Client> optionalClient = clientRepository.findByUsername(clientUsername);
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             WineAdviceRequest war = wineAdviceRequestInputToModel(warInputDto, client);
@@ -71,7 +71,7 @@ public class WineAdviceRequestService {
     //TODO moet ik hier geen gebruik maken van DTO en mapper?
     public void assignSommelierToWineAdviceRequest(Long warId, String sommelierUsername) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(sommelierUsername);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(sommelierUsername);
 
         if (optionalWineAdviceRequest.isPresent() && optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();

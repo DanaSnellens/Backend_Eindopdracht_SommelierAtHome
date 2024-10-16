@@ -50,9 +50,13 @@ public class SpringSecurityConfig {
         http
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                //cors().and() toevoegen?
+ /*               .cors().and()*/
                 .authorizeRequests(auth ->
                         auth
+                                .requestMatchers("/**").permitAll() //TODO dit weghalen
+/*                                .requestMatchers(HttpMethod.GET, "/public/**").permitAll()
+                                .requestMatchers("authenticate").permitAll()
+                                .requestMatchers("/authenticated").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/wines").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/wines/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/wines").hasRole("ADMIN")
@@ -79,6 +83,10 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
 
+                                .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
                                 //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen account kunnen zien
@@ -92,11 +100,9 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
 
-                                .anyRequest().denyAll()
 
-                                .requestMatchers("/authenticated").authenticated()
-                                .requestMatchers("authenticate").permitAll()
-                                .anyRequest().denyAll()
+
+                                .anyRequest().denyAll()*/
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
                 http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
