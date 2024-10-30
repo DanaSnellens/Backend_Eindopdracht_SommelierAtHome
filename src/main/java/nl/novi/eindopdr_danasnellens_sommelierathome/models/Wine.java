@@ -1,5 +1,9 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -13,7 +17,8 @@ import java.util.Set;
 @Entity
 @Table(name = "wines")
 @Data
-public class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Wine {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Wine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wines_sequence_1021")
@@ -37,9 +42,11 @@ public class                                                                    
     private String shortDescription;
     private String longDescription;
 
-    //relaties
     @ManyToMany(mappedBy = "wineSet")
+    @JsonManagedReference
     private Set<WineAdvice> wineAdviceSet;
-//    @ManyToMany(mappedBy = "wineSet")
-//    private Set<Recipe> recipeSet;
+
+    @ManyToMany(mappedBy = "wineSet")
+    @JsonManagedReference
+    private Set<Recipe> recipeSet;
 }

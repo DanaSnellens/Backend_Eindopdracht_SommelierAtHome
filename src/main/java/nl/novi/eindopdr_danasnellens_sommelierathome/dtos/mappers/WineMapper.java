@@ -36,7 +36,26 @@ public class WineMapper {
         return wine;
 
     }
-    //from model to dto
+
+    //TODO is dit nodig? (een aparte update-mapper, of kan dit ook via de input-mapper?)
+    public static void updateWineFromDto(Wine existingWine, WineInputDto wineInputDto) {
+        existingWine.setWineName(wineInputDto.getWineName());
+        existingWine.setCountry(wineInputDto.getCountry());
+        existingWine.setRegion(wineInputDto.getRegion());
+        existingWine.setGrapeVarietal(wineInputDto.getGrapeVarietal());
+        existingWine.setProducer(wineInputDto.getProducer());
+        existingWine.setWineStyle(wineInputDto.getWineStyle());
+        existingWine.setWineType(wineInputDto.getWineType());
+        existingWine.setFoodPairing(wineInputDto.getFoodPairing());
+        existingWine.setYear(wineInputDto.getYear());
+        existingWine.setPrice(wineInputDto.getPrice());
+        existingWine.setAromas(wineInputDto.getAromas());
+        existingWine.setImageLink(wineInputDto.getImageLink());
+        existingWine.setImageAlt(wineInputDto.getImageAlt());
+        existingWine.setShortDescription(wineInputDto.getShortDescription());
+        existingWine.setLongDescription(wineInputDto.getLongDescription());
+    }
+
     public static WineOutputDto wineModelToOutput(Wine wine) {
         WineOutputDto wineOutputDto = new WineOutputDto();
         wineOutputDto.setId(wine.getId());
@@ -55,22 +74,20 @@ public class WineMapper {
         wineOutputDto.setImageAlt(wine.getImageAlt());
         wineOutputDto.setShortDescription(wine.getShortDescription());
         wineOutputDto.setLongDescription(wine.getLongDescription());
-
-
+/*
         if (wine.getWineAdviceSet() != null) {
             Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
             for (WineAdvice wa : wine.getWineAdviceSet()) {
                 wineAdviceIdOutputDtoSet.add(wa.getId());
             }
             wineOutputDto.setWineAdviceIdSet(wineAdviceIdOutputDtoSet);
-        }
+        }*/
 
         //TODO Recipe relatie?
 
         return wineOutputDto;
     }
 
-    //from list to list
     public static List<WineOutputDto> wineModelListToOutputList(List<Wine> wineList) {
         List<WineOutputDto> wineOutputDtoList = new ArrayList<>();
         for (Wine wine : wineList) {

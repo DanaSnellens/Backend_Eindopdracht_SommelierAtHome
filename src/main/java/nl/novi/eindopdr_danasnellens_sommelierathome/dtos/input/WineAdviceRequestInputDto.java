@@ -17,4 +17,5 @@ public class WineAdviceRequestInputDto {
 
     //Kan weg ivm userdetails
 //    private Long clientId;  // Deze nog automatisch koppelen aan de client die ingelogd is
+    // private Long sommelierId; // Deze nog automatisch koppelen aan de sommelier die ingelogd is
 }

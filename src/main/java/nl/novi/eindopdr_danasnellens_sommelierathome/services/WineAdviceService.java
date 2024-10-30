@@ -45,6 +45,12 @@ public class WineAdviceService {
     }
 
     public WineAdviceOutputDto createWineAdvice(WineAdviceInputDto waInputDto) {
+        Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(waInputDto.getWineAdviceRequestId());
+        if (optionalWineAdviceRequest.isPresent()) {
+            WineAdviceRequest war = optionalWineAdviceRequest.get();
+/*            WineAdvice wa = wineAdviceInputToModel(waInputDto, war, );
+            throw new RuntimeException("No wine advice request found with id: " + waInputDto.getWineAdviceRequestId());*/
+        }
         WineAdviceRequest war = wineAdviceRequestRepository.findById(waInputDto.getWineAdviceRequestId())
                 .orElseThrow(() -> new EntityNotFoundException("No wine advice request found with id: " + waInputDto.getWineAdviceRequestId()));
 

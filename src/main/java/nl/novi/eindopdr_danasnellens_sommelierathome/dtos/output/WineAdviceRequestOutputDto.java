@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
+import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
@@ -13,7 +14,9 @@ public class WineAdviceRequestOutputDto {
     private Double maxPricePerBottle;
 
     private String clientUsername;
+    @Column(nullable = true)
     private String sommelierUsername; // Als deze is assigned
+    @Column(nullable = true)
     private Long wineAdviceId; // Als deze is assigned
 
 

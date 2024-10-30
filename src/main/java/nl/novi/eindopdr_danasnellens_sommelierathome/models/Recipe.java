@@ -1,5 +1,8 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -12,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "recipes")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Recipe {
 
     @Id
@@ -32,12 +36,12 @@ public class Recipe {
     private String preparationShortDescription;
     private String preparationLongDescription;
 
-    //relaties
-        //Wine
-    @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
-    @JoinTable(name = "recipe_wine",
-            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
+    //TODO Welke cascadeType? All is rigoreus, maar welke wel?
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "recipes_wines",
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
+    @JsonBackReference
     private Set<Wine> wineSet = new HashSet<>();
 
 }

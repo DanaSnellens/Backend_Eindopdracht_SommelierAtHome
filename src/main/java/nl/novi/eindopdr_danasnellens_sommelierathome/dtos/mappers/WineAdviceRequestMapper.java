@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
 
@@ -21,12 +22,14 @@ public class WineAdviceRequestMapper {
 
         //TODO Vervangen door outputDTO? En if statement toevoegen om te checken of authenticated?
         war.setClient(client); // set authenticated client
+//        war.setSommelier(sommelier); // set authenticated sommelier
 
         return war;
     }
 
     public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
         WineAdviceRequestOutputDto dto = new WineAdviceRequestOutputDto();
+            //No need to set clientId or SommelierId, userDetails will be set in the service layer {
         dto.setId(war.getId());
         dto.setDinnerOccasion(war.getDinnerOccasion());
         dto.setRequestMessage(war.getRequestMessage());
@@ -34,13 +37,15 @@ public class WineAdviceRequestMapper {
         dto.setMinPricePerBottle(war.getMinPricePerBottle());
         dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        dto.setClientUsername(war.getClient().getUsername());
+        //TODO Of moet onderstaande if statement in de service layer/vervangen door JWT?UserDetails?
+/*        dto.setSommelierUsername(war.getSommelier().getUsername());
+        dto.setClientUsername(war.getClient().getUsername());*/
 
-        if (war.getSommelier() != null) {
-            dto.setSommelierUsername(war.getSommelier().getUsername());
-        }
         if (war.getWineAdvice() != null) {
             dto.setWineAdviceId(war.getWineAdvice().getId());
+        }
+        if (war.getClient() != null) {
+            dto.setClientUsername(war.getClient().getUsername());
         }
         return dto;
     }

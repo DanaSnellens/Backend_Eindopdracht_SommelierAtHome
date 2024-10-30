@@ -13,7 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
@@ -28,21 +28,24 @@ public class ClientController {
     public ResponseEntity<List<ClientOutputDto>> getAllClients() {
         return ResponseEntity.ok().body(clientService.getAllClients());
     }
+//TODO Deze kan weg? Zie ook ClientService.java. Zo niet: dan ook auth toevoegen
+/*    @GetMapping("/{id}")
+    public ResponseEntity<ClientOutputDto> getClientById(@PathVariable ("id") Long id) {
+        return ResponseEntity.ok().body(clientService.getClientById(id));
+    }*/
 
     @GetMapping("/{username}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String clientUsername,
-                                                               @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String clientUsername, @AuthenticationPrincipal UserDetails userDetails) {
         if (clientUsername.equals(userDetails.getUsername())) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(clientUsername));
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto, @AuthenticationPrincipal UserDetails userDetails) {
-        ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto, userDetails.getUsername());
+    public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto) {
+        ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }

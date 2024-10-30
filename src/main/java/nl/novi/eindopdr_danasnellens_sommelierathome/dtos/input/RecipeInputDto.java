@@ -1,4 +1,3 @@
-/*
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
 import lombok.Data;
@@ -20,4 +19,3 @@ public class RecipeInputDto {
     private String preparationShortDescription;
     private String preparationLongDescription;
 }
-*/

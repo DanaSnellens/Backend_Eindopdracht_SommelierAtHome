@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
     private final static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         // TODO Dit vervangen naar JWT
         return new BCryptPasswordEncoder() {
         };
@@ -50,13 +50,34 @@ public class SpringSecurityConfig {
         http
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
- /*               .cors().and()*/
-                .authorizeRequests(auth ->
-                        auth
+               .cors().and()
+
+                .authorizeRequests(auth -> auth
                                 .requestMatchers("/**").permitAll() //TODO dit weghalen
-/*                                .requestMatchers(HttpMethod.GET, "/public/**").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                              .requestMatchers(HttpMethod.GET, "/public/**").permitAll()
                                 .requestMatchers("authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
+
+
+                                .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+
+
+                                .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
+                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen account kunnen zien
+                                .requestMatchers(HttpMethod.POST, "/clients").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.PUT, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+
+                                .requestMatchers(HttpMethod.GET, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.GET, "/sommeliers/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/wines").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/wines/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/wines").hasRole("ADMIN")
@@ -83,26 +104,9 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
 
-                                .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
 
-                                .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen account kunnen zien
-                                .requestMatchers(HttpMethod.POST, "/clients").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .anyRequest().denyAll()
 
-                                .requestMatchers(HttpMethod.GET, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.GET, "/sommeliers/**").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
-
-
-
-                                .anyRequest().denyAll()*/
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
                 http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

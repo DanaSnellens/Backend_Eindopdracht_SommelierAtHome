@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -7,9 +8,12 @@ import lombok.Setter;
 
 import java.io.File;
 
+import lombok.Data;
+
 @Entity
-@Table(name = "wineAdviceRequests")
+@Table(name = "wineadvicerequests")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class WineAdviceRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "war_sequence_3021")
@@ -23,16 +27,18 @@ public class WineAdviceRequest {
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-  @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
+    @JsonBackReference
     private Client client;
 
-    //sommelier
-    @ManyToOne
-    @JoinColumn(name = "sommelier_id)")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sommelier_id", nullable = true)
+    @JsonBackReference
     private Sommelier sommelier;
 
-    //wineAdvice
-    @OneToOne(mappedBy = "wineAdviceRequest")
+    @OneToOne(mappedBy = "wineAdviceRequest", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private WineAdvice wineAdvice;
 }

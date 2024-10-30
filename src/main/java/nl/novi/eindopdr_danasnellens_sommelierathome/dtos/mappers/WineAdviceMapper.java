@@ -30,7 +30,7 @@ public class WineAdviceMapper {
     }
 
     //TODO WAR vervangen door DTO of warId? Zelfde voor WineSet?
-    public static WineAdvice wineAdviceInputToModel(WineAdviceInputDto waInputDto, WineAdviceRequest war, Set<Wine> wineSet) {
+    public static WineAdvice wineAdviceInputToModel(WineAdviceInputDto waInputDto, WineAdviceRequest war, /*Sommelier somm*/ Set<Wine> wineSet) {
         WineAdvice wa = new WineAdvice();
         wa.setPersonalMessage(waInputDto.getPersonalMessage());
         wa.setAdviceExplanation(waInputDto.getAdviceExplanation());
@@ -45,15 +45,6 @@ public class WineAdviceMapper {
         wineAdviceOutputDto.setId(wineAdvice.getId());
         wineAdviceOutputDto.setPersonalMessage(wineAdvice.getPersonalMessage());
         wineAdviceOutputDto.setAdviceExplanation(wineAdvice.getAdviceExplanation());
-
-        if (wineAdvice.getWineSet() != null) {
-            Set<Long> wineIdSet = new HashSet<>();
-
-            for (Wine wine : wineAdvice.getWineSet()) {
-                wineIdSet.add(wine.getId());
-            }
-            wineAdviceOutputDto.setWineIdSet(wineIdSet);
-        }
 
         if (wineAdvice.getWineAdviceRequest() != null) {
             wineAdviceOutputDto.setWineAdviceRequestId(wineAdvice.getWineAdviceRequest().getId());

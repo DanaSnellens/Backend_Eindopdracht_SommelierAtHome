@@ -27,11 +27,28 @@ public class RoleMapper {
         RoleOutputDto roleOutputDto = new RoleOutputDto();
         roleOutputDto.setId(role.getId());
         roleOutputDto.setRoleName(role.getRoleName());
-
+/*
         if (role.getUserSet() != null) {
             Set<Long> userIdSet = new HashSet<>();
 
             for (User user : role.getUserSet()) {
+                userIdSet.add(user.getId());
+            }
+            roleOutputDto.setUserIdSet(userIdSet);
+        }*/
+        if (role.getClients() != null) {
+            Set<Long> userIdSet = new HashSet<>();
+
+            for (User user : role.getClients()) {
+                userIdSet.add(user.getId());
+            }
+            roleOutputDto.setUserIdSet(userIdSet);
+        }
+
+        if (role.getSommeliers() != null) {
+            Set<Long> userIdSet = new HashSet<>();
+
+            for (User user : role.getSommeliers()) {
                 userIdSet.add(user.getId());
             }
             roleOutputDto.setUserIdSet(userIdSet);

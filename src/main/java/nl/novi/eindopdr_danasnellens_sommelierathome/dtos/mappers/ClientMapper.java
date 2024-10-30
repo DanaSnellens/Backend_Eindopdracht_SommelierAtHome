@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Set;
 //@Component
 public class ClientMapper {
 
-    public static Client clientInputDtoToModel(ClientInputDto clientInputDto, String clientUsername) {
+    public static Client clientInputDtoToModel(ClientInputDto clientInputDto) {
         Client client = new Client();
         client.setUsername(clientInputDto.getUsername());
         client.setFirstName(clientInputDto.getFirstName());
@@ -33,10 +34,17 @@ public class ClientMapper {
         clientOutputDto.setFirstName(client.getFirstName());
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
-        clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+/*        clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+        clientOutputDto.setMembership(client.getMembership());*/
+/*
         //TODO Dit nog aanpassen naar roleName of roleId? En waar wordt die rol geassigned?
-        /*        clientOutputDto.setRoleSet(client.getRoleSet());*/
-        clientOutputDto.setMembership(client.getMembership());
+        if (client.getRoleSet() != null) {
+            Set<Long> roleIdSet = new HashSet<>();
+            for (Role r : client.getRoleSet()) {
+                roleIdSet.add(r.getId());
+            }
+        clientOutputDto.setRoleIdSet(roleIdSet);
+        }
 
         if (client.getWineAdviceRequestSet() != null) {
             Set<Long> wineAdviceRequestIdSet = new HashSet<>();
@@ -45,11 +53,10 @@ public class ClientMapper {
                 wineAdviceRequestIdSet.add(war.getId());
             }
             clientOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
-        }
+        }*/
         return clientOutputDto;
     }
 
-    //from list to list
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {
         List<ClientOutputDto> clientOutputDtoList = new ArrayList<>();
         clientList.forEach( (client) -> clientOutputDtoList.add(clientModelToOutput(client)));

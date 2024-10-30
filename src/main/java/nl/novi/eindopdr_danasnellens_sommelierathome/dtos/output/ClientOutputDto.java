@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
+import jakarta.persistence.Column;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
 
@@ -14,10 +15,12 @@ public class ClientOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
-    private Set<RoleOutputDto> roleOutputDtoSet = new HashSet<>();
+    @Column(nullable = true)
+    private Set<Long> roleIdSet = new HashSet<>();
 
+    @Column(nullable = true)
     private Membership membership;
 
-    //Optional??
+    @Column(nullable = true)
     private Set<Long> WineAdviceRequestIdSet = new HashSet<>();
 }
