@@ -1,11 +1,15 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RecipeMapper {
     public static Recipe recipeInputToModel(RecipeInputDto recipeInputDto) {
@@ -25,6 +29,25 @@ public class RecipeMapper {
         return recipe;
     }
 
+    public static Recipe updateRecipeMapper(Recipe savedRecipe, RecipeInputDto updatedRecipeInputDto) {
+        savedRecipe.setRecipeName(updatedRecipeInputDto.getRecipeName());
+        savedRecipe.setCourse(updatedRecipeInputDto.getCourse());
+        savedRecipe.setMainIngredient(updatedRecipeInputDto.getMainIngredient());
+        savedRecipe.setOtherIngredients(updatedRecipeInputDto.getOtherIngredients());
+        savedRecipe.setServings(updatedRecipeInputDto.getServings());
+        savedRecipe.setPreparationTime(updatedRecipeInputDto.getPreparationTime());
+        savedRecipe.setWinePairing(updatedRecipeInputDto.getWinePairing());
+        savedRecipe.setImageLink(updatedRecipeInputDto.getImageLink());
+        savedRecipe.setImageAlt(updatedRecipeInputDto.getImageAlt());
+        savedRecipe.setPreparationShortDescription(updatedRecipeInputDto.getPreparationShortDescription());
+        savedRecipe.setPreparationLongDescription(updatedRecipeInputDto.getPreparationLongDescription());
+
+        if (savedRecipe.getWineSet() != null) {
+            savedRecipe.setWineSet(null);
+        }
+        return savedRecipe;
+    }
+
     public static RecipeOutputDto recipeModelToOutput(Recipe recipe) {
         RecipeOutputDto recipeOutputDto = new RecipeOutputDto();
         recipeOutputDto.setId(recipe.getId());
@@ -40,18 +63,14 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationShortDescription(recipe.getPreparationShortDescription());
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
-/*
-        //relaties
         if (recipe.getWineSet() != null) {
-            Set<WineOutputDto> wineOutputDtoSet = new HashSet<>();
-//TODO Klopt dit? Of moet ik hier ook outputdto gebruiken?
-            Set<Wine> WineSet = recipe.getWineSet();
-            for (Wine wine : WineSet) {
-                wineOutputDtoSet.add(wineModelToOutput(wine));
+            Set<Long> wineIdSet = new HashSet<>();
+
+            for (Wine wine : recipe.getWineSet()) {
+                wineIdSet.add(wine.getId());
             }
-            recipeOutputDto.setWineOutputDtoSet(wineOutputDtoSet);
+            recipeOutputDto.setWineIdSet(wineIdSet);
         }
-*/
         return recipeOutputDto;
     }
 

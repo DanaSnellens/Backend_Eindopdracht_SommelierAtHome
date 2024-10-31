@@ -24,11 +24,10 @@ public class RecipeController {
     public ResponseEntity<List<RecipeOutputDto>> getAllRecipes() {
         return ResponseEntity.ok().body(recipeService.getAllRecipes());
     }
-/*
     @GetMapping("/{id}")
     public ResponseEntity<RecipeOutputDto> getRecipeById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(recipeService.getRecipeById(id));
-    }*/
+    }
 
     @PostMapping
     public ResponseEntity<RecipeOutputDto> createRecipe
@@ -41,15 +40,12 @@ public class RecipeController {
     @PutMapping("/{id}")
     public ResponseEntity<RecipeOutputDto> updateRecipeById(@PathVariable Long id, @Valid @RequestBody RecipeInputDto updatedRecipe) {
         RecipeOutputDto recipeOutputDto = recipeService.updateRecipeById(id, updatedRecipe);
-        //TODO: Message toevoegen: "Recipe with id: " + id + " has been updated."
         return ResponseEntity.ok().body(recipeOutputDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteRecipeById(@PathVariable Long id) {
         recipeService.deleteRecipeById(id);
-        //Return a 204 status
-        //TODO Message toevoegen: "Recipe with id: " + id + " has been deleted"
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Recipe with id " + id + " has been successful deleted");
     }
 }

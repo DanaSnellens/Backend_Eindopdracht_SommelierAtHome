@@ -3,12 +3,9 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class WineMapper {
 
@@ -38,22 +35,24 @@ public class WineMapper {
     }
 
     //TODO is dit nodig? (een aparte update-mapper, of kan dit ook via de input-mapper?)
-    public static void updateWineFromDto(Wine existingWine, WineInputDto wineInputDto) {
-        existingWine.setWineName(wineInputDto.getWineName());
-        existingWine.setCountry(wineInputDto.getCountry());
-        existingWine.setRegion(wineInputDto.getRegion());
-        existingWine.setGrapeVarietal(wineInputDto.getGrapeVarietal());
-        existingWine.setProducer(wineInputDto.getProducer());
-        existingWine.setWineStyle(wineInputDto.getWineStyle());
-        existingWine.setWineType(wineInputDto.getWineType());
-        existingWine.setFoodPairing(wineInputDto.getFoodPairing());
-        existingWine.setYear(wineInputDto.getYear());
-        existingWine.setPrice(wineInputDto.getPrice());
-        existingWine.setAromas(wineInputDto.getAromas());
-        existingWine.setImageLink(wineInputDto.getImageLink());
-        existingWine.setImageAlt(wineInputDto.getImageAlt());
-        existingWine.setShortDescription(wineInputDto.getShortDescription());
-        existingWine.setLongDescription(wineInputDto.getLongDescription());
+    public static Wine updateWineMapper(Wine savedWine, WineInputDto updatedWineInputDto) {
+        savedWine.setWineName(updatedWineInputDto.getWineName());
+        savedWine.setCountry(updatedWineInputDto.getCountry());
+        savedWine.setRegion(updatedWineInputDto.getRegion());
+        savedWine.setGrapeVarietal(updatedWineInputDto.getGrapeVarietal());
+        savedWine.setProducer(updatedWineInputDto.getProducer());
+        savedWine.setWineStyle(updatedWineInputDto.getWineStyle());
+        savedWine.setWineType(updatedWineInputDto.getWineType());
+        savedWine.setFoodPairing(updatedWineInputDto.getFoodPairing());
+        savedWine.setYear(updatedWineInputDto.getYear());
+        savedWine.setPrice(updatedWineInputDto.getPrice());
+        savedWine.setAromas(updatedWineInputDto.getAromas());
+        savedWine.setImageLink(updatedWineInputDto.getImageLink());
+        savedWine.setImageAlt(updatedWineInputDto.getImageAlt());
+        savedWine.setShortDescription(updatedWineInputDto.getShortDescription());
+        savedWine.setLongDescription(updatedWineInputDto.getLongDescription());
+
+        return savedWine;
     }
 
     public static WineOutputDto wineModelToOutput(Wine wine) {
@@ -76,7 +75,7 @@ public class WineMapper {
         wineOutputDto.setLongDescription(wine.getLongDescription());
 /*
         if (wine.getWineAdviceSet() != null) {
-            Set<Long> wineAdviceIdOutputDtoSet = new HashSet<>();
+            Set<Long> wineAdviceIdSet = new HashSet<>();
             for (WineAdvice wa : wine.getWineAdviceSet()) {
                 wineAdviceIdOutputDtoSet.add(wa.getId());
             }

@@ -18,4 +18,5 @@ public class RecipeInputDto {
     private String imageAlt;
     private String preparationShortDescription;
     private String preparationLongDescription;
+    private Set<Long> wineIdSet;
 }

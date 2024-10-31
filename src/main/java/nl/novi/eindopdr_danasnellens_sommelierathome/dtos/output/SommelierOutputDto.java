@@ -19,11 +19,8 @@ public class SommelierOutputDto {
     private String curriculumVitae;
     private String specialization;
 
-    private Set<RoleOutputDto> roleOutputDtoSet = new HashSet<>();
+    private Set<Long> roleIdSet = new HashSet<>();
 
-
-
-    //relaties
     private Set<Long> wineAdviceRequestIdSet = new HashSet<>();
     //Kan weg? want deze relatie verloopt via WineAdviceRequest
 /*    private Set<Long> wineAdviceIdSet = new HashSet<>();*/

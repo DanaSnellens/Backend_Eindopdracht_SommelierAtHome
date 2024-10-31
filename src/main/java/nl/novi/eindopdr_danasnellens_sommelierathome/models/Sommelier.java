@@ -27,10 +27,10 @@ public class Sommelier extends User {
     private String curriculumVitae;
     private String specialization;
 
-    @OneToMany(mappedBy = "sommelier", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sommelier", cascade = CascadeType.ALL)
     private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sommelier_roles",
             joinColumns = @JoinColumn(name = "sommelier_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

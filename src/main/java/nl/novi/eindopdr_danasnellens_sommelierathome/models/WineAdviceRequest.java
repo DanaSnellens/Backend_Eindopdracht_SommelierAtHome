@@ -2,9 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.File;
 
@@ -12,7 +10,10 @@ import lombok.Data;
 
 @Entity
 @Table(name = "wineadvicerequests")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class WineAdviceRequest {
     @Id

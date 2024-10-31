@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 
@@ -40,9 +41,7 @@ public class SommelierMapper {
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
-/*
-        sommelierOutputDto.setRoleSet(sommelier.getRoleSet());
-*/
+
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());
@@ -50,7 +49,15 @@ public class SommelierMapper {
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
 
         //relaties
-        //TODO Klpt het dat ik t hier OutputDto noem? of is dat als je ids gebruikt niet nodig?
+
+        if (sommelier.getRoleSet() != null) {
+            Set<Long> roleIdSet = new HashSet<>();
+            for (Role r : sommelier.getRoleSet()) {
+                roleIdSet.add(r.getId());
+            }
+            sommelierOutputDto.setRoleIdSet(roleIdSet);
+        }
+
         if (sommelier.getWineAdviceRequestSet() != null) {
             Set<Long> wineAdviceRequestIdSet = new HashSet<>();
 
@@ -59,10 +66,12 @@ public class SommelierMapper {
             }
             sommelierOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
         }
+
+
         return sommelierOutputDto;
     }
-
-/*        if (sommelier.getWineAdviceSet() != null) {
+/*
+*//*        if (sommelier.getWineAdviceSet() != null) {
             Set<Long> wineAdviceIdSet = new HashSet<>();
 
             for (WineAdvice wa : sommelier.getWineAdviceSet()) {
@@ -71,9 +80,9 @@ public class SommelierMapper {
             sommelierOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
         }
         return sommelierOutputDto;
-    }*/
+    }*//*
 
-/*
+*//*
     public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
         SommelierOutputDtoShort sommelierOutputDtoShort = new SommelierOutputDtoShort();
         sommelierOutputDtoShort.setId(sommelier.getId());

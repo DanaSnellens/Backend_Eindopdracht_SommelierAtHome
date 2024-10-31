@@ -49,11 +49,11 @@ public class WineService {
         }
     }
 //TODO @Valid toevoegen? (voor WineInputDto
-    public WineOutputDto updateWineById(Long id, WineInputDto wineInputDto) {
+    public WineOutputDto updateWineById(Long id, WineInputDto updatedWineInputDto) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {
             Wine existingWine = optionalWine.get();
-            updateWineFromDto(existingWine, wineInputDto);
+            updateWineMapper(existingWine, updatedWineInputDto);
             Wine updatedWine = wineRepository.save(existingWine);
             return wineModelToOutput(updatedWine);
         }

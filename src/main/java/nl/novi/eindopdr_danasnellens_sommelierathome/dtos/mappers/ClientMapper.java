@@ -34,9 +34,7 @@ public class ClientMapper {
         clientOutputDto.setFirstName(client.getFirstName());
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
-/*        clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
-        clientOutputDto.setMembership(client.getMembership());*/
-/*
+
         //TODO Dit nog aanpassen naar roleName of roleId? En waar wordt die rol geassigned?
         if (client.getRoleSet() != null) {
             Set<Long> roleIdSet = new HashSet<>();
@@ -53,13 +51,13 @@ public class ClientMapper {
                 wineAdviceRequestIdSet.add(war.getId());
             }
             clientOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
-        }*/
+        }
         return clientOutputDto;
     }
 
     public static List<ClientOutputDto> clientModelListToOutputList(List<Client> clientList) {
         List<ClientOutputDto> clientOutputDtoList = new ArrayList<>();
-        clientList.forEach( (client) -> clientOutputDtoList.add(clientModelToOutput(client)));
+        clientList.forEach((client) -> clientOutputDtoList.add(clientModelToOutput(client)));
         return clientOutputDtoList;
     }
 }

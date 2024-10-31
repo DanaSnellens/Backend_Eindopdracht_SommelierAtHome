@@ -24,7 +24,7 @@ public class Client extends User {
     @JsonManagedReference
     private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "client_roles",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

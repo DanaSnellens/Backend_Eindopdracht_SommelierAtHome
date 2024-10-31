@@ -37,8 +37,7 @@ public class SommelierController {
     }
 
     @PostMapping
-    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto,
-                                                              @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto, @AuthenticationPrincipal UserDetails userDetails) {
         SommelierOutputDto sommelierOutputDto = sommelierService.createSommelier(sommelierInputDto, userDetails.getUsername());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sommelierOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(sommelierOutputDto);
