@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
@@ -87,8 +88,8 @@ public class WineMapper {
 
         if (wine.getRecipeSet() != null) {
             Set<Long> recipeIdSet = new HashSet<>();
-            for (WineAdvice wa : wine.getWineAdviceSet()) {
-                recipeIdSet.add(wa.getId());
+            for (Recipe recipe : wine.getRecipeSet()) {
+                recipeIdSet.add(recipe.getId());
             }
             wineOutputDto.setRecipeIdSet(recipeIdSet);
         }

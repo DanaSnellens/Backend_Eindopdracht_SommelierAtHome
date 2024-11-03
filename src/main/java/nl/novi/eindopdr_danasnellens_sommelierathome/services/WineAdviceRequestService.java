@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
 import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AssignSommInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
@@ -90,16 +91,16 @@ public class WineAdviceRequestService {
 
     //RELATIES
     //TODO moet ik hier geen gebruik maken van DTO en mapper?
-    public void assignSommelierToWineAdviceRequest(Long warId, @Valid String sommelierUsername) {
+    public void assignSommelierToWineAdviceRequest(Long warId, @Valid AssignSommInputDto assignSommInputDto) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(sommelierUsername);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(assignSommInputDto.getSommelierUsername());
 
         if (optionalWineAdviceRequest.isPresent() && optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();
             WineAdviceRequest war = optionalWineAdviceRequest.get();
             war.setSommelier(sommelier);
             wineAdviceRequestRepository.save(war);
-        } else throw new RuntimeException("No wine advice request found with id: " + warId + " or no sommelier found with id: " + sommelierUsername);
+        } else throw new RuntimeException("No wine advice request found with id: " + warId + " or no sommelier found with id: " + assignSommInputDto.getSommelierUsername());
     }
 
     //Niet nodig? Want bij create wa wordt dit automatisch gedaan

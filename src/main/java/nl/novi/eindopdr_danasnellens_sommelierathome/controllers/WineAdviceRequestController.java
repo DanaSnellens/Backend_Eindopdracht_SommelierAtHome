@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AssignSommInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDtoShort;
@@ -61,11 +62,12 @@ public class WineAdviceRequestController {
         return ResponseEntity.noContent().build();
     }
 
-    //RELATIES
-    @PutMapping("/{warId}/sommelier/{sommelierId}")
-    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("warId")Long warId, @PathVariable ("sommelierId") String sommelierUsername) {
-        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, sommelierUsername);
-        return ResponseEntity.ok("Sommelier " + sommelierUsername + " assigned to wineadvice request " + warId);
+    //TODO moet de somm id als Pathvariable of als input?
+    @PutMapping("/{warId}/sommelier")
+    public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("warId")Long warId, @RequestBody AssignSommInputDto assignSommInputDto) {
+        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, assignSommInputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{sommelierusername}").buildAndExpand(assignSommInputDto.getSommelierUsername()).toUri();
+        return ResponseEntity.ok("Sommelier " + assignSommInputDto.getSommelierUsername() + " assigned to wineadvice request " + warId);
     }
 
     //Niet nodig? Want bij create wa wordt dit automatisch gedaan

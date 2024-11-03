@@ -14,7 +14,7 @@ import lombok.Data;
 @Setter
 @NoArgsConstructor
 @ToString
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
 public class WineAdviceRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "war_sequence_3021")
