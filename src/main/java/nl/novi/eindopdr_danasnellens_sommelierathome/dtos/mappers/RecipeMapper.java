@@ -5,13 +5,18 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RecipeMapper {
+    private static final Logger logger = LoggerFactory.getLogger(RecipeMapper.class);
+
     public static Recipe recipeInputToModel(RecipeInputDto recipeInputDto) {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeInputDto.getRecipeName());
@@ -63,21 +68,30 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationShortDescription(recipe.getPreparationShortDescription());
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
+    //TODO wineIdSet is nu nog leeg, moet nog gevuld worden. Maar hoe?
         if (recipe.getWineSet() != null) {
             Set<Long> wineIdSet = new HashSet<>();
-
             for (Wine wine : recipe.getWineSet()) {
                 wineIdSet.add(wine.getId());
+                recipeOutputDto.setWineIdSet(wineIdSet);
             }
-            recipeOutputDto.setWineIdSet(wineIdSet);
+
         }
+
+        logger.debug("Mapped Recipe to RecipeOutputDto: {}", recipeOutputDto);
+
+/*        Set<Long> wineIdSet = recipe.getWineSet() != null
+                ? recipe.getWineSet().stream().map(Wine::getId).collect(Collectors.toSet())
+                : new HashSet<>();
+        recipeOutputDto.setWineIdSet(wineIdSet);*/
+
         return recipeOutputDto;
     }
 
     public static List<RecipeOutputDto> recipeModelListToOutputList(List<Recipe> recipeList) {
         List<RecipeOutputDto> recipeOutputDtoList = new ArrayList<>();
         for (Recipe recipe : recipeList) {
-            recipeOutputDtoList.add(recipeModelToOutput(recipe));
+            recipeOutputDtoList.add(recipeModelToOutput(recipe))  ;
         }
         return recipeOutputDtoList;
     }

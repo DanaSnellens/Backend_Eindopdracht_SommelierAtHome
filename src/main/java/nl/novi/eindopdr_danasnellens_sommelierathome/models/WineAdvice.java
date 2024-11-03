@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "wineadvices")
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class WineAdvice {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wa_sequence_4021")
@@ -35,11 +34,9 @@ public class WineAdvice {
             joinColumns = @JoinColumn(name = "wineadvice_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
 
-    @JsonBackReference
     private Set<Wine> wineSet = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "wineadvicerequest_id")
-    @JsonBackReference
     private WineAdviceRequest wineAdviceRequest;
 }

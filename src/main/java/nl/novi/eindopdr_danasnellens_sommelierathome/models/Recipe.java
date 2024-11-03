@@ -15,7 +15,6 @@ import java.util.Set;
 @Entity
 @Table(name = "recipes")
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Recipe {
 
     @Id
@@ -37,11 +36,9 @@ public class Recipe {
     private String preparationLongDescription;
 
     //TODO Welke cascadeType? All is rigoreus, maar welke wel?
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "recipes_wines",
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
-    @JsonBackReference
     private Set<Wine> wineSet = new HashSet<>();
-
 }

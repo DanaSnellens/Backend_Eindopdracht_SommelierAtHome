@@ -24,6 +24,9 @@ public class WineOutputDto {
     private String imageAlt;
     private String shortDescription;
     private String longDescription;
+
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
+    private Set<Long> recipeIdSet = new HashSet<>();
 }
 
 

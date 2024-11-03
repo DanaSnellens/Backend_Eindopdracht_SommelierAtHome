@@ -67,5 +67,13 @@ public class WineAdviceRequestController {
         wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, sommelierUsername);
         return ResponseEntity.ok("Sommelier " + sommelierUsername + " assigned to wineadvice request " + warId);
     }
+
+    //Niet nodig? Want bij create wa wordt dit automatisch gedaan
+/*
+    @PutMapping("/{warId}/addwineadvice")
+    public ResponseEntity<String> addWineAdviceToWineAdviceRequest(@PathVariable ("warId")Long warId, @Valid @RequestBody Long wineAdviceId) {
+        wineAdviceRequestService.addWineAdviceToWineAdviceRequest(warId, wineAdviceId);
+        return ResponseEntity.ok("Wineadvice " + wineAdviceId + " added to wineadvice request " + warId);
+    }*/
 }
 

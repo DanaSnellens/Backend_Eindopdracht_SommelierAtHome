@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AddWinesInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
@@ -58,6 +59,12 @@ public class WineAdviceController {
     public ResponseEntity<Object> deleteWineAdviceById(@PathVariable Long id) {
         wineAdviceService.deleteWineAdviceById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/addwines")
+    public ResponseEntity<WineAdviceOutputDto> addWinesToWineAdvice(@PathVariable Long id, @RequestBody AddWinesInputDto addWinesInputDto) {
+        WineAdviceOutputDto wineAdviceOutputDto = wineAdviceService.addWinesToWineAdvice(id, addWinesInputDto);
+        return ResponseEntity.ok().body(wineAdviceOutputDto);
     }
 
 

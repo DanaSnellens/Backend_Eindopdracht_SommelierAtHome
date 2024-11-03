@@ -3,9 +3,12 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WineMapper {
 
@@ -73,16 +76,22 @@ public class WineMapper {
         wineOutputDto.setImageAlt(wine.getImageAlt());
         wineOutputDto.setShortDescription(wine.getShortDescription());
         wineOutputDto.setLongDescription(wine.getLongDescription());
-/*
+
         if (wine.getWineAdviceSet() != null) {
             Set<Long> wineAdviceIdSet = new HashSet<>();
             for (WineAdvice wa : wine.getWineAdviceSet()) {
-                wineAdviceIdOutputDtoSet.add(wa.getId());
+                wineAdviceIdSet.add(wa.getId());
             }
-            wineOutputDto.setWineAdviceIdSet(wineAdviceIdOutputDtoSet);
-        }*/
+            wineOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
+        }
 
-        //TODO Recipe relatie?
+        if (wine.getRecipeSet() != null) {
+            Set<Long> recipeIdSet = new HashSet<>();
+            for (WineAdvice wa : wine.getWineAdviceSet()) {
+                recipeIdSet.add(wa.getId());
+            }
+            wineOutputDto.setRecipeIdSet(recipeIdSet);
+        }
 
         return wineOutputDto;
     }

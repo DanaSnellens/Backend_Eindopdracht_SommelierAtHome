@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
@@ -16,8 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "wines")
-@Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Wine {
 
     @Id
@@ -42,11 +42,9 @@ public class Wine {
     private String shortDescription;
     private String longDescription;
 
-    @ManyToMany(mappedBy = "wineSet")
-    @JsonManagedReference
+    @ManyToMany(mappedBy = "wineSet", fetch = FetchType.LAZY)
     private Set<WineAdvice> wineAdviceSet;
 
-    @ManyToMany(mappedBy = "wineSet")
-    @JsonManagedReference
+    @ManyToMany(mappedBy = "wineSet", fetch = FetchType.LAZY)
     private Set<Recipe> recipeSet;
 }

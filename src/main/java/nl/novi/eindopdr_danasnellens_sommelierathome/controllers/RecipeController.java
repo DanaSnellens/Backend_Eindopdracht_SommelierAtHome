@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AddWinesInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.RecipeService;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/recipes")
@@ -47,5 +49,11 @@ public class RecipeController {
     public ResponseEntity<Object> deleteRecipeById(@PathVariable Long id) {
         recipeService.deleteRecipeById(id);
         return ResponseEntity.ok("Recipe with id " + id + " has been successful deleted");
+    }
+
+    @PutMapping("/{id}/addwines")
+    public ResponseEntity<RecipeOutputDto> addWinesToRecipe(@PathVariable Long id, @RequestBody AddWinesInputDto addWinesInputDto) {
+        RecipeOutputDto recipeOutputDto = recipeService.addWinesToRecipe(id, addWinesInputDto);
+        return ResponseEntity.ok().body(recipeOutputDto);
     }
 }

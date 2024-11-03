@@ -23,13 +23,7 @@ import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMap
 import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper.wineModelToOutput;
 
 public class WineAdviceMapper {
-    private final WineAdviceRepository wineAdviceRepository;
 
-    public WineAdviceMapper(WineAdviceRepository wineAdviceRepository, ClientService clientService) {
-        this.wineAdviceRepository = wineAdviceRepository;
-    }
-
-    //TODO WAR vervangen door DTO of warId? Zelfde voor WineSet?
     public static WineAdvice wineAdviceInputToModel(WineAdviceInputDto waInputDto, WineAdviceRequest war, /*Sommelier somm*/ Set<Wine> wineSet) {
         WineAdvice wa = new WineAdvice();
         wa.setPersonalMessage(waInputDto.getPersonalMessage());
@@ -48,6 +42,14 @@ public class WineAdviceMapper {
 
         if (wineAdvice.getWineAdviceRequest() != null) {
             wineAdviceOutputDto.setWineAdviceRequestId(wineAdvice.getWineAdviceRequest().getId());
+        }
+
+        if (wineAdvice.getWineSet() != null) {
+            Set<Long> wineIdSet = new HashSet<>();
+            for (Wine wine : wineAdvice.getWineSet()) {
+                wineIdSet.add(wine.getId());
+            }
+            wineAdviceOutputDto.setWineIdSet(wineIdSet);
         }
         return wineAdviceOutputDto;
     }
