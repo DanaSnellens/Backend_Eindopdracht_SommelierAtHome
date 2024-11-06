@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
@@ -17,6 +18,7 @@ public class WineAdviceRequestMapper {
         war.setDinnerOccasion(warInputDto.getDinnerOccasion());
         war.setRequestMessage(warInputDto.getRequestMessage());
         war.setRecipeLink(warInputDto.getRecipeLink());
+        war.setRecipeFile(warInputDto.getRecipeFile());
         war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
@@ -27,6 +29,16 @@ public class WineAdviceRequestMapper {
         return war;
     }
 
+    public static WineAdviceRequest updateWarMapper(WineAdviceRequest savedWar, WineAdviceRequestInputDto updatedWarInputDto) {
+        savedWar.setDinnerOccasion(updatedWarInputDto.getDinnerOccasion());
+        savedWar.setRequestMessage(updatedWarInputDto.getRequestMessage());
+        savedWar.setRecipeLink(updatedWarInputDto.getRecipeLink());
+        savedWar.setRecipeFile(updatedWarInputDto.getRecipeFile());
+        savedWar.setMinPricePerBottle(updatedWarInputDto.getMinPricePerBottle());
+        savedWar.setMaxPricePerBottle(updatedWarInputDto.getMaxPricePerBottle());
+        return savedWar;
+    }
+
     public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
         WineAdviceRequestOutputDto dto = new WineAdviceRequestOutputDto();
             //No need to set clientId or SommelierId, userDetails will be set in the service layer {
@@ -34,12 +46,13 @@ public class WineAdviceRequestMapper {
         dto.setDinnerOccasion(war.getDinnerOccasion());
         dto.setRequestMessage(war.getRequestMessage());
         dto.setRecipeLink(war.getRecipeLink());
+        dto.setRecipeFile(war.getRecipeFile());
         dto.setMinPricePerBottle(war.getMinPricePerBottle());
         dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
         //TODO Of moet onderstaande if statement in de service layer/vervangen door JWT?UserDetails?
-/*        dto.setSommelierUsername(war.getSommelier().getUsername());
-        dto.setClientUsername(war.getClient().getUsername());*/
+        dto.setSommelierUsername(war.getSommelier().getUsername());
+/*        dto.setClientUsername(war.getClient().getUsername());*/
 
         if (war.getWineAdvice() != null) {
             dto.setWineAdviceId(war.getWineAdvice().getId());

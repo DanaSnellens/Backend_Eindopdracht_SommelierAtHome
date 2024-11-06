@@ -74,10 +74,13 @@ public class WineAdviceRequestService {
         else throw new RuntimeException("No client found with clientUsername: " + clientUsername);
     }*/
 
-    public WineAdviceRequestOutputDto updateWineAdviceRequest(Long warId, WineAdviceRequestInputDto updatedWineAdviceRequest) {
+    public WineAdviceRequestOutputDto updateWineAdviceRequest(Long warId, WineAdviceRequestInputDto updatedWarInputDto) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
         if (optionalWineAdviceRequest.isPresent()) {
-            return wineAdviceRequestModelToOutput(optionalWineAdviceRequest.get());
+            WineAdviceRequest existingWar = optionalWineAdviceRequest.get();
+            updateWarMapper(existingWar, updatedWarInputDto);
+            WineAdviceRequest updatedWar = wineAdviceRequestRepository.save(existingWar);
+            return wineAdviceRequestModelToOutput(updatedWar);
         }
         else throw new RuntimeException("No wine advice request found with warId: " + warId);
     }
@@ -89,8 +92,6 @@ public class WineAdviceRequestService {
         } else throw new RuntimeException("No wine advice request found with warId: " + warId);
     }
 
-    //RELATIES
-    //TODO moet ik hier geen gebruik maken van DTO en mapper?
     public void assignSommelierToWineAdviceRequest(Long warId, @Valid AssignSommInputDto assignSommInputDto) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(assignSommInputDto.getSommelierUsername());

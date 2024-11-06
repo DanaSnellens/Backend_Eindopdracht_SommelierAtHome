@@ -35,10 +35,8 @@ public class WineMapper {
         wine.setLongDescription(wineInputDto.getLongDescription());
 
         return wine;
-
     }
 
-    //TODO is dit nodig? (een aparte update-mapper, of kan dit ook via de input-mapper?)
     public static Wine updateWineMapper(Wine savedWine, WineInputDto updatedWineInputDto) {
         savedWine.setWineName(updatedWineInputDto.getWineName());
         savedWine.setCountry(updatedWineInputDto.getCountry());

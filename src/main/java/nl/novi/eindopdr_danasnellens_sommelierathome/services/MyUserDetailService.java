@@ -41,20 +41,9 @@ public class MyUserDetailService implements UserDetailsService {
         throw new UsernameNotFoundException("There is no user found with username: " + username);
     }
 
-//    private UserDetails createUserDetails(User user) {
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        user.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" +role.getRoleName())));
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getUsername(),
-//                user.getPassword(),
-//                authorities
-//        );
-//    }
-
-    //Onderstaande vervangen door bovenstaande
     private UserDetails createUserDetails(Client client) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        client.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+        client.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
                 client.getUsername(),
                 client.getPassword(),
@@ -64,7 +53,7 @@ public class MyUserDetailService implements UserDetailsService {
 
     private UserDetails createUserDetails(Sommelier sommelier) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-       sommelier.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+       sommelier.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
                 sommelier.getUsername(),
                 sommelier.getPassword(),

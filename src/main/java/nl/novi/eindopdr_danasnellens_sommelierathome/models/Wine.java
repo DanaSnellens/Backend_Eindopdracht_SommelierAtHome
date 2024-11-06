@@ -1,15 +1,8 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +27,7 @@ public class Wine {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
-    private String year;
+    private Integer year;
     private Double price;
     private String aromas;
     private String imageLink;

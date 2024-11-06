@@ -25,21 +25,19 @@ public class WineAdviceRequest {
     private String dinnerOccasion;
     private String requestMessage;
     private String recipeLink;
+    private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @JsonBackReference
     private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sommelier_id", nullable = true)
-    @JsonBackReference
     private Sommelier sommelier;
 
     @OneToOne(mappedBy = "wineAdviceRequest", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private WineAdvice wineAdvice;
 }

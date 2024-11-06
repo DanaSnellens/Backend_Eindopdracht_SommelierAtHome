@@ -17,7 +17,7 @@ public class WineOutputDto {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
-    private String year;
+    private Integer year;
     private Double price;
     private String aromas;
     private String imageLink;

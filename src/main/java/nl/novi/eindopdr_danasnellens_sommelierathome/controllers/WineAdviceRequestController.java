@@ -62,20 +62,10 @@ public class WineAdviceRequestController {
         return ResponseEntity.noContent().build();
     }
 
-    //TODO moet de somm id als Pathvariable of als input?
     @PutMapping("/{warId}/sommelier")
     public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("warId")Long warId, @RequestBody AssignSommInputDto assignSommInputDto) {
         wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, assignSommInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{sommelierusername}").buildAndExpand(assignSommInputDto.getSommelierUsername()).toUri();
         return ResponseEntity.ok("Sommelier " + assignSommInputDto.getSommelierUsername() + " assigned to wineadvice request " + warId);
     }
-
-    //Niet nodig? Want bij create wa wordt dit automatisch gedaan
-/*
-    @PutMapping("/{warId}/addwineadvice")
-    public ResponseEntity<String> addWineAdviceToWineAdviceRequest(@PathVariable ("warId")Long warId, @Valid @RequestBody Long wineAdviceId) {
-        wineAdviceRequestService.addWineAdviceToWineAdviceRequest(warId, wineAdviceId);
-        return ResponseEntity.ok("Wineadvice " + wineAdviceId + " added to wineadvice request " + warId);
-    }*/
 }
 

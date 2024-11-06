@@ -34,9 +34,10 @@ public class ClientController {
         return ResponseEntity.ok().body(clientService.getClientById(id));
     }*/
 
-    @GetMapping("/{username}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String clientUsername, @AuthenticationPrincipal UserDetails userDetails) {
-        if (clientUsername.equals(userDetails.getUsername())) {
+    //TODO Moet String clientUsername blijven staan of alleen Userdetails(zie ook les17jwt.controller.ProfileController.java)
+    @GetMapping("/{clientUsername}")
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("clientUsername") String clientUsername, @AuthenticationPrincipal UserDetails userDetails) {
+        if (clientUsername.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(clientUsername));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -49,15 +50,19 @@ public class ClientController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
-
+//TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
     @PutMapping("/{clientUsername}")
-    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable String clientUsername, @Valid @RequestBody ClientInputDto updatedClient) {
-        ClientOutputDto clientOutputDto = clientService.updateClientByUsername(clientUsername, updatedClient);
-        return ResponseEntity.ok().body(clientOutputDto);
+    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable String clientUsername, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
+        if (clientUsername.equals(userDetails.getUsername())) {
+            ClientOutputDto clientOutputDto = clientService.updateClientByUsername(clientUsername, updatedClient);
+            return ResponseEntity.ok().body(clientOutputDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @DeleteMapping("/{clientUsername}")
-    public ResponseEntity<Object> deleteClientByUsername(@PathVariable String clientUsername) {
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String clientUsername ) {
         clientService.deleteClientByUsername(clientUsername);
         return ResponseEntity.noContent().build();
     }

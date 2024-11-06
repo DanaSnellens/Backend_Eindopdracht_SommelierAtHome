@@ -1,11 +1,11 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
+import jakarta.validation.Valid;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RoleInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RoleOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.RoleService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -19,7 +19,13 @@ public class RoleController {
     }
 
     @GetMapping
-    public ResponseEntity <Set<RoleOutputDto>>getRoles() {
+    public ResponseEntity <Set<RoleOutputDto>> getAllRoles() {
         return ResponseEntity.ok(roleService.getRoles());
     }
+
+/*    @PostMapping
+    public ResponseEntity <RoleOutputDto> createRole(@Valid @RequestBody RoleInputDto roleInputDto) {
+        RoleOutputDto roleOutputDto = roleService.createRole(roleInputDto);
+        return ResponseEntity.ok(roleOutputDto);
+    }*/
 }

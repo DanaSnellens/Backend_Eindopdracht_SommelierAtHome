@@ -34,6 +34,6 @@ public class Sommelier extends User {
     @JoinTable(name = "sommelier_roles",
             joinColumns = @JoinColumn(name = "sommelier_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonBackReference // Om een infinite loop te voorkomen vanwege de dubbele relatie (clients & sommeliers)
+/*    @JsonBackReference // Om een infinite loop te voorkomen vanwege de dubbele relatie (clients & sommeliers)*/
     private Set<Role> roleSet = new HashSet<>();
 }

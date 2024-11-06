@@ -14,20 +14,16 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
-/*@JsonIgnoreProperties({"wineAdviceRequestSet"})*/
 public class Client extends User {
     @Enumerated(EnumType.STRING)
     private Membership membership;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "client_roles",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonBackReference
     private Set<Role> roleSet = new HashSet<>();
 }

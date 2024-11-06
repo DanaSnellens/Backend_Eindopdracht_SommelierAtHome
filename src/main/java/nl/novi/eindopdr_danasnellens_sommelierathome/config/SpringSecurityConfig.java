@@ -30,9 +30,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
-        // TODO Dit vervangen naar JWT
-        return new BCryptPasswordEncoder() {
-        };
+        return new BCryptPasswordEncoder();
     }
 
     //TODO Klopt dit zo? is nu een samenvoeging van verschillende lessen/methodes. Echte usernames en passwords toevoegen (+ roles aanpassen???)Zie ook WineController.java Postmapping + Mss Exception nog specificieren?
@@ -53,56 +51,55 @@ public class SpringSecurityConfig {
                .cors().and()
 
                 .authorizeRequests(auth -> auth
-                                .requestMatchers("/**").permitAll() //TODO dit weghalen
-//                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
-//                                .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                              .requestMatchers(HttpMethod.GET, "/public/**").permitAll()
-                                .requestMatchers("authenticate").permitAll()
+                        //TODO Onderstaande inkorten
+/*                                .requestMatchers("/**").permitAll() //TODO dit weghalen*/
+                                .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
 
-
-                                .requestMatchers(HttpMethod.GET, "/roles").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-
+                                //TODO POST, put en delete request nog toevoegen aan roles
+                                .requestMatchers("/roles").hasRole("ADMIN")
 
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/clients/**").authenticated()
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen account kunnen zien
-                                .requestMatchers(HttpMethod.POST, "/clients").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.GET, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.POST, "/clients").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/clients/**").hasRole("CLIENT")
                                 .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
 
-                                .requestMatchers(HttpMethod.GET, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
-                                .requestMatchers(HttpMethod.GET, "/sommeliers/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/sommeliers/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/sommeliers").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
 
                                 .requestMatchers(HttpMethod.GET, "/wines").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/wines/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/wines/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/wines").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/wines/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/wines/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wines/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wines/**").hasRole("ADMIN")
 
                                 .requestMatchers(HttpMethod.GET, "/recipes").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/recipes/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/recipes").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/recipes/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/recipes/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/recipes/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/recipes/**/addwines").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/recipes/**").hasRole("ADMIN")
 
                                 //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdvice kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvices").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/wineadvices/{id}").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/wineadvices/**").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/wineadvices").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvices/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvices/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvices/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvices/**/addwines").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvices/**").hasRole("ADMIN")
 
                                 //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdviceRequest kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/wineadvicerequests/{id}").authenticated()
-                                .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "SOMMELIER")
+                                .requestMatchers(HttpMethod.GET, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/wineadvicerequests").authenticated()/*hasRole("CLIENT")*/
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**").hasAnyRole("CLIENT", "SOMMELIER")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**/sommelier").hasRole("SOMMELIER")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("CLIENT", "SOMMELIER")
+
 
 
                                 .anyRequest().denyAll()
@@ -115,14 +112,5 @@ public class SpringSecurityConfig {
         //                                .addFilterBefore(new JwtRequestFilter(jwtRequestFilter, myUserDetailService()), UsernamePasswordAuthenticationFilter.class;
 
         return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager (HttpSecurity httpSecurity) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder
-                .userDetailsService(myUserDetailService)
-                .passwordEncoder(passwordEncoder);
-        return authenticationManagerBuilder.build();
     }
 }

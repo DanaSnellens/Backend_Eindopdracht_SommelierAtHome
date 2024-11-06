@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RoleOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Membership;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.Set;
 
@@ -28,9 +29,14 @@ public class ClientInputDto {
     @Email(message = "Email is invalid")
     private String email;
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
     private String password;
+
+    @NotBlank(message = "Profile picture URL is required")
+    @URL(message = "Profile picture URL is invalid")
     private String profilePictureUrl;
     private Membership membership;
 
-    private Set<Long> roleIdSet;
+/*    private Set<Long> roleIdSet;*/
 }
