@@ -27,7 +27,7 @@ public class SommelierInputDto {
     @Email(message = "Email is invalid")
     private String email;
 
-    //TODO moet password wel in de input dto staan?
+
     private String password;
     private String profilePictureUrl;
 

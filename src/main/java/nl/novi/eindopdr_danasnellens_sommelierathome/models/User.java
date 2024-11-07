@@ -9,9 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @MappedSuperclass
-//@Table(name = "users")
-/*@Entity*/
-//@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public abstract class User {
 

@@ -24,6 +24,8 @@ public class RoleService {
         List<Role> roleList = roleRepository.findAll();
         return roleModelListToOutputList(roleList);
     }
+// TODO Overige CRUD operaties toevoegen?
+
 
 /*    public RoleOutputDto createRole(RoleInputDto roleInputDto) {
         Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleInputDto.getRoleName());

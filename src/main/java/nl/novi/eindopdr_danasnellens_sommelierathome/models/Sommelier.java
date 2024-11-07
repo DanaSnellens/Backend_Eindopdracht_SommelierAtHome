@@ -36,6 +36,8 @@ public class Sommelier extends User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
 
+    //TODO Deze methodes deleten of gebruiken? Misschien onder helpers?
+    /*
     public void addRole(Role role) {this.roleSet.add(role);}
-    public void removeRole(Role role) {this.roleSet.remove(role);}
+    public void removeRole(Role role) {this.roleSet.remove(role);}*/
 }

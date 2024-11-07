@@ -1,26 +1,13 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceRequestOutputDto;
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.*;
-import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
-import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
-import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineAdviceRequestMapper.wineAdviceRequestInputToModel;
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper.wineModelListToOutputList;
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.WineMapper.wineModelToOutput;
 
 public class WineAdviceMapper {
 

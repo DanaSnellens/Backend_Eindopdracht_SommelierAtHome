@@ -45,13 +45,6 @@ public class ClientService {
         return clientModelListToOutputList(clientList);
     }
 
-/*    public ClientOutputDto getClientById(Long id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isPresent()) {
-            return clientModelToOutput(optionalClient.get());
-        }
-        else throw new UsernameNotFoundException("No user found with id: " + id);
-    }*/
     @Transactional
     public ClientOutputDto getClientByUsername(String username) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
@@ -62,51 +55,21 @@ public class ClientService {
     }
 
     public ClientOutputDto createClient(ClientInputDto clientInputDto) {
-
         Optional<Client> optionalClient = clientRepository.findClientByUsername(clientInputDto.getUsername());
         if (optionalClient.isEmpty()) {
             Client newClient = clientInputDtoToModel(clientInputDto);
             newClient.setPassword(passwordEncoder.encode(clientInputDto.getPassword()));
 
-            Set<Role> clientRoleSet = newClient.getRoleSet();
-            // Fetch the ROLE_CLIENT from the database
             Optional<Role> clientRoleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName("ROLE_CLIENT"));
             Role clientRole = clientRoleOptional
                     .orElseThrow(() -> new EntityNotFoundException("ROLE_CLIENT not found"));
-
-/*            // Convert the input DTO to a Client model
-            Client client = clientInputDtoToModel(clientInputDto);*/
-
-            // Add the ROLE_CLIENT to the client's roles
             newClient.getRoleSet().add(clientRole);
 
-            // Save the client to the database
             Client savedClient = clientRepository.save(newClient);
-
             return clientModelToOutput(savedClient);
         } else {
-            throw new EntityAlreadyExistsException("User with clientUsername: " + clientInputDto.getUsername() + "  already exists");
+            throw new EntityAlreadyExistsException("User with username: " + clientInputDto.getUsername() + "  already exists");
         }
-
-/*        boolean clientExists = clientRepository.existsByUsername(clientInputDto.getUsername());
-        if (clientExists) {
-            throw new EntityAlreadyExistsException("User with clientUsername: " + clientInputDto.getUsername() + "  already exists");
-        } else {
-            clientInputDto.setPassword(passwordEncoder.encode(clientInputDto.getPassword()));
-            boolean roleExists = roleRepository.existsByRoleName("ROLE_CLIENT");
-            if (!roleExists) {
-                Role clientRole = client.getRoleSet().add(clientRole);
-                client.getRoleSet().add(clientRole);
-                role.setRoleName("ROLE_CLIENT");
-                roleRepository.save(role);
-            }
-            Client client = clientInputDtoToModel(clientInputDto);
-            Client savedClient = clientRepository.save(client);
-            return clientModelToOutput(savedClient);
-        }*/
-
-
-
     }
 
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
@@ -126,13 +89,7 @@ public class ClientService {
         else throw new EntityAlreadyExistsException("User with clientUsername: " + clientInputDto.getUsername() + "already exists" );
     }*/
 
-/*    public ClientOutputDto updateClientById(Long id, ClientInputDto updatedClient) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isPresent()) {
-            return clientModelToOutput(optionalClient.get());
-        }
-        else throw new UsernameNotFoundException("No client found with id: " + id);
-    }*/
+
     //TODO nog iets doen met updatedClient
     public ClientOutputDto updateClientByUsername(String clientUsername, ClientInputDto clientInputDto) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);

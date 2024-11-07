@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    /*@EntityGraph(attributePaths = {"wineSet"})*/
     Optional<Recipe> findById(Long id);
     boolean existsByRecipeName(String recipeName);
 

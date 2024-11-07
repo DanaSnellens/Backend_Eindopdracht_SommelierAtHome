@@ -24,7 +24,7 @@ public class GlobalExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    // Handle Constraint Violations (e.g., @Size, @NotNull, @Email at the method level)
+    //TODO VERIJDEREN(comment ?) Handle Constraint Violations (e.g., @Size, @NotNull, @Email at the method level)
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handleConstraintViolationExceptions(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // Handle any generic exception
+    //TODO Verwijderen (comment?) Handle any generic exception
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {
         return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.BAD_REQUEST);

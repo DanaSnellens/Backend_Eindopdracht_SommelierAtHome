@@ -15,5 +15,4 @@ public class WineAdviceInputDto {
     private Set<Long> wineIdSet = new HashSet<>();
 
     private Long wineAdviceRequestId;
-    //private Long sommelierId; // Hoeft niet meer gekoppeld te worden, want de sommelier is al gekoppeld aan de wineAdviceRequest
 }

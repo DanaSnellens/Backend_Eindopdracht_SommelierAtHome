@@ -28,15 +28,9 @@ public class ClientController {
     public ResponseEntity<List<ClientOutputDto>> getAllClients() {
         return ResponseEntity.ok().body(clientService.getAllClients());
     }
-//TODO Deze kan weg? Zie ook ClientService.java. Zo niet: dan ook auth toevoegen
-/*    @GetMapping("/{id}")
-    public ResponseEntity<ClientOutputDto> getClientById(@PathVariable ("id") Long id) {
-        return ResponseEntity.ok().body(clientService.getClientById(id));
-    }*/
 
-    //TODO Moet String username blijven staan of alleen Userdetails(zie ook les17jwt.controller.ProfileController.java)
-    @GetMapping("/{clientUsername}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("clientUsername") String username, @AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("/{username}")
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
         if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
@@ -47,7 +41,7 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto) {
         ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{clientUsername}").buildAndExpand(clientOutputDto.getUsername()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(clientOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
 //TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen

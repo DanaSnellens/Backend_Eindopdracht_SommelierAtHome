@@ -104,7 +104,7 @@ public class WineAdviceRequestService {
         } else throw new RuntimeException("No wine advice request found with id: " + warId + " or no sommelier found with id: " + assignSommInputDto.getSommelierUsername());
     }
 
-    //Niet nodig? Want bij create wa wordt dit automatisch gedaan
+    //TODO Niet nodig? Want bij create wa wordt dit automatisch gedaan
 
 /*    public void addWineAdviceToWineAdviceRequest(Long warId, @Valid Long wineAdviceId) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);

@@ -41,22 +41,11 @@ public class SommelierController {
         return ResponseEntity.created(uri).body(sommelierOutputDto);
     }
 
-/*    @PutMapping("/{id}")
-    public ResponseEntity<SommelierOutputDto> updateSommelierById(@PathVariable Long id, @Valid @RequestBody SommelierInputDto updatedSommelier) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierById(id, updatedSommelier);
-        return ResponseEntity.ok().body(sommelierOutputDto);
-    }*/
     @PutMapping("/{username}")
     public ResponseEntity<SommelierOutputDto> updateSommelierByUsername(@PathVariable String username, @Valid @RequestBody SommelierInputDto updatedSommelier) {
         SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierByUsername(username, updatedSommelier);
         return ResponseEntity.ok().body(sommelierOutputDto);
     }
-
-/*    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteSommelierById(@PathVariable Long id) {
-        sommelierService.deleteSommelierById(id);
-        return ResponseEntity.noContent().build();
-    }*/
 
     @DeleteMapping("/{sommelierUsername}")
     public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable ("sommelierUsername") String sommelierUsername) {

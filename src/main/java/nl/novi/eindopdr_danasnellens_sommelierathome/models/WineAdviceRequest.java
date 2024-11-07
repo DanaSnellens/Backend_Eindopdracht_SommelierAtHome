@@ -14,7 +14,6 @@ import lombok.Data;
 @Setter
 @NoArgsConstructor
 @ToString
-/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
 public class WineAdviceRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "war_sequence_3021")
@@ -28,7 +27,6 @@ public class WineAdviceRequest {
     private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")

@@ -15,12 +15,8 @@ public class ClientOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
-    @Column(nullable = true)
+    //TODO RolenameSet of ID. Waarom String unused
     private Set<String> roleNameSet = new HashSet<String>();
-
-    @Column(nullable = true)
     private Membership membership;
-
-    @Column(nullable = true)
     private Set<Long> WineAdviceRequestIdSet = new HashSet<>();
 }

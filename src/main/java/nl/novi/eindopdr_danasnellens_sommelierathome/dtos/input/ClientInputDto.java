@@ -38,5 +38,6 @@ public class ClientInputDto {
     private String profilePictureUrl;
     private Membership membership;
 
-/*    private Set<Long> roleIdSet;*/
+/*    TODO deleten of niet?
+       private Set<Long> roleIdSet;*/
 }

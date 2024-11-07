@@ -37,7 +37,9 @@ public class  WineAdviceService {
         return wineAdviceModelListToOutputList(wineAdviceList);
     }
 
-    public WineAdviceOutputDto getWineAdviceById(Long id) /*{
+    public WineAdviceOutputDto getWineAdviceById(Long id)
+        //TODO Weg???
+        /*{
         WineAdvice wineAdvice = wineAdviceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No wine advice found with id: " + id));
         return wineAdviceModelToOutput(wineAdvice);

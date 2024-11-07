@@ -27,8 +27,6 @@ public class WineAdvice {
     private String personalMessage;
     private String adviceExplanation;
 
-    //TODO Welke cascadeType? All is rigoreus, maar welke wel?Ook toevoegen/wijzigen bij anderen
-    // Volgens mij zei Mark dat joinColumns & inversecolums omgedraaid moeten worden (wine_id en wine_advice), maar toch teruggedraaid, omdat code niet werkte en dit als oplossing werd aangedragen
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "wineadvices_wines",
             joinColumns = @JoinColumn(name = "wineadvice_id", referencedColumnName = "id"),

@@ -15,8 +15,6 @@ public class WineAdviceRequestInputDto {
     private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
-
-    //Kan weg ivm userdetails
-//    private Long clientId;  // Deze nog automatisch koppelen aan de client die ingelogd is
-    // private Long sommelierId; // Deze nog automatisch koppelen aan de sommelier die ingelogd is
+    //TODO automatisch koppelen via userdetails
+/*    private Long clientId;*/
 }

@@ -34,14 +34,6 @@ public class SommelierService {
         return sommelierModelListToOutputList(sommelierList);
     }
     
-/*    public SommelierOutputDto getSommelierById(Long id) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
-        if (optionalSommelier.isPresent()) {
-            return sommelierModelToOutput(optionalSommelier.get());
-        }
-        else throw new RuntimeException("No sommelier found with id: " + id);
-    }*/
-    
     public SommelierOutputDto getSommelierByUsername(String username) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
@@ -69,14 +61,6 @@ public class SommelierService {
         }
     }
     
-/*    public SommelierOutputDto updateSommelierById(Long id, SommelierInputDto updatedSommelier) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
-        if (optionalSommelier.isPresent()) {
-            return sommelierModelToOutput(optionalSommelier.get());
-        }
-        else throw new RuntimeException("No sommelier found with id: " + id);
-    }*/
-    
     public SommelierOutputDto updateSommelierByUsername(String userName, SommelierInputDto updatedSommelier) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
         if (optionalSommelier.isPresent()) {
@@ -84,14 +68,6 @@ public class SommelierService {
         }
         else throw new UsernameNotFoundException("No sommelier found with username: " + userName);
     }
-    
-/*    public void deleteSommelierById(Long id) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findById(id);
-        if (optionalSommelier.isPresent()) {
-            sommelierRepository.deleteById(id);
-        }
-        else throw new RuntimeException("No sommelier found with id: " + id);
-    }*/
 
     @Transactional
     public void deleteSommelierByUsername(String sommelierUsername) {
@@ -101,16 +77,4 @@ public class SommelierService {
         }
         else throw new UsernameNotFoundException("No sommelier found with sommelierUsername: " + sommelierUsername);
     }
-
-/*    public void assignRoleToSommelier(String username, String roleName) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
-        if (optionalSommelier.isPresent()) {
-            Optional<Role> roleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName(roleName));
-            Role role = roleOptional.orElseThrow(() -> new EntityNotFoundException("Role not found"));
-            optionalSommelier.get().getRoleSet().add(role);
-            sommelierRepository.save(optionalSommelier.get());
-        } else {
-            throw new UsernameNotFoundException("No sommelier found with username: " + username);
-        }
-    }*/
 }

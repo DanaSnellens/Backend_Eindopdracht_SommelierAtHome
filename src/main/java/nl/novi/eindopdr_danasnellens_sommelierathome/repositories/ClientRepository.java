@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, String> {
     Optional<Client> findClientByUsername(String clientUsername);
+    //TODO Verwijderen als niet gebruikt
     boolean existsByUsername(String clientUserName);
     void deleteByUsername(String clientUsername);
 

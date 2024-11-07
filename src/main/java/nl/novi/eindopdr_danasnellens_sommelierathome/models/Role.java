@@ -17,8 +17,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
-public class Role /*implements Serializable*/ {
+
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_sequence_9021")
     @SequenceGenerator(name = "roles_sequence_9021", sequenceName = "roles_sequence_9021", initialValue = 9021, allocationSize = 1)
@@ -27,15 +27,9 @@ public class Role /*implements Serializable*/ {
     @Column(nullable = false)
     private String roleName;
 
-/*    @ManyToMany(mappedBy = "roleSet")
-    @JsonIgnore
-    private Set<User> userSet = new HashSet<>();*/
-
     @ManyToMany(mappedBy = "roleSet")
-/*    @JsonManagedReference // Om een infinite loop te voorkomen vanwege de dubbele relatie (clients & sommeliers)*/
     private Set<Sommelier> sommeliers = new HashSet<>();
 
     @ManyToMany(mappedBy = "roleSet")
-/*    @JsonManagedReference // Om een infinite loop te voorkomen vanwege de dubbele relatie (clients & sommeliers)*/
     private Set<Client> clients = new HashSet<>();
 }

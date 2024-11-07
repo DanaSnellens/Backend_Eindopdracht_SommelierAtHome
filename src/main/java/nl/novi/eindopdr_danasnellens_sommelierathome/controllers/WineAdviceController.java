@@ -44,6 +44,7 @@ public class WineAdviceController {
         //Als er een WA wordt aangemaakt, wordt deze automatisch gekoppeld aan de bijbehorende WAR (+ ingelogde client en ge-assignde sommelier)
         //De ge-assignde sommelier kan een Wine(set) toevoegen
         //Is de UserName van de ingelogde somm gelijk aan de sommelier van de WAR? --> helperfunctie
+        //TODO Dit hoort meer in de service thuis?
         WineAdviceOutputDto createdAdvice = wineAdviceService.createWineAdvice(waInputDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdAdvice.getId()).toUri();
         return ResponseEntity.created(uri).body(createdAdvice);

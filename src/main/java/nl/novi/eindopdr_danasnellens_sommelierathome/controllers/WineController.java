@@ -33,7 +33,7 @@ public class WineController {
     }
 
     //TODO @AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
-    //Zie ook SpringSecurityConfig.java
+    //TODO Zie ook SpringSecurityConfig.java
     @PostMapping
     public ResponseEntity<WineOutputDto> createWine
         (@Valid @RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {

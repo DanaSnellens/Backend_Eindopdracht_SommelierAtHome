@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 public class SommelierMapper {
-    //from dto to model
-    public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto/*, String userName*/) {
+
+    public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto) {
         Sommelier sommelier = new Sommelier();
-        //UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
+        //TODO UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
         sommelier.setUsername(sommelierInputDto.getUsername());
         sommelier.setFirstName(sommelierInputDto.getFirstName());
         sommelier.setLastName(sommelierInputDto.getLastName());
@@ -48,8 +48,6 @@ public class SommelierMapper {
         sommelierOutputDto.setCurriculumVitae(sommelier.getCurriculumVitae());
         sommelierOutputDto.setSpecialization(sommelier.getSpecialization());
 
-        //relaties
-
         if (sommelier.getRoleSet() != null) {
             Set<String> roleNameSet = new HashSet<>();
             for (Role r : sommelier.getRoleSet()) {
@@ -66,34 +64,9 @@ public class SommelierMapper {
             }
             sommelierOutputDto.setWineAdviceRequestIdSet(wineAdviceRequestIdSet);
         }
-
-
         return sommelierOutputDto;
     }
-/*
-*//*        if (sommelier.getWineAdviceSet() != null) {
-            Set<Long> wineAdviceIdSet = new HashSet<>();
 
-            for (WineAdvice wa : sommelier.getWineAdviceSet()) {
-                wineAdviceIdSet.add(wa.getId());
-            }
-            sommelierOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
-        }
-        return sommelierOutputDto;
-    }*//*
-
-*//*
-    public static SommelierOutputDtoShort sommelierOutputDtoShort(Sommelier sommelier) {
-        SommelierOutputDtoShort sommelierOutputDtoShort = new SommelierOutputDtoShort();
-        sommelierOutputDtoShort.setId(sommelier.getId());
-        sommelierOutputDtoShort.setFirstName(sommelier.getUserName());
-        sommelierOutputDtoShort.setLastName(sommelier.getLastName());
-        sommelierOutputDtoShort.setEmail(sommelier.getEmail());
-        sommelierOutputDtoShort.setProfilePictureUrl(sommelier.getProfilePictureUrl());
-        sommelierOutputDtoShort.setRoleSet(sommelier.getRoleSet());
-
-*/
-    //from list to list
     public static List<SommelierOutputDto> sommelierModelListToOutputList(List<Sommelier> sommelierList) {
         List<SommelierOutputDto> sommelierOutputDtoList = new ArrayList<>();
         sommelierList.forEach( (sommelier) -> sommelierOutputDtoList.add(sommelierModelToOutput(sommelier)));
