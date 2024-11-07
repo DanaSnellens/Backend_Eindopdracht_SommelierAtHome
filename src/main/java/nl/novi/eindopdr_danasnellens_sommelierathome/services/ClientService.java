@@ -45,7 +45,7 @@ public class ClientService {
         return clientModelListToOutputList(clientList);
     }
 
-    @Transactional
+/*    @Transactional*/
     public ClientOutputDto getClientByUsername(String username) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {

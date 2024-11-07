@@ -6,19 +6,21 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RoleInputDto;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+/*@IdClass(RoleKey.class)*/
 @Table (name = "roles")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_sequence_9021")
     @SequenceGenerator(name = "roles_sequence_9021", sequenceName = "roles_sequence_9021", initialValue = 9021, allocationSize = 1)

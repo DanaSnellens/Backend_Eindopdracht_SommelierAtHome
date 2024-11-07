@@ -63,15 +63,14 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/clients/{username}").hasAnyRole("ADMIN", "ROLE_CLIENT")
                                 .requestMatchers(HttpMethod.POST, "/clients").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/clients/**").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "ROLE_CLIENT")
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/sommeliers/**").permitAll()
 
-
                                  //TODO POST aanpassen naar alleen admin
 
-                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ROLE_ADMIN", "ROLE_CLIENT")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
 
@@ -102,7 +101,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**/sommelier").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("ROLE_CLIENT", "ADMIN")
 
                                 .anyRequest().denyAll()
 

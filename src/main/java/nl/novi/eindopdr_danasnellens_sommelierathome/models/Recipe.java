@@ -35,8 +35,7 @@ public class Recipe {
     private String preparationShortDescription;
     private String preparationLongDescription;
 
-    //TODO Welke cascadeType? All is rigoreus, maar welke wel?
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "recipes_wines",
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))

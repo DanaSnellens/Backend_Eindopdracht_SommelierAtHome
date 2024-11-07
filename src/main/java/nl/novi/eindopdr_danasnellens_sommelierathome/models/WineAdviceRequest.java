@@ -36,6 +36,6 @@ public class WineAdviceRequest {
     @JoinColumn(name = "sommelier_id", nullable = true)
     private Sommelier sommelier;
 
-    @OneToOne(mappedBy = "wineAdviceRequest", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "wineAdviceRequest", cascade = CascadeType.ALL, orphanRemoval = true)
     private WineAdvice wineAdvice;
 }

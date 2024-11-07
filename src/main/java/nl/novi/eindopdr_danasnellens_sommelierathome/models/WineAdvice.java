@@ -27,11 +27,10 @@ public class WineAdvice {
     private String personalMessage;
     private String adviceExplanation;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "wineadvices_wines",
             joinColumns = @JoinColumn(name = "wineadvice_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
-
     private Set<Wine> wineSet = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

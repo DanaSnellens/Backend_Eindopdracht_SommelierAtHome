@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AssignSommInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceRequestInputDto;
@@ -85,6 +86,7 @@ public class WineAdviceRequestService {
         else throw new RuntimeException("No wine advice request found with warId: " + warId);
     }
 
+    @Transactional
     public void deleteWineAdviceRequestById(Long warId) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
         if (optionalWineAdviceRequest.isPresent()) {
