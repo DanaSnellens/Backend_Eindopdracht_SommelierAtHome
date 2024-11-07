@@ -91,13 +91,16 @@ public class ClientService {
 
 
     //TODO nog iets doen met updatedClient
-    public ClientOutputDto updateClientByUsername(String clientUsername, ClientInputDto clientInputDto) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
+    public ClientOutputDto updateClientByUsername(String username, ClientInputDto clientInputDto) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {
+            Client existingClient = optionalClient.get();
             Client updatedClient = clientInputDtoToModel(clientInputDto);
+            //TODO update mapper toevoegen net als bij recipe en wine
+            updatedClient = clientRepository.save(updatedClient);
             return clientModelToOutput(updatedClient);
         }
-        else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
+        else throw new UsernameNotFoundException("No client found with username: " + username);
     }
 
 /*    public void deleteClientById(Long id) {

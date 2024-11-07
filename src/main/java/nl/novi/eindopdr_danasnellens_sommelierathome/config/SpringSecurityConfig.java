@@ -60,14 +60,17 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/roles").hasRole("ADMIN")
 
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.GET, "/clients/{username}").hasAnyRole("ADMIN", "ROLE_CLIENT")
                                 .requestMatchers(HttpMethod.POST, "/clients").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/clients/**").hasRole("CLIENT")
                                 .requestMatchers(HttpMethod.DELETE, "/clients/**").hasAnyRole("ADMIN", "CLIENT")
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/sommeliers/**").permitAll()
-                        //TODO POST aanpassen naar alleen admin
+
+
+                                 //TODO POST aanpassen naar alleen admin
+
                                 .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
@@ -96,12 +99,12 @@ public class SpringSecurityConfig {
                                 //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdviceRequest kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/wineadvicerequests").authenticated()/*hasRole("CLIENT")*/
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**").hasAnyRole("CLIENT", "SOMMELIER")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**/sommelier").hasRole("SOMMELIER")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("CLIENT", "SOMMELIER")
+                                .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**/sommelier").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("CLIENT", "ADMIN")
 
-/*                                .anyRequest().denyAll()*/
+                                .anyRequest().denyAll()
 
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

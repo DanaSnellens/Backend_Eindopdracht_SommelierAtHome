@@ -31,7 +31,7 @@ public class ClientController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
-        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ADMIN")) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -45,19 +45,18 @@ public class ClientController {
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
 //TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
-    @PutMapping("/{clientUsername}")
-    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable String clientUsername, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
-        if (clientUsername.equals(userDetails.getUsername())) {
-            ClientOutputDto clientOutputDto = clientService.updateClientByUsername(clientUsername, updatedClient);
-            return ResponseEntity.ok().body(clientOutputDto);
+    @PutMapping("/{username}")
+    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable ("username") String username, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
-    @DeleteMapping("/{clientUsername}")
-    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("clientUsername") String clientUsername ) {
-        clientService.deleteClientByUsername(clientUsername);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
+        clientService.deleteClientByUsername(username);
         return ResponseEntity.noContent().build();
     }
 }

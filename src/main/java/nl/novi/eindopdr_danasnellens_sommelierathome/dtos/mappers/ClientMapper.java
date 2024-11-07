@@ -27,6 +27,8 @@ public class ClientMapper {
         return client;
     }
 
+    //TODO: UpdateDTO maken (net als bij wine en recipe)
+
     public static ClientOutputDto clientModelToOutput(Client client) {
         ClientOutputDto clientOutputDto = new ClientOutputDto();
         clientOutputDto.setId(client.getId());
