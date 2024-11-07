@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
     private final static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
-    public static PasswordEncoder passwordEncoder() {
+    public /*static*/ PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -51,8 +51,8 @@ public class SpringSecurityConfig {
                .cors().and()
 
                 .authorizeRequests(auth -> auth
-                        //TODO Onderstaande inkorten
-/*                                .requestMatchers("/**").permitAll() //TODO dit weghalen*/
+/*                        //TODO Onderstaande inkorten
+                                .requestMatchers("/**").permitAll() //TODO dit weghalen*/
                                 .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
 
@@ -67,7 +67,8 @@ public class SpringSecurityConfig {
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/sommeliers/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasRole("ADMIN")
+                        //TODO POST aanpassen naar alleen admin
+                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/**").hasRole("ADMIN")
 
@@ -100,9 +101,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/**/sommelier").hasRole("SOMMELIER")
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/**").hasAnyRole("CLIENT", "SOMMELIER")
 
-
-
-                                .anyRequest().denyAll()
+/*                                .anyRequest().denyAll()*/
 
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

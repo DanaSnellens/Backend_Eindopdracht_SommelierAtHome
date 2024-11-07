@@ -62,8 +62,6 @@ public class  WineAdviceService {
         WineAdviceRequest war = wineAdviceRequestRepository.findById(waInputDto.getWineAdviceRequestId())
                 .orElseThrow(() -> new EntityNotFoundException("No wine advice request found with id: " + waInputDto.getWineAdviceRequestId()));
 
-
-
         Set<Wine> wineSet = waInputDto.getWineIdSet().stream()
                 .map(wineId -> wineRepository.findById(wineId)
                         .orElseThrow(() -> new EntityNotFoundException("No wine found with id: " + wineId)))

@@ -7,6 +7,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.services.RoleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -19,11 +20,16 @@ public class RoleController {
     }
 
     @GetMapping
-    public ResponseEntity <Set<RoleOutputDto>> getAllRoles() {
-        return ResponseEntity.ok(roleService.getRoles());
+    public ResponseEntity <List<RoleOutputDto>> getAllRoles() {
+        return ResponseEntity.ok(roleService.getAllRoles());
     }
 
-/*    @PostMapping
+/*    @GetMapping("/{id}")
+    public ResponseEntity <RoleOutputDto> getRoleById(@PathVariable long id) {
+        return ResponseEntity.ok(roleService.getRoleById(id));
+    }
+
+    @PostMapping
     public ResponseEntity <RoleOutputDto> createRole(@Valid @RequestBody RoleInputDto roleInputDto) {
         RoleOutputDto roleOutputDto = roleService.createRole(roleInputDto);
         return ResponseEntity.ok(roleOutputDto);

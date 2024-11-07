@@ -13,10 +13,10 @@ import java.util.Set;
 
 public class SommelierMapper {
     //from dto to model
-    public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto, String userName) {
+    public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto/*, String userName*/) {
         Sommelier sommelier = new Sommelier();
         //UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
-        sommelier.setUsername(userName);
+        sommelier.setUsername(sommelierInputDto.getUsername());
         sommelier.setFirstName(sommelierInputDto.getFirstName());
         sommelier.setLastName(sommelierInputDto.getLastName());
         sommelier.setEmail(sommelierInputDto.getEmail());
@@ -51,11 +51,11 @@ public class SommelierMapper {
         //relaties
 
         if (sommelier.getRoleSet() != null) {
-            Set<Long> roleIdSet = new HashSet<>();
+            Set<String> roleNameSet = new HashSet<>();
             for (Role r : sommelier.getRoleSet()) {
-                roleIdSet.add(r.getId());
+                roleNameSet.add(r.getRoleName());
             }
-            sommelierOutputDto.setRoleIdSet(roleIdSet);
+            sommelierOutputDto.setRoleNameSet(roleNameSet);
         }
 
         if (sommelier.getWineAdviceRequestSet() != null) {

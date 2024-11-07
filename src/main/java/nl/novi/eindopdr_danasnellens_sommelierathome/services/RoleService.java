@@ -11,20 +11,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RoleMapper.roleModelSetToOutputSet;
+import static nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.RoleMapper.roleModelListToOutputList;
+
 
 @Service
 @Data
 public class RoleService {
     private final RoleRepository roleRepository;
 
-    public Set<RoleOutputDto> getRoles() {
+    public List<RoleOutputDto> getAllRoles() {
         //TODO Dit nog aanpassen? (naar list?)
-        Set<Role> roleSet = (Set<Role>) roleRepository.findAll();
-        return roleModelSetToOutputSet(roleSet);
+        List<Role> roleList = roleRepository.findAll();
+        return roleModelListToOutputList(roleList);
     }
 
-/*    public RoleInputDto createRole(RoleInputDto roleInputDto) {
+/*    public RoleOutputDto createRole(RoleInputDto roleInputDto) {
         Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleInputDto.getRoleName());
         if (optionalRole.isEmpty()) {
             Role role = roleRepository.save(roleInputDtoToModel(roleInputDto));

@@ -37,6 +37,7 @@ public abstract class User {
 
     private String profilePictureUrl;
 
+
 }
 //    @ManyToMany(fetch = FetchType.EAGER)
 //@JoinTable weg???

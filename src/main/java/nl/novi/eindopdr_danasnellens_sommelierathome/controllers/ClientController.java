@@ -34,11 +34,11 @@ public class ClientController {
         return ResponseEntity.ok().body(clientService.getClientById(id));
     }*/
 
-    //TODO Moet String clientUsername blijven staan of alleen Userdetails(zie ook les17jwt.controller.ProfileController.java)
+    //TODO Moet String username blijven staan of alleen Userdetails(zie ook les17jwt.controller.ProfileController.java)
     @GetMapping("/{clientUsername}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("clientUsername") String clientUsername, @AuthenticationPrincipal UserDetails userDetails) {
-        if (clientUsername.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
-            return ResponseEntity.ok().body(clientService.getClientByUsername(clientUsername));
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("clientUsername") String username, @AuthenticationPrincipal UserDetails userDetails) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -47,7 +47,7 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto) {
         ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientOutputDto.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{clientUsername}").buildAndExpand(clientOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
 //TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
@@ -62,7 +62,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientUsername}")
-    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String clientUsername ) {
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("clientUsername") String clientUsername ) {
         clientService.deleteClientByUsername(clientUsername);
         return ResponseEntity.noContent().build();
     }

@@ -21,9 +21,12 @@ public class Client extends User {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "client_roles",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();
+
+    public void addRole(Role role) {this.roleSet.add(role);}
+    public void removeRole(Role role) {this.roleSet.remove(role);}
 }

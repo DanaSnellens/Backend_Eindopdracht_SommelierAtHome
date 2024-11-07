@@ -5,8 +5,6 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDt
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.SommelierService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,9 +35,9 @@ public class SommelierController {
     }
 
     @PostMapping
-    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto, @AuthenticationPrincipal UserDetails userDetails) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.createSommelier(sommelierInputDto, userDetails.getUsername());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sommelierOutputDto.getId()).toUri();
+    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
+        SommelierOutputDto sommelierOutputDto = sommelierService.createSommelier(sommelierInputDto/*, userDetails.getUsername()*/);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(sommelierOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(sommelierOutputDto);
     }
 
@@ -60,9 +58,9 @@ public class SommelierController {
         return ResponseEntity.noContent().build();
     }*/
 
-    @DeleteMapping("/{username}")
-    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable String username) {
-        sommelierService.deleteSommelierByUsername(username);
+    @DeleteMapping("/{sommelierUsername}")
+    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable ("sommelierUsername") String sommelierUsername) {
+        sommelierService.deleteSommelierByUsername(sommelierUsername);
         return ResponseEntity.noContent().build();
     }
 

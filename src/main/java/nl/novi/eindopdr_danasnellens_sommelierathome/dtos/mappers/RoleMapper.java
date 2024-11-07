@@ -6,6 +6,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RoleOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.UserOutputDtoShort;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.User;
 
 import java.util.ArrayList;
@@ -27,42 +28,32 @@ public class RoleMapper {
         RoleOutputDto roleOutputDto = new RoleOutputDto();
         roleOutputDto.setId(role.getId());
         roleOutputDto.setRoleName(role.getRoleName());
-/*
-        if (role.getUserSet() != null) {
-            Set<Long> userIdSet = new HashSet<>();
 
-            for (User user : role.getUserSet()) {
-                userIdSet.add(user.getId());
-            }
-            roleOutputDto.setUserIdSet(userIdSet);
-        }*/
-        if (role.getClients() != null) {
-            Set<Long> userIdSet = new HashSet<>();
-
-            for (User user : role.getClients()) {
-                userIdSet.add(user.getId());
-            }
-            roleOutputDto.setUserIdSet(userIdSet);
-        }
 
         if (role.getSommeliers() != null) {
-            Set<Long> userIdSet = new HashSet<>();
+            Set<Long> sommelierIdSet = new HashSet<>();
 
-            for (User user : role.getSommeliers()) {
-                userIdSet.add(user.getId());
+            for (Sommelier sommelier : role.getSommeliers()) {
+                sommelierIdSet.add(sommelier.getId());
             }
-            roleOutputDto.setUserIdSet(userIdSet);
+            roleOutputDto.setSommelierIdSet(sommelierIdSet);
+        }
+
+        if (role.getClients() != null) {
+            Set<Long> clientIdSet = new HashSet<>();
+
+            for (Client client : role.getClients()) {
+                clientIdSet.add(client.getId());
+            }
+            roleOutputDto.setClientIdSet(clientIdSet);
         }
 
         return roleOutputDto;
     }
 
-    public static Set<RoleOutputDto> roleModelSetToOutputSet(Set<Role> roleSet) {
-        Set<RoleOutputDto> roleOutputDtoSet = new HashSet<>();
-
-        for (Role r : roleSet) {
-            roleOutputDtoSet.add(roleModelToOutput(r));
-        }
-        return roleOutputDtoSet;
+    public static List<RoleOutputDto> roleModelListToOutputList(List<Role> roleList) {
+        List<RoleOutputDto> roleOutputDtoList = new ArrayList<>();
+        roleList.forEach(role -> roleOutputDtoList.add(roleModelToOutput(role)));
+        return roleOutputDtoList;
     }
 }

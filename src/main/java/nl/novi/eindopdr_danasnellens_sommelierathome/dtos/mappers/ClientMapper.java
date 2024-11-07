@@ -34,19 +34,19 @@ public class ClientMapper {
         clientOutputDto.setFirstName(client.getFirstName());
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
+        clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+        clientOutputDto.setMembership(client.getMembership());
 
-        //TODO Dit nog aanpassen naar roleName of roleId? En waar wordt die rol geassigned?
         if (client.getRoleSet() != null) {
-            Set<Long> roleIdSet = new HashSet<>();
+            Set<String> roleNameSet = new HashSet<>();
             for (Role r : client.getRoleSet()) {
-                roleIdSet.add(r.getId());
+                roleNameSet.add(r.getRoleName());
             }
-        clientOutputDto.setRoleIdSet(roleIdSet);
+            clientOutputDto.setRoleNameSet(roleNameSet);
         }
 
         if (client.getWineAdviceRequestSet() != null) {
             Set<Long> wineAdviceRequestIdSet = new HashSet<>();
-
             for (WineAdviceRequest war : client.getWineAdviceRequestSet()) {
                 wineAdviceRequestIdSet.add(war.getId());
             }

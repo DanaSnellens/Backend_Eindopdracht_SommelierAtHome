@@ -16,7 +16,7 @@ public class ClientOutputDto {
     private String email;
     private String profilePictureUrl;
     @Column(nullable = true)
-    private Set<Long> roleIdSet = new HashSet<>();
+    private Set<String> roleNameSet = new HashSet<String>();
 
     @Column(nullable = true)
     private Membership membership;
