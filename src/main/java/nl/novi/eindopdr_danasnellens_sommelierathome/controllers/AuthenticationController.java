@@ -1,6 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
-import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthenticationRequest;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,15 +24,16 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
-//TODO getMapping nog checken
+//TODO getMapping nog checken Authentication weghalen als parameter?
     @GetMapping(value = "/authenticated")
-    public ResponseEntity<Object> authenticated(Authentication authentication, Principal principal) {
+    public ResponseEntity<Object> authenticated(//TODO WEG?? /*Authentication authentication, */
+                                                 Principal principal) {
         return ResponseEntity.ok().body(principal);
     }
 //TODO Onderstaande overgenomen uit Les17-jwt, maar is dit volledig? Tini heeft een andere manier. Sowieso de exception nog specifieceren + message
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<Object> signIn(@RequestBody AuthenticationRequest authenticationRequest) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(), authenticationRequest.getPassword());
+    public ResponseEntity<Object> signIn(@RequestBody AuthInputDto authInputDto) {
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authInputDto.getUsername(), authInputDto.getPassword());
         try {
             Authentication auth = authenticationManager.authenticate(upToken);
 

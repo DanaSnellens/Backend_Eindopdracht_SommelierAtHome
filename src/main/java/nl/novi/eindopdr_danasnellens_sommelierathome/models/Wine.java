@@ -1,22 +1,21 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "wines")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Wine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wines_sequence_1021")
+    @SequenceGenerator(name = "wines_sequence_1021", sequenceName = "wines_sequence_1021", initialValue = 1021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -28,7 +27,7 @@ public class Wine {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
-    private String year;
+    private Integer year;
     private Double price;
     private String aromas;
     private String imageLink;
@@ -36,9 +35,9 @@ public class Wine {
     private String shortDescription;
     private String longDescription;
 
-    //relaties
-    @ManyToMany(mappedBy = "wineSet")
+    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<WineAdvice> wineAdviceSet;
-    @ManyToMany(mappedBy = "wineSet")
+
+    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<Recipe> recipeSet;
 }

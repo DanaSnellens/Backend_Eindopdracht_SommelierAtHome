@@ -13,79 +13,50 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
 
-    //service
     private final ClientService clientService;
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
-    //get All
     @GetMapping
     public ResponseEntity<List<ClientOutputDto>> getAllClients() {
         return ResponseEntity.ok().body(clientService.getAllClients());
     }
 
-    //get One
-    @GetMapping("/{id}")
-    public ResponseEntity<ClientOutputDto> getClientById(@PathVariable("id") Long id,
-                                                         @AuthenticationPrincipal UserDetails userDetails) {
-        MyUserDetails myUserDetails = (MyUserDetails) userDetails;
-        if (id.equals(myUserDetails.getId())) {
-            return ResponseEntity.ok().body(clientService.getClientById(id));
-        }
-        else {
-            //TODO vervangen door nettere exception
+    @GetMapping("/{username}")
+    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
+        } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("userName") String userName,
-                                                               @AuthenticationPrincipal UserDetails userDetails) {
-        if (userName.equals(userDetails.getUsername())) {
-            return ResponseEntity.ok().body(clientService.getClientByUsername(userName));
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
-
-    //create
     @PostMapping
-    public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto, @AuthenticationPrincipal UserDetails userDetails) {
-        ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto, userDetails.getUsername());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientOutputDto.getId()).toUri();
+    public ResponseEntity<ClientOutputDto> createClient(@Valid @RequestBody ClientInputDto clientInputDto) {
+        ClientOutputDto clientOutputDto = clientService.createClient(clientInputDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(clientOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
-
-    //Update
-    @PutMapping("/{id}")
-    public ResponseEntity<ClientOutputDto> updateClientById(@PathVariable Long id, @Valid @RequestBody ClientInputDto updatedClient) {
-        ClientOutputDto clientOutputDto = clientService.updateClientById(id, updatedClient);
-        return ResponseEntity.ok().body(clientOutputDto);
-    }
-    @PutMapping("/{userName}")
-    public ResponseEntity<ClientOutputDto> updateClientByUserName(@PathVariable String userName, @Valid @RequestBody ClientInputDto updatedClient) {
-        ClientOutputDto clientOutputDto = clientService.updateClientByUserName(userName, updatedClient);
-        return ResponseEntity.ok().body(clientOutputDto);
+//TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
+    @PutMapping("/{username}")
+    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable ("username") String username, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    //Delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteClientById(@PathVariable Long id) {
-        clientService.deleteClientById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{userName}")
-    public ResponseEntity<Object> deleteClientByUserName(@PathVariable String userName) {
-        clientService.deleteClientByUserName(userName);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
+        clientService.deleteClientByUsername(username);
         return ResponseEntity.noContent().build();
     }
 }

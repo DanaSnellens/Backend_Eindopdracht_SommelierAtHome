@@ -1,5 +1,8 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -15,7 +18,8 @@ import java.util.Set;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipes_sequence_2021")
+    @SequenceGenerator(name = "recipes_sequence_2021", sequenceName = "recipes_sequence_2021", initialValue = 2021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -31,12 +35,9 @@ public class Recipe {
     private String preparationShortDescription;
     private String preparationLongDescription;
 
-    //relaties
-        //Wine
-    @ManyToMany//TODO Welke cascadeType? All is rigoreus, maar welke wel?(cascade = CascadeType.ALL)
-    @JoinTable(name = "recipe_wine",
-            joinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "recipes_wines",
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "wine_id", referencedColumnName = "id"))
     private Set<Wine> wineSet = new HashSet<>();
-
 }

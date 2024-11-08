@@ -3,31 +3,30 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.awt.*;
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)   //TODO Of moet dit JOINED zijn?
+@MappedSuperclass
 @Data
 public abstract class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
 
-
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, length = 255)
@@ -35,11 +34,14 @@ public abstract class User {
 
     private String profilePictureUrl;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet = new HashSet<>();
 
-    private String getFullName() {return firstName + lastName;}
 }
+//    @ManyToMany(fetch = FetchType.EAGER)
+//@JoinTable weg???
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roleSet = new HashSet<>();
+
+
+/*  private String getFullName() {return firstName + lastName;}*/

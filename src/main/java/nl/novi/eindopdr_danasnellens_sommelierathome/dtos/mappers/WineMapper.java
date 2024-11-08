@@ -7,6 +7,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,11 +15,12 @@ public class WineMapper {
 
     //from dto to model
 
-    public static Wine wineInputDtoToModel(WineInputDto wineInputDto) {
+    public static Wine wineInputToModel(WineInputDto wineInputDto) {
         Wine wine = new Wine();
         wine.setWineName(wineInputDto.getWineName());
         wine.setCountry(wineInputDto.getCountry());
         wine.setRegion(wineInputDto.getRegion());
+
         wine.setGrapeVarietal(wineInputDto.getGrapeVarietal());
         wine.setProducer(wineInputDto.getProducer());
         wine.setWineStyle(wineInputDto.getWineStyle());
@@ -32,14 +34,29 @@ public class WineMapper {
         wine.setShortDescription(wineInputDto.getShortDescription());
         wine.setLongDescription(wineInputDto.getLongDescription());
 
-        //relaties
-/*        wine.setWineAdviceSet(wineInputDto.getWineAdviceSet());
-        wine.setRecipeSet(wineInputDto.getRecipeSet());*/
-
         return wine;
-
     }
-    //from model to dto
+
+    public static Wine updateWineMapper(Wine savedWine, WineInputDto updatedWineInputDto) {
+        savedWine.setWineName(updatedWineInputDto.getWineName());
+        savedWine.setCountry(updatedWineInputDto.getCountry());
+        savedWine.setRegion(updatedWineInputDto.getRegion());
+        savedWine.setGrapeVarietal(updatedWineInputDto.getGrapeVarietal());
+        savedWine.setProducer(updatedWineInputDto.getProducer());
+        savedWine.setWineStyle(updatedWineInputDto.getWineStyle());
+        savedWine.setWineType(updatedWineInputDto.getWineType());
+        savedWine.setFoodPairing(updatedWineInputDto.getFoodPairing());
+        savedWine.setYear(updatedWineInputDto.getYear());
+        savedWine.setPrice(updatedWineInputDto.getPrice());
+        savedWine.setAromas(updatedWineInputDto.getAromas());
+        savedWine.setImageLink(updatedWineInputDto.getImageLink());
+        savedWine.setImageAlt(updatedWineInputDto.getImageAlt());
+        savedWine.setShortDescription(updatedWineInputDto.getShortDescription());
+        savedWine.setLongDescription(updatedWineInputDto.getLongDescription());
+
+        return savedWine;
+    }
+
     public static WineOutputDto wineModelToOutput(Wine wine) {
         WineOutputDto wineOutputDto = new WineOutputDto();
         wineOutputDto.setId(wine.getId());
@@ -59,14 +76,25 @@ public class WineMapper {
         wineOutputDto.setShortDescription(wine.getShortDescription());
         wineOutputDto.setLongDescription(wine.getLongDescription());
 
-        //TODO relaties
-/*        wineOutputDto.setWineAdviceSet(wine.getWineAdviceSet());
-        wineOutputDto.setRecipeSet(wine.getRecipeSet());*/
+        if (wine.getWineAdviceSet() != null) {
+            Set<Long> wineAdviceIdSet = new HashSet<>();
+            for (WineAdvice wa : wine.getWineAdviceSet()) {
+                wineAdviceIdSet.add(wa.getId());
+            }
+            wineOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
+        }
+
+        if (wine.getRecipeSet() != null) {
+            Set<Long> recipeIdSet = new HashSet<>();
+            for (Recipe recipe : wine.getRecipeSet()) {
+                recipeIdSet.add(recipe.getId());
+            }
+            wineOutputDto.setRecipeIdSet(recipeIdSet);
+        }
 
         return wineOutputDto;
     }
 
-    //from list to list
     public static List<WineOutputDto> wineModelListToOutputList(List<Wine> wineList) {
         List<WineOutputDto> wineOutputDtoList = new ArrayList<>();
         for (Wine wine : wineList) {

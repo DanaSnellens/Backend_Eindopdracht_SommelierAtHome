@@ -5,8 +5,6 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDt
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.SommelierService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,44 +24,32 @@ public class SommelierController {
         return ResponseEntity.ok().body(sommelierService.getAllSommeliers());
     }
 
-    @GetMapping("/{id}")
+/*    @GetMapping("/{id}")
     public ResponseEntity<SommelierOutputDto> getSommelierById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(sommelierService.getSommelierById(id));
-    }
+    }*/
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<SommelierOutputDto> getSommelierByUsername(@PathVariable("userName") String userName) {
-        return ResponseEntity.ok().body(sommelierService.getSommelierByUserName(userName));
+    @GetMapping("/{username}")
+    public ResponseEntity<SommelierOutputDto> getSommelierByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(sommelierService.getSommelierByUsername(username));
     }
 
     @PostMapping
-    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto,
-                                                              @AuthenticationPrincipal UserDetails userDetails) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.createSommelier(sommelierInputDto, userDetails.getUsername());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sommelierOutputDto.getId()).toUri();
+    public ResponseEntity<SommelierOutputDto> createSommelier(@Valid @RequestBody SommelierInputDto sommelierInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
+        SommelierOutputDto sommelierOutputDto = sommelierService.createSommelier(sommelierInputDto/*, userDetails.getUsername()*/);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(sommelierOutputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(sommelierOutputDto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SommelierOutputDto> updateSommelierById(@PathVariable Long id, @Valid @RequestBody SommelierInputDto updatedSommelier) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierById(id, updatedSommelier);
-        return ResponseEntity.ok().body(sommelierOutputDto);
-    }
-    @PutMapping("/{userName}")
-    public ResponseEntity<SommelierOutputDto> updateSommelierByUsername(@PathVariable String userName, @Valid @RequestBody SommelierInputDto updatedSommelier) {
-        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierByUserName(userName, updatedSommelier);
+    @PutMapping("/{username}")
+    public ResponseEntity<SommelierOutputDto> updateSommelierByUsername(@PathVariable String username, @Valid @RequestBody SommelierInputDto updatedSommelier) {
+        SommelierOutputDto sommelierOutputDto = sommelierService.updateSommelierByUsername(username, updatedSommelier);
         return ResponseEntity.ok().body(sommelierOutputDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteSommelierById(@PathVariable Long id) {
-        sommelierService.deleteSommelierById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{userName}")
-    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable String userName) {
-        sommelierService.deleteSommelierByUsername(userName);
+    @DeleteMapping("/{sommelierUsername}")
+    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable ("sommelierUsername") String sommelierUsername) {
+        sommelierService.deleteSommelierByUsername(sommelierUsername);
         return ResponseEntity.noContent().build();
     }
 

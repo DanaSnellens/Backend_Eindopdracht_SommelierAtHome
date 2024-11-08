@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import nl.novi.eindopdr_danasnellens_sommelierathome.utils.RandomStringGenerator;
+import nl.novi.eindopdr_danasnellens_sommelierathome.utils. RandomStringGenerator;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service public class JwtUtil {
-    // De secret key moet minimaal 256 bits lang zijn, of grofweg 45 characters
+    // TODO VERWIJDEREN (comment of hele secret key??) De secret key moet minimaal 256 bits lang zijn, of grofweg 45 characters
+
     private final static String SECRET_KEY = RandomStringGenerator.generateAlphaNumeric(45);;
 
     private Key getSigningKey() {
@@ -55,7 +56,7 @@ import java.util.function.Function;
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5))
                 .signWith(getSigningKey() , SignatureAlgorithm.HS256)
                 .compact();
     }

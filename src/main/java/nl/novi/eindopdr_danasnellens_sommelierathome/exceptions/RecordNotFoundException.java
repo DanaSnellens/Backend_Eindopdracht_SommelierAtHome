@@ -1,4 +1,5 @@
-/*package nl.novi.eindopdr_danasnellens_sommelierathome.exceptions;
+
+package nl.novi.eindopdr_danasnellens_sommelierathome.exceptions;
 
 public class RecordNotFoundException extends RuntimeException {
     public RecordNotFoundException() {
@@ -8,4 +9,4 @@ public class RecordNotFoundException extends RuntimeException {
     public RecordNotFoundException(String message) {
         super(message);
     }
-}*/
+}

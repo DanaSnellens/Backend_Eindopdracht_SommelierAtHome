@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.User;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.SommelierRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,27 +25,27 @@ public class MyUserDetailService implements UserDetailsService {
     private final SommelierRepository sommelierRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<Client> optionalClient = clientRepository.findClientByUserName(userName);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
             return createUserDetails(client);
         }
 
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUserName(userName);
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();
             return createUserDetails(sommelier);
         }
 
-        throw new UsernameNotFoundException("There is no user found with username: " + userName);
+        throw new UsernameNotFoundException("There is no user found with username: " + username);
     }
 
     private UserDetails createUserDetails(Client client) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        client.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+        client.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
-                client.getUserName(),
+                client.getUsername(),
                 client.getPassword(),
                 authorities
         );
@@ -52,13 +53,14 @@ public class MyUserDetailService implements UserDetailsService {
 
     private UserDetails createUserDetails(Sommelier sommelier) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-       sommelier.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+       sommelier.getRoleSet().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(
-                sommelier.getUserName(),
+                sommelier.getUsername(),
                 sommelier.getPassword(),
                 authorities
         );
     }
+
 }
 
 

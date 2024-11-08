@@ -1,9 +1,9 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,7 +17,7 @@ public class WineOutputDto {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
-    private String year;
+    private Integer year;
     private Double price;
     private String aromas;
     private String imageLink;
@@ -25,9 +25,8 @@ public class WineOutputDto {
     private String shortDescription;
     private String longDescription;
 
-    //relaties
-    private Set<WineAdvice> wineAdviceSet;
-    private Set<Recipe> recipeSet;
+    private Set<Long> wineAdviceIdSet = new HashSet<>();
+    private Set<Long> recipeIdSet = new HashSet<>();
 }
 
 

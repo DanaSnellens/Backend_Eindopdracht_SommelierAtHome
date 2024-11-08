@@ -1,21 +1,25 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
-// @EqualsAndHashCode(callSuper = true)
+//TODO Klopt @EqualsAndHashCode(callSuper = true) wel?
+// Sommelier.java
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "sommeliers")
-@Data
-public class Sommelier extends User{
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
+public class Sommelier extends User {
 
     private String sommelierDescription;
     private String certificates;
@@ -23,9 +27,17 @@ public class Sommelier extends User{
     private String curriculumVitae;
     private String specialization;
 
-    @OneToMany(mappedBy = "sommelier")
-    private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sommelier", cascade = CascadeType.ALL)
+    private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "sommelier")
-    private Set<WineAdvice> WineAdviceSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "sommelier_roles",
+            joinColumns = @JoinColumn(name = "sommelier_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roleSet = new HashSet<>();
+
+    //TODO Deze methodes deleten of gebruiken? Misschien onder helpers?
+    /*
+    public void addRole(Role role) {this.roleSet.add(role);}
+    public void removeRole(Role role) {this.roleSet.remove(role);}*/
 }

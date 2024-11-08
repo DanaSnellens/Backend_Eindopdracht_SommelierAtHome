@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
+import nl.novi.eindopdr_danasnellens_sommelierathome.exceptions.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,10 +14,11 @@ import java.util.stream.Collectors;
 //Zie HW-klas 13.2 00:06:00 voor uitleg
 @ControllerAdvice
 public class ExceptionController {
-/*    @ExceptionHandler(value = RecordNotFoundException.class)
+    @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }*/
+    }
+
 
     @ExceptionHandler(value = IndexOutOfBoundsException.class)
     public ResponseEntity<Object> exception(IndexOutOfBoundsException exception) {

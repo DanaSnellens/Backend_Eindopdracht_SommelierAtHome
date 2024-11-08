@@ -1,9 +1,9 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 
+import jakarta.persistence.Column;
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
+
+import java.io.File;
 
 @Data
 public class WineAdviceRequestOutputDto {
@@ -12,12 +12,17 @@ public class WineAdviceRequestOutputDto {
     private String dinnerOccasion;
     private String requestMessage;
     private String recipeLink;
+    private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
-    //relaties
-    private Long clientId;
-    private Long sommelierId;
-    private Long wineAdviceId;
+    private String clientUsername;
+    @Column(nullable = true)
+    private String sommelierUsername; // Als deze is assigned
+    @Column(nullable = true)
+    private Long wineAdviceId; // Als deze is assigned
+
+
+
 }
 

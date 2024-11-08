@@ -1,25 +1,32 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
-// @EqualsAndHashCode(callSuper = true)
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "clients")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Client extends User {
-
+    @Enumerated(EnumType.STRING)
     private Membership membership;
 
-    @OneToMany(mappedBy = "client")
-    private Set<WineAdviceRequest> WineAdviceRequestSet = new HashSet<>();
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "client")
-    private Set<WineAdvice> WineAdviceSet = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "client_roles",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roleSet = new HashSet<>();
+
+    public void addRole(Role role) {this.roleSet.add(role);}
+    public void removeRole(Role role) {this.roleSet.remove(role);}
 }
