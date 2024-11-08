@@ -1,8 +1,8 @@
 -- Insert into clients table
 INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, membership)
-VALUES (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'REGULAR'),
-       (nextval('user_sequence'),'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$12$GUjbpLbcg0DGsfTPPKPOIuQZSToS.1RLGPPdxRbSCtSWs.TvECU/G
-', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'BASIC'),
+VALUES
+       (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'REGULAR'),
+       (nextval('user_sequence'),'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$12$GUjbpLbcg0DGsfTPPKPOIuQZSToS.1RLGPPdxRbSCtSWs.TvECU/G', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'BASIC'),
        (nextval('user_sequence'),'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$10$b', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'PREMIUM'),
        (nextval('user_sequence'),'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$10$c', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'REGULAR'),
        (nextval('user_sequence'),'client5', 'Sophia', 'Garcia', 'sophiagarcia@gmail.com', '$2a$10$d', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'PREMIUM'),
@@ -11,7 +11,6 @@ VALUES (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmai
 -- Insert into sommeliers table
 INSERT INTO sommeliers (id, username, first_name, last_name, email, password, profile_picture_url, sommelier_description, certificates, experience_in_years, curriculum_vitae, specialization)
 VALUES
-    (nextval('user_sequence'), 'tomas', 'Tomas', 'ten Voorde', 'tomastv@gmail.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRvbWFzIiwicGFzc3dvcmQiOiJ3YWNodHdvb3JkIn0.P_UdQkwjfGyniguVoLQtwtPOw7WafDOar8HaUkUHC_Y', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Certified sommelier with a passion for wine and food pairing. I have extensive experience in the wine industry and love helping clients discover new wines.', 'Certified Sommelier (CMS)', 10, '2020-2024: Winebar VinVin, 2018-2020: Restaurant The Elephant, 2014-2018: Winebar Lefebre', 'Wine and Food Pairing'),
     (nextval('user_sequence'), 'sommelier1', 'Alice', 'Smith', 'alicesmith@gmail.com', '$2a$12$uEmKxBO6nFHPlearWS7Icu6PzbA3O2VEGB9SbuiPjACTfTxJulx7y', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Certified sommelier with a passion for wine and food pairing. I have extensive experience in the wine industry and love helping clients discover new wines.', 'Certified Sommelier (CMS)', 10, '2020-2024: Winebar VinVin, 2018-2020: Restaurant The Elephant, 2014-2018: Winebar Lefebre', 'Wine and Food Pairing'),
        (nextval('user_sequence'), 'sommelier2', 'James', 'Anderson', 'jamesanderson@gmail.com', '$2a$10$4', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'A seasoned sommelier with a focus on Old World wines and a deep understanding of Burgundy and Bordeaux regions. Dedicated to creating memorable wine experiences.', 'Advanced Sommelier (CMS)', 12, '2012-2024: Restaurant La Table, 2008-2012: Winehouse Bar & Grill', 'Old World Wines'),
        (nextval('user_sequence'), 'sommelier3', 'Laura', 'Gonzalez', 'lauragonzalez@gmail.com', '$2a$10$5', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Specializing in South American wines, I am passionate about highlighting the uniqueness of wines from Argentina and Chile. Extensive experience in guiding clients through food and wine pairing.', 'Certified Specialist of Wine (CSW)', 8, '2016-2024: The Wine Cellar, 2014-2016: Buenos Aires Bistro', 'South American Wines'),
@@ -20,8 +19,8 @@ VALUES
        (nextval('user_sequence'), 'sommelier6', 'David', 'Nguyen', 'davidnguyen@gmail.com', '$2a$10$8', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'With a focus on New World wines, I have years of experience in pairing wines from Australia, New Zealand, and California. I enjoy curating unique wine lists for modern restaurants.', 'Advanced Sommelier (CMS)', 9, '2015-2024: Winehouse 1920, 2010-2015: The Modern Palate', 'New World Wines');
 
 INSERT INTO roles (id, role_name)
-VALUES (1, 'ROLE_CLIENT'),
-       (2, 'ROLE_ADMIN');
+VALUES (1, 'CLIENT'),
+       (2, 'ADMIN');
 
 
 insert INTO client_roles(client_id, role_id) VALUES

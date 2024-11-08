@@ -47,9 +47,9 @@ public class SommelierService {
         if (optionalSommelier.isEmpty()) {
             sommelierInputDto.setPassword(passwordEncoder.encode(sommelierInputDto.getPassword()));
 
-            Optional<Role> sommelierRoleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName("ROLE_ADMIN"));
+            Optional<Role> sommelierRoleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName("ADMIN"));
             Role sommelierRole = sommelierRoleOptional
-                    .orElseThrow(() -> new EntityNotFoundException("ROLE_ADMIN not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("ADMIN role not found"));
 
             Sommelier sommelier = sommelierInputDtoToModel(sommelierInputDto/*, username*/);
             sommelier.getRoleSet().add(sommelierRole);
@@ -60,13 +60,13 @@ public class SommelierService {
             throw new UsernameNotFoundException("Sommelier with username: " + sommelierInputDto.getUsername() + " already exists");
         }
     }
-    
-    public SommelierOutputDto updateSommelierByUsername(String userName, SommelierInputDto updatedSommelier) {
-        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(userName);
+    //TODO do smth with updatedSomm (of imput weg?)
+    public SommelierOutputDto updateSommelierByUsername(String username, SommelierInputDto updatedSommelier) {
+        Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
-        else throw new UsernameNotFoundException("No sommelier found with username: " + userName);
+        else throw new UsernameNotFoundException("No sommelier found with username: " + username);
     }
 
     @Transactional

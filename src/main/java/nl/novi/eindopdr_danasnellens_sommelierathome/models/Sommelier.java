@@ -30,7 +30,7 @@ public class Sommelier extends User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sommelier", cascade = CascadeType.ALL)
     private Set<WineAdviceRequest> wineAdviceRequestSet = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sommelier_roles",
             joinColumns = @JoinColumn(name = "sommelier_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

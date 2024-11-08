@@ -60,9 +60,9 @@ public class ClientService {
             Client newClient = clientInputDtoToModel(clientInputDto);
             newClient.setPassword(passwordEncoder.encode(clientInputDto.getPassword()));
 
-            Optional<Role> clientRoleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName("ROLE_CLIENT"));
+            Optional<Role> clientRoleOptional = Optional.ofNullable(roleRepository.findRoleByRoleName("CLIENT"));
             Role clientRole = clientRoleOptional
-                    .orElseThrow(() -> new EntityNotFoundException("ROLE_CLIENT not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("CLIENT not found"));
             newClient.getRoleSet().add(clientRole);
 
             Client savedClient = clientRepository.save(newClient);

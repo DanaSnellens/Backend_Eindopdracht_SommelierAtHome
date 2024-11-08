@@ -26,7 +26,8 @@ public class AuthenticationController {
     }
 //TODO getMapping nog checken Authentication weghalen als parameter?
     @GetMapping(value = "/authenticated")
-    public ResponseEntity<Object> authenticated(Authentication authentication, Principal principal) {
+    public ResponseEntity<Object> authenticated(//TODO WEG?? /*Authentication authentication, */
+                                                 Principal principal) {
         return ResponseEntity.ok().body(principal);
     }
 //TODO Onderstaande overgenomen uit Les17-jwt, maar is dit volledig? Tini heeft een andere manier. Sowieso de exception nog specifieceren + message

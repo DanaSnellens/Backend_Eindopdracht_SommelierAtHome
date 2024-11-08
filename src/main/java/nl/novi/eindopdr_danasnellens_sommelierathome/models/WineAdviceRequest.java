@@ -29,11 +29,11 @@ public class WineAdviceRequest {
     private Double maxPricePerBottle;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sommelier_id", nullable = true)
+    @JoinColumn(name = "sommelier_id")
     private Sommelier sommelier;
 
     @OneToOne(mappedBy = "wineAdviceRequest", cascade = CascadeType.ALL, orphanRemoval = true)
