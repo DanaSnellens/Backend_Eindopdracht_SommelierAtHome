@@ -13,6 +13,7 @@ public class SommelierOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
+    private String profilePictureAlt;
     private String sommelierDescription;
     private String certificates;
     private Integer experienceInYears;

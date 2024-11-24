@@ -22,6 +22,7 @@ public class SommelierMapper {
         sommelier.setEmail(sommelierInputDto.getEmail());
         sommelier.setPassword(sommelierInputDto.getPassword());
         sommelier.setProfilePictureUrl(sommelierInputDto.getProfilePictureUrl());
+        sommelier.setProfilePictureAlt(sommelierInputDto.getProfilePictureAlt());
 //        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
         sommelier.setSommelierDescription(sommelierInputDto.getSommelierDescription());
         sommelier.setCertificates(sommelierInputDto.getCertificates());
@@ -41,6 +42,7 @@ public class SommelierMapper {
         sommelierOutputDto.setLastName(sommelier.getLastName());
         sommelierOutputDto.setEmail(sommelier.getEmail());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
+        sommelierOutputDto.setProfilePictureAlt(sommelier.getProfilePictureAlt());
 
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());

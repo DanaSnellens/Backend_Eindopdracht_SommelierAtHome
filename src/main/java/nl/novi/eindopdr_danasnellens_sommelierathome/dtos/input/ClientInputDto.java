@@ -36,6 +36,7 @@ public class ClientInputDto {
     @NotBlank(message = "Profile picture URL is required")
     @URL(message = "Profile picture URL is invalid")
     private String profilePictureUrl;
+    private String profilePictureAlt;
     private Membership membership;
 
 /*    TODO deleten of niet?

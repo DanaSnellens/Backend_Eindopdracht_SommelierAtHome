@@ -15,6 +15,7 @@ public class ClientOutputDto {
     private String lastName;
     private String email;
     private String profilePictureUrl;
+    private String profilePictureAlt;
     //TODO RolenameSet of ID. Waarom String unused
     private Set<String> roleNameSet = new HashSet<>();
     private Membership membership;

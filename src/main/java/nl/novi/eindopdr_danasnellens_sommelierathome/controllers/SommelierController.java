@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/sommeliers")
 public class SommelierController {
@@ -47,9 +47,9 @@ public class SommelierController {
         return ResponseEntity.ok().body(sommelierOutputDto);
     }
 
-    @DeleteMapping("/{sommelierUsername}")
-    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable ("sommelierUsername") String sommelierUsername) {
-        sommelierService.deleteSommelierByUsername(sommelierUsername);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteSommelierByUsername(@PathVariable ("username") String username) {
+        sommelierService.deleteSommelierByUsername(username);
         return ResponseEntity.noContent().build();
     }
 

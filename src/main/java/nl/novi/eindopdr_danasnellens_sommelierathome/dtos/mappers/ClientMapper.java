@@ -22,6 +22,8 @@ public class ClientMapper {
         client.setEmail(clientInputDto.getEmail());
         client.setPassword(clientInputDto.getPassword());
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
+        client.setProfilePictureAlt(clientInputDto.getProfilePictureAlt());
+        //ROLE?
         client.setMembership(clientInputDto.getMembership());
 
         return client;

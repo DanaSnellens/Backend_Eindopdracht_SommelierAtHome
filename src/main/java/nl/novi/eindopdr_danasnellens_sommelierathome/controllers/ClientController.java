@@ -31,7 +31,7 @@ public class ClientController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
-        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
+        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
