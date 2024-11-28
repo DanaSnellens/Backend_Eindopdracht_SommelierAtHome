@@ -1,4 +1,4 @@
--- Create user_sequence
+/*-- Create user_sequence
 CREATE SEQUENCE IF NOT EXISTS user_sequence
     START WITH 1
     INCREMENT BY 1
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS recipes_wines (
                                PRIMARY KEY (recipe_id, wine_id),
                                FOREIGN KEY (recipe_id) REFERENCES recipes(id),
                                FOREIGN KEY (wine_id) REFERENCES wines(id)
-);
+);*/
 
 -- Insert into clients table
 INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, membership)
