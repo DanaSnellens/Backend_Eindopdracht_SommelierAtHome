@@ -1,7 +1,143 @@
+/*-- Create user_sequence
+CREATE SEQUENCE IF NOT EXISTS user_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- Create clients table
+CREATE TABLE IF NOT EXISTS clients (
+                         id BIGINT PRIMARY KEY,
+                         username VARCHAR(255) NOT NULL,
+                         first_name VARCHAR(255) NOT NULL,
+                         last_name VARCHAR(255) NOT NULL,
+                         email VARCHAR(255) NOT NULL,
+                         password VARCHAR(255) NOT NULL,
+                         profile_picture_url VARCHAR(255),
+                         membership VARCHAR(50)
+);
+
+-- Create sommeliers table
+CREATE TABLE IF NOT EXISTS sommeliers (
+                            id BIGINT PRIMARY KEY,
+                            username VARCHAR(255) NOT NULL,
+                            first_name VARCHAR(255) NOT NULL,
+                            last_name VARCHAR(255) NOT NULL,
+                            email VARCHAR(255) NOT NULL,
+                            password VARCHAR(255) NOT NULL,
+                            profile_picture_url VARCHAR(255),
+                            sommelier_description TEXT,
+                            certificates VARCHAR(255),
+                            experience_in_years INT,
+                            curriculum_vitae TEXT,
+                            specialization VARCHAR(255)
+);
+
+-- Create roles table
+CREATE TABLE IF NOT EXISTS roles (
+                       id BIGINT PRIMARY KEY,
+                       role_name VARCHAR(50) NOT NULL
+);
+
+-- Create client_roles table
+CREATE TABLE IF NOT EXISTS client_roles (
+                              client_id BIGINT,
+                              role_id BIGINT,
+                              PRIMARY KEY (client_id, role_id),
+                              FOREIGN KEY (client_id) REFERENCES clients(id),
+                              FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+-- Create sommelier_roles table
+CREATE TABLE IF NOT EXISTS sommelier_roles (
+                                 sommelier_id BIGINT,
+                                 role_id BIGINT,
+                                 PRIMARY KEY (sommelier_id, role_id),
+                                 FOREIGN KEY (sommelier_id) REFERENCES sommeliers(id),
+                                 FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+-- Create wines table
+CREATE TABLE IF NOT EXISTS wines (
+                       id BIGINT PRIMARY KEY,
+                       wine_name VARCHAR(255) NOT NULL,
+                       country VARCHAR(255),
+                       region VARCHAR(255),
+                       grape_varietal VARCHAR(255),
+                       producer VARCHAR(255),
+                       wine_style VARCHAR(50),
+                       wine_type VARCHAR(50),
+                       food_pairing TEXT,
+                       year INT,
+                       price DECIMAL(10, 2),
+                       image_link VARCHAR(255),
+                       image_alt VARCHAR(255),
+                       short_description TEXT,
+                       long_description TEXT
+);
+
+-- Create recipes table
+CREATE TABLE IF NOT EXISTS recipes (
+                         id BIGINT PRIMARY KEY,
+                         recipe_name VARCHAR(255) NOT NULL,
+                         course VARCHAR(50),
+                         main_ingredient VARCHAR(255),
+                         other_ingredients TEXT,
+                         servings INT,
+                         preparation_time INT,
+                         wine_pairing VARCHAR(255),
+                         image_link VARCHAR(255),
+                         image_alt VARCHAR(255),
+                         preparation_short_description TEXT,
+                         preparation_long_description TEXT
+);
+
+-- Create wineadvicerequests table
+CREATE TABLE IF NOT EXISTS wineadvicerequests (
+                                    id BIGINT PRIMARY KEY,
+                                    client_id BIGINT,
+                                    sommelier_id BIGINT,
+                                    dinner_occasion VARCHAR(255),
+                                    request_message TEXT,
+                                    recipe_link VARCHAR(255),
+                                    min_price_per_bottle DECIMAL(10, 2),
+                                    max_price_per_bottle DECIMAL(10, 2),
+                                    FOREIGN KEY (client_id) REFERENCES clients(id),
+                                    FOREIGN KEY (sommelier_id) REFERENCES sommeliers(id)
+);
+
+-- Create wineadvices table
+CREATE TABLE IF NOT EXISTS wineadvices (
+                             id BIGINT PRIMARY KEY,
+                             wineadvicerequest_id BIGINT,
+                             personal_message TEXT,
+                             advice_explanation TEXT,
+                             FOREIGN KEY (wineadvicerequest_id) REFERENCES wineadvicerequests(id)
+);
+
+-- Create wineadvices_wines table
+CREATE TABLE IF NOT EXISTS wineadvices_wines (
+                                   wineadvice_id BIGINT,
+                                   wine_id BIGINT,
+                                   PRIMARY KEY (wineadvice_id, wine_id),
+                                   FOREIGN KEY (wineadvice_id) REFERENCES wineadvices(id),
+                                   FOREIGN KEY (wine_id) REFERENCES wines(id)
+);
+
+-- Create recipes_wines table
+CREATE TABLE IF NOT EXISTS recipes_wines (
+                               recipe_id BIGINT,
+                               wine_id BIGINT,
+                               PRIMARY KEY (recipe_id, wine_id),
+                               FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+                               FOREIGN KEY (wine_id) REFERENCES wines(id)
+);*/
+
 -- Insert into clients table
 INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, membership)
 VALUES
-       (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$10$9', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'REGULAR'),
+       (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$12$YZLf4hPhDPvPwsta9lRIaeGo.OUMe5gtsht7j4U75wwEyKJU.gCvi', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'REGULAR'),
        (nextval('user_sequence'),'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$12$GUjbpLbcg0DGsfTPPKPOIuQZSToS.1RLGPPdxRbSCtSWs.TvECU/G', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'BASIC'),
        (nextval('user_sequence'),'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$10$b', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'PREMIUM'),
        (nextval('user_sequence'),'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$10$c', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'REGULAR'),
@@ -11,12 +147,12 @@ VALUES
 -- Insert into sommeliers table
 INSERT INTO sommeliers (id, username, first_name, last_name, email, password, profile_picture_url, sommelier_description, certificates, experience_in_years, curriculum_vitae, specialization)
 VALUES
-    (nextval('user_sequence'), 'sommelier1', 'Alice', 'Smith', 'alicesmith@gmail.com', '$2a$12$uEmKxBO6nFHPlearWS7Icu6PzbA3O2VEGB9SbuiPjACTfTxJulx7y', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Certified sommelier with a passion for wine and food pairing. I have extensive experience in the wine industry and love helping clients discover new wines.', 'Certified Sommelier (CMS)', 10, '2020-2024: Winebar VinVin, 2018-2020: Restaurant The Elephant, 2014-2018: Winebar Lefebre', 'Wine and Food Pairing'),
-       (nextval('user_sequence'), 'sommelier2', 'James', 'Anderson', 'jamesanderson@gmail.com', '$2a$10$4', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'A seasoned sommelier with a focus on Old World wines and a deep understanding of Burgundy and Bordeaux regions. Dedicated to creating memorable wine experiences.', 'Advanced Sommelier (CMS)', 12, '2012-2024: Restaurant La Table, 2008-2012: Winehouse Bar & Grill', 'Old World Wines'),
-       (nextval('user_sequence'), 'sommelier3', 'Laura', 'Gonzalez', 'lauragonzalez@gmail.com', '$2a$10$5', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Specializing in South American wines, I am passionate about highlighting the uniqueness of wines from Argentina and Chile. Extensive experience in guiding clients through food and wine pairing.', 'Certified Specialist of Wine (CSW)', 8, '2016-2024: The Wine Cellar, 2014-2016: Buenos Aires Bistro', 'South American Wines'),
-       (nextval('user_sequence'), 'sommelier4', 'Michael', 'Brown', 'michaelbrown@gmail.com', '$2a$10$6', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Expert in fine dining wine service with a strong focus on high-end European wines, including Champagne and Burgundy. Aiming to provide guests with unique and refined wine selections.', 'Diploma in Wine and Spirits (WSET)', 15, '2009-2024: The Grand Hotel, 2005-2009: Château de Ville', 'European Wines'),
-       (nextval('user_sequence'), 'sommelier5', 'Sophie', 'Dupont', 'sophiedupont@gmail.com', '$2a$10$7', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'Experienced sommelier with a focus on organic and biodynamic wines. Passionate about sustainable viticulture and educating clients on eco-friendly wine choices.', 'Certified Sommelier (CMS), Organic Wine Specialist', 7, '2017-2024: Restaurant Green Vine, 2013-2017: Bistro Naturelle', 'Organic and Biodynamic Wines'),
-       (nextval('user_sequence'), 'sommelier6', 'David', 'Nguyen', 'davidnguyen@gmail.com', '$2a$10$8', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'With a focus on New World wines, I have years of experience in pairing wines from Australia, New Zealand, and California. I enjoy curating unique wine lists for modern restaurants.', 'Advanced Sommelier (CMS)', 9, '2015-2024: Winehouse 1920, 2010-2015: The Modern Palate', 'New World Wines');
+    (nextval('user_sequence'), 'sommelier1', 'Alice', 'Smith', 'alicesmith@gmail.com', '$2a$12$YZLf4hPhDPvPwsta9lRIaeGo.OUMe5gtsht7j4U75wwEyKJU.gCvi', 'https://fotovandana.nl/wp-content/uploads/2022/02/FotovanDana-profielfotoman-wit-2.jpg', 'Certified sommelier with a passion for wine and food pairing. I have extensive experience in the wine industry and love helping clients discover new wines.', 'Certified Sommelier (CMS)', 10, '2020-2024: Winebar VinVin, 2018-2020: Restaurant The Elephant, 2014-2018: Winebar Lefebre', 'Wine and Food Pairing'),
+       (nextval('user_sequence'), 'sommelier2', 'James', 'Anderson', 'jamesanderson@gmail.com', '$2a$10$4', 'https://fotovandana.nl/wp-content/uploads/2022/02/FotovanDana-profielfotoman-wit-2.jpg', 'A seasoned sommelier with a focus on Old World wines and a deep understanding of Burgundy and Bordeaux regions. Dedicated to creating memorable wine experiences.', 'Advanced Sommelier (CMS)', 12, '2012-2024: Restaurant La Table, 2008-2012: Winehouse Bar & Grill', 'Old World Wines'),
+       (nextval('user_sequence'), 'sommelier3', 'Laura', 'Gonzalez', 'lauragonzalez@gmail.com', '$2a$10$5', 'https://img.freepik.com/vrije-photo/boheemse-man-met-zijn-armen-gekruist_1368-3542.jpg?size=626&ext=jpg', 'Specializing in South American wines, I am passionate about highlighting the uniqueness of wines from Argentina and Chile. Extensive experience in guiding clients through food and wine pairing.', 'Certified Specialist of Wine (CSW)', 8, '2016-2024: The Wine Cellar, 2014-2016: Buenos Aires Bistro', 'South American Wines'),
+       (nextval('user_sequence'), 'sommelier4', 'Michael', 'Brown', 'michaelbrown@gmail.com', '$2a$10$6', 'https://fotovandana.nl/wp-content/uploads/2022/02/FotovanDana-profielfotoman-wit-2.jpg', 'Expert in fine dining wine service with a strong focus on high-end European wines, including Champagne and Burgundy. Aiming to provide guests with unique and refined wine selections.', 'Diploma in Wine and Spirits (WSET)', 15, '2009-2024: The Grand Hotel, 2005-2009: Château de Ville', 'European Wines'),
+       (nextval('user_sequence'), 'sommelier5', 'Sophie', 'Dupont', 'sophiedupont@gmail.com', '$2a$10$7', 'https://img.freepik.com/vrije-photo/boheemse-man-met-zijn-armen-gekruist_1368-3542.jpg?size=626&ext=jpg', 'Experienced sommelier with a focus on organic and biodynamic wines. Passionate about sustainable viticulture and educating clients on eco-friendly wine choices.', 'Certified Sommelier (CMS), Organic Wine Specialist', 7, '2017-2024: Restaurant Green Vine, 2013-2017: Bistro Naturelle', 'Organic and Biodynamic Wines'),
+       (nextval('user_sequence'), 'sommelier6', 'David', 'Nguyen', 'davidnguyen@gmail.com', '$2a$10$8', 'https://fotovandana.nl/wp-content/uploads/2022/02/FotovanDana-profielfotoman-wit-2.jpg', 'With a focus on New World wines, I have years of experience in pairing wines from Australia, New Zealand, and California. I enjoy curating unique wine lists for modern restaurants.', 'Advanced Sommelier (CMS)', 9, '2015-2024: Winehouse 1920, 2010-2015: The Modern Palate', 'New World Wines');
 
 INSERT INTO roles (id, role_name)
 VALUES (1, 'CLIENT'),
@@ -41,31 +177,31 @@ INSERT INTO sommelier_roles(sommelier_id, role_id) VALUES
 
 
 INSERT INTO wines (id, wine_name, country, region, grape_varietal, producer, wine_style, wine_type, food_pairing, year, price, image_link, image_alt, short_description, long_description)
-VALUES (1001,'Chateau Montelena Chardonnay', 'United States', 'California', 'Chardonnay', 'Chateau Montelena', 'White', 'Still', 'Chicken, Pork, Rich Fish (Salmon, Tuna etc), Vegetarian, Poultry', 2016, 50.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Chateau Montelena Chardonnay', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.'),
-       (1002, 'Domaine de la Romanée-Conti La Tâche', 'France', 'Burgundy', 'Pinot Noir', 'Domaine de la Romanée-Conti', 'Red', 'Still', 'Beef, Game (Deer, Venison), Poultry', 2015, 4200.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Domaine de la Romanée-Conti La Tâche', 'A legendary Burgundy Pinot Noir, offering rich complexity with aromas of red fruit, truffle, and spice.', 'A prestigious and rare Burgundy red wine with earthy notes, perfect for game and beef dishes.'),
-       (1003, 'Penfolds Grange', 'Australia', 'South Australia', 'Shiraz', 'Penfolds', 'Red', 'Still', 'Beef, Lamb, Spicy Food', 2018, 850.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Penfolds Grange', 'Australia’s most iconic Shiraz, offering rich blackberry, plum, and spicy oak.', 'Penfolds Grange is known for its bold, complex flavors of dark fruits, spices, and oak, making it an excellent match for rich red meats.'),
-       (1004,'Marchesi Antinori Tignanello', 'Italy', 'Tuscany', 'Sangiovese', 'Marchesi Antinori', 'Red', 'Still', 'Beef, Lamb, Pasta', 2017, 125.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Marchesi-Antinori-Tignanello-2017.jpg', 'Marchesi Antinori Tignanello', 'An iconic Super Tuscan blend of Sangiovese and Cabernet, with bold fruit and spice notes.', 'Tignanello is a bold and structured wine from Tuscany, blending Sangiovese and Cabernet Sauvignon with ripe fruit and savory notes.'),
-       (1005,'Cloudy Bay Sauvignon Blanc', 'New Zealand', 'Marlborough', 'Sauvignon Blanc', 'Cloudy Bay', 'White', 'Still', 'Shellfish, Goat Cheese, Salad', 2021, 35.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'Cloudy Bay Sauvignon Blanc', 'A crisp and vibrant Sauvignon Blanc with notes of citrus, tropical fruits, and fresh herbs.', 'Cloudy Bay Sauvignon Blanc is known for its zesty citrus and tropical fruit flavors, making it ideal for seafood dishes and light salads.'),
-       (1006,'Vega Sicilia Unico', 'Spain', 'Ribera del Duero', 'Tempranillo', 'Vega Sicilia', 'Red', 'Still', 'Beef, Lamb, Game', 2009, 550.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Vega-Sicilia-Unico-2009.jpg', 'Vega Sicilia Unico', 'A legendary Spanish wine with deep complexity, offering dark fruit, spice, and earthy notes.', 'Vega Sicilia Unico is a prestigious Tempranillo blend from Ribera del Duero, with deep layers of flavor perfect for hearty meats.'),
-       (1007,'Chateau Margaux', 'France', 'Bordeaux', 'Cabernet Sauvignon', 'Chateau Margaux', 'Red', 'Still', 'Beef, Lamb, Game', 2015, 750.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Chateau Margaux', 'A prestigious Bordeaux wine with silky tannins, complex fruit, and elegant structure.', 'Chateau Margaux is a classic Bordeaux blend with flavors of blackcurrant, violet, and earthy notes, ideal for pairing with lamb and beef.'),
-       (1008,'Cakebread Cellars Cabernet Sauvignon', 'United States', 'California', 'Cabernet Sauvignon', 'Cakebread Cellars', 'Red', 'Still', 'Beef, Lamb, Poultry', 2018, 75.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cakebread-Cellars-Cabernet-Sauvignon-2018.jpg', 'Cakebread Cellars Cabernet Sauvignon', 'A Napa Valley Cabernet Sauvignon with rich blackberry, cassis, and chocolate flavors.', 'Cakebread Cellars produces a full-bodied Cabernet Sauvignon with ripe berry flavors and smooth tannins, perfect for steak and grilled meats.'),
-       (1009,'Gaja Barbaresco', 'Italy', 'Piedmont', 'Nebbiolo', 'Gaja', 'Red', 'Still', 'Beef, Veal, Pasta', 2016, 300.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Gaja-Barbaresco-2016.jpg', 'Gaja Barbaresco', 'An elegant Nebbiolo from Piedmont, with rose, cherry, and earthy aromas.', 'Gaja Barbaresco is a refined Italian red with floral and fruit aromas, balanced acidity, and firm tannins, making it ideal for classic Italian dishes.'),
-       (1010,'Chateau d’Yquem', 'France', 'Bordeaux', 'Semillon, Sauvignon Blanc', 'Chateau d’Yquem', 'White', 'Sweet', 'Fruit-based Desserts, Blue Cheese', 2011, 400.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-dYquem-2011.jpg', 'Chateau d’Yquem', 'A world-famous sweet wine with flavors of apricot, honey, and vanilla.', 'Chateau d’Yquem is a legendary sweet wine from Bordeaux, known for its rich sweetness and perfect pairing with desserts and blue cheese.'),
-       (1011,'Bollinger La Grande Année', 'France', 'Champagne', 'Pinot Noir, Chardonnay', 'Bollinger', 'Sparkling', 'Champagne', 'Shellfish, Caviar, Poultry', 2012, 180.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Bollinger-La-Grande-Annee-2012.jpg', 'Bollinger La Grande Année', 'A prestigious Champagne with notes of citrus, brioche, and toasted almond.', 'Bollinger La Grande Année is a rich and complex Champagne, ideal for celebrations or pairing with seafood and fine dining.'),
-       (1012,'Almaviva', 'Chile', 'Maipo Valley', 'Cabernet Sauvignon, Carmenere', 'Almaviva', 'Red', 'Still', 'Beef, Lamb, Poultry', 2019, 145.00, 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'Almaviva', 'A top-tier Chilean red blend offering deep fruit flavors and a smooth finish.', 'Almaviva is a bold and well-balanced red blend, combining Cabernet Sauvignon and Carmenere, making it perfect for grilled meats and robust dishes.');
+VALUES (1001,'Chateau Montelena Chardonnay', 'United States', 'California', 'Chardonnay', 'Chateau Montelena', 'White', 'Still', 'Chicken, Pork, Rich Fish (Salmon, Tuna etc), Vegetarian, Poultry', 2016, 50.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Chateau Montelena Chardonnay', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.', 'Chateau Montelena Chardonnay is a white wine from California. It is a full-bodied, rich, and creamy wine with flavors of apple, pear, and vanilla.'),
+       (1002, 'Domaine de la Romanée-Conti La Tâche', 'France', 'Burgundy', 'Pinot Noir', 'Domaine de la Romanée-Conti', 'Red', 'Still', 'Beef, Game (Deer, Venison), Poultry', 2015, 4200.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Domaine de la Romanée-Conti La Tâche', 'A legendary Burgundy Pinot Noir, offering rich complexity with aromas of red fruit, truffle, and spice.', 'A prestigious and rare Burgundy red wine with earthy notes, perfect for game and beef dishes.'),
+       (1003, 'Penfolds Grange', 'Australia', 'South Australia', 'Shiraz', 'Penfolds', 'Red', 'Still', 'Beef, Lamb, Spicy Food', 2018, 850.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Penfolds Grange', 'Australia’s most iconic Shiraz, offering rich blackberry, plum, and spicy oak.', 'Penfolds Grange is known for its bold, complex flavors of dark fruits, spices, and oak, making it an excellent match for rich red meats.'),
+       (1004,'Marchesi Antinori Tignanello', 'Italy', 'Tuscany', 'Sangiovese', 'Marchesi Antinori', 'Red', 'Still', 'Beef, Lamb, Pasta', 2017, 125.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Marchesi Antinori Tignanello', 'An iconic Super Tuscan blend of Sangiovese and Cabernet, with bold fruit and spice notes.', 'Tignanello is a bold and structured wine from Tuscany, blending Sangiovese and Cabernet Sauvignon with ripe fruit and savory notes.'),
+       (1005,'Cloudy Bay Sauvignon Blanc', 'New Zealand', 'Marlborough', 'Sauvignon Blanc', 'Cloudy Bay', 'White', 'Still', 'Shellfish, Goat Cheese, Salad', 2021, 35.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Cloudy Bay Sauvignon Blanc', 'A crisp and vibrant Sauvignon Blanc with notes of citrus, tropical fruits, and fresh herbs.', 'Cloudy Bay Sauvignon Blanc is known for its zesty citrus and tropical fruit flavors, making it ideal for seafood dishes and light salads.'),
+       (1006,'Vega Sicilia Unico', 'Spain', 'Ribera del Duero', 'Tempranillo', 'Vega Sicilia', 'Red', 'Still', 'Beef, Lamb, Game', 2009, 550.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Vega Sicilia Unico', 'A legendary Spanish wine with deep complexity, offering dark fruit, spice, and earthy notes.', 'Vega Sicilia Unico is a prestigious Tempranillo blend from Ribera del Duero, with deep layers of flavor perfect for hearty meats.'),
+       (1007,'Chateau Margaux', 'France', 'Bordeaux', 'Cabernet Sauvignon', 'Chateau Margaux', 'Red', 'Still', 'Beef, Lamb, Game', 2015, 750.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Chateau Margaux', 'A prestigious Bordeaux wine with silky tannins, complex fruit, and elegant structure.', 'Chateau Margaux is a classic Bordeaux blend with flavors of blackcurrant, violet, and earthy notes, ideal for pairing with lamb and beef.'),
+       (1008,'Cakebread Cellars Cabernet Sauvignon', 'United States', 'California', 'Cabernet Sauvignon', 'Cakebread Cellars', 'Red', 'Still', 'Beef, Lamb, Poultry', 2018, 75.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Cakebread Cellars Cabernet Sauvignon', 'A Napa Valley Cabernet Sauvignon with rich blackberry, cassis, and chocolate flavors.', 'Cakebread Cellars produces a full-bodied Cabernet Sauvignon with ripe berry flavors and smooth tannins, perfect for steak and grilled meats.'),
+       (1009,'Gaja Barbaresco', 'Italy', 'Piedmont', 'Nebbiolo', 'Gaja', 'Red', 'Still', 'Beef, Veal, Pasta', 2016, 300.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Gaja Barbaresco', 'An elegant Nebbiolo from Piedmont, with rose, cherry, and earthy aromas.', 'Gaja Barbaresco is a refined Italian red with floral and fruit aromas, balanced acidity, and firm tannins, making it ideal for classic Italian dishes.'),
+       (1010,'Chateau d’Yquem', 'France', 'Bordeaux', 'Semillon, Sauvignon Blanc', 'Chateau d’Yquem', 'White', 'Sweet', 'Fruit-based Desserts, Blue Cheese', 2011, 400.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Chateau d’Yquem', 'A world-famous sweet wine with flavors of apricot, honey, and vanilla.', 'Chateau d’Yquem is a legendary sweet wine from Bordeaux, known for its rich sweetness and perfect pairing with desserts and blue cheese.'),
+       (1011,'Bollinger La Grande Année', 'France', 'Champagne', 'Pinot Noir, Chardonnay', 'Bollinger', 'Sparkling', 'Champagne', 'Shellfish, Caviar, Poultry', 2012, 180.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Bollinger La Grande Année', 'A prestigious Champagne with notes of citrus, brioche, and toasted almond.', 'Bollinger La Grande Année is a rich and complex Champagne, ideal for celebrations or pairing with seafood and fine dining.'),
+       (1012,'Almaviva', 'Chile', 'Maipo Valley', 'Cabernet Sauvignon, Carmenere', 'Almaviva', 'Red', 'Still', 'Beef, Lamb, Poultry', 2019, 145.00, 'https://media.gettyimages.com/id/172930332/photo/wine-bottle.jpg?s=612x612&w=0&k=20&c=0TMaKCz48atzLh7Rxr3CIPBM0Bb4r8rg4sI7Gb2v-8k=', 'Almaviva', 'A top-tier Chilean red blend offering deep fruit flavors and a smooth finish.', 'Almaviva is a bold and well-balanced red blend, combining Cabernet Sauvignon and Carmenere, making it perfect for grilled meats and robust dishes.');
 
 INSERT INTO recipes (id, recipe_name, course, main_ingredient, other_ingredients,servings, preparation_time, wine_pairing, image_link, image_alt, preparation_short_description, preparation_long_description)
-VALUES (2001,'Beef Wellington', 'Main Course', 'Beef', 'Mushrooms, Puff Pastry, Prosciutto, Duxelles, Egg Wash', 4, 120, 'Cabernet Sauvignon, Bordeaux', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Beef Wellington', 'A classic British dish featuring beef tenderloin wrapped in puff pastry, perfect for special occasions.', 'Beef Wellington is a luxurious dish that combines tender beef, savory mushrooms, and flaky pastry for a show-stopping meal. It is often served with a rich red wine, such as Cabernet Sauvignon or Bordeaux.'),
-       (2002, 'Coq au Vin', 'Main Course', 'Chicken', 'Bacon, Red Wine, Mushrooms, Pearl Onions, Garlic', 4, 150, 'Pinot Noir, Burgundy', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Coq au Vin', 'A French classic where chicken is braised in red wine, often served with mashed potatoes or crusty bread.', 'Coq au Vin is a rich, comforting dish made by slow-cooking chicken with bacon, wine, and mushrooms. The depth of the red wine sauce is beautifully balanced by a good Pinot Noir.'),
-       (2003,'Spaghetti Carbonara', 'Main Course', 'Pasta', 'Eggs, Pancetta, Parmesan, Black Pepper', 4, 20, 'Chardonnay, Pinot Grigio', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Spaghetti Carbonara', 'A quick and creamy Italian pasta dish made with eggs, pancetta, and Parmesan cheese.', 'Spaghetti Carbonara is a comforting Roman pasta dish that’s quick to prepare. The richness of the egg-based sauce pairs well with a crisp white wine, like Chardonnay or Pinot Grigio.'),
-       (2004, 'Lamb Shank Tagine', 'Main Course', 'Lamb', 'Apricots, Almonds, Chickpeas, Cumin, Cinnamon', 4, 180, 'Syrah, Zinfandel', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Lamb Shank Tagine', 'A Moroccan-inspired dish with slow-cooked lamb and spices, perfect for a hearty dinner.', 'Lamb Shank Tagine is a fragrant, slow-cooked Moroccan dish with tender lamb and a sweet-spicy blend of apricots, almonds, and warm spices. A bold red wine, such as Syrah or Zinfandel, pairs well with its richness.'),
-       (2005, 'Salmon en Croute', 'Main Course', 'Salmon', 'Spinach, Puff Pastry, Cream Cheese, Dill', 4, 90, 'Chardonnay, Champagne', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'Salmon en Croute', 'Salmon fillets baked in puff pastry with a creamy spinach filling.', 'Salmon en Croute is a delicate and flavorful dish where salmon fillets are wrapped in puff pastry with a spinach and cream cheese filling. Best served with a light, buttery Chardonnay or a sparkling Champagne.'),
-       (2006, 'Osso Buco', 'Main Course', 'Veal', 'White Wine, Carrots, Celery, Garlic, Gremolata', 4, 180, 'Barolo, Barbaresco', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Gaja-Barbaresco-2016.jpg', 'Osso Buco', 'A traditional Italian dish of braised veal shanks, often served with risotto or polenta.', 'Osso Buco is a classic Italian comfort dish where veal shanks are slowly braised in white wine and vegetables, served with gremolata. Pair it with a full-bodied Italian red like Barolo or Barbaresco.'),
-       (2007, 'Ratatouille', 'Main Course', 'Eggplant', 'Zucchini, Bell Peppers, Tomatoes, Garlic, Olive Oil', 4, 60, 'Rosé, Grenache', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Vega-Sicilia-Unico-2009.jpg', 'Ratatouille', 'A Provençal vegetable dish made with eggplant, zucchini, and bell peppers, perfect for summer.', 'Ratatouille is a flavorful, vegetable-based dish from Provence, ideal for vegetarians. It is served warm or at room temperature and pairs wonderfully with a dry Rosé or a light Grenache.'),
-       (2008, 'Duck à l’Orange', 'Main Course', 'Duck', 'Oranges, Grand Marnier, Butter, Thyme, Garlic', 4, 150, 'Pinot Noir, Bordeaux', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Duck à l’Orange', 'A French dish featuring roasted duck with a tangy orange sauce.', 'Duck à l’Orange is a French classic where rich, roasted duck is paired with a citrusy, slightly sweet orange sauce. The dish pairs beautifully with a fine Pinot Noir or a light Bordeaux.'),
-       (2009, 'Bouillabaisse', 'Main Course', 'Seafood', 'Fish, Shellfish, Fennel, Saffron, Tomatoes', 6, 120, 'Sauvignon Blanc, Chablis', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-dYquem-2011.jpg', 'Bouillabaisse', 'A traditional French seafood stew with fish, shellfish, and aromatic herbs.', 'Bouillabaisse is a traditional Provençal fish stew made with a variety of fish, shellfish, and aromatic herbs like fennel and saffron. The delicate seafood flavors are complemented by a crisp white wine like Sauvignon Blanc or Chablis.'),
-       (2010, 'Mushroom Risotto', 'Main Course', 'Arborio Rice', 'Mushrooms, Parmesan, White Wine, Garlic, Thyme', 4, 40, 'Chardonnay, Pinot Noir', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Marchesi-Antinori-Tignanello-2017.jpg', 'Mushroom Risotto', 'A creamy and savory risotto with mushrooms and Parmesan cheese.', 'Mushroom Risotto is a creamy Italian dish made by slowly stirring Arborio rice with mushrooms, Parmesan, and white wine. It pairs well with both light red wines like Pinot Noir and rich whites like Chardonnay.'),
-       (2011,'Shrimp Scampi', 'Main Course', 'Shrimp', 'Garlic, White Wine, Lemon, Butter, Parsley', 4, 25, 'Sauvignon Blanc, Pinot Grigio', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'Shrimp Scampi', 'A quick and easy shrimp dish with a buttery garlic and lemon sauce.', 'Shrimp Scampi is a quick and flavorful dish where shrimp is cooked in a garlic butter sauce with white wine and lemon. This light and bright dish is best paired with a crisp white wine like Sauvignon Blanc or Pinot Grigio.');
+VALUES (2001,'Beef Wellington', 'Main Course', 'Beef', 'Mushrooms, Puff Pastry, Prosciutto, Duxelles, Egg Wash', 4, 120, 'Cabernet Sauvignon, Bordeaux', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Beef Wellington', 'A classic British dish featuring beef tenderloin wrapped in puff pastry, perfect for special occasions.', 'Beef Wellington is a luxurious dish that combines tender beef, savory mushrooms, and flaky pastry for a show-stopping meal. It is often served with a rich red wine, such as Cabernet Sauvignon or Bordeaux.'),
+       (2002, 'Coq au Vin', 'Main Course', 'Chicken', 'Bacon, Red Wine, Mushrooms, Pearl Onions, Garlic', 4, 150, 'Pinot Noir, Burgundy', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Coq au Vin', 'A French classic where chicken is braised in red wine, often served with mashed potatoes or crusty bread.', 'Coq au Vin is a rich, comforting dish made by slow-cooking chicken with bacon, wine, and mushrooms. The depth of the red wine sauce is beautifully balanced by a good Pinot Noir.'),
+       (2003,'Spaghetti Carbonara', 'Main Course', 'Pasta', 'Eggs, Pancetta, Parmesan, Black Pepper', 4, 20, 'Chardonnay, Pinot Grigio', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Spaghetti Carbonara', 'A quick and creamy Italian pasta dish made with eggs, pancetta, and Parmesan cheese.', 'Spaghetti Carbonara is a comforting Roman pasta dish that’s quick to prepare. The richness of the egg-based sauce pairs well with a crisp white wine, like Chardonnay or Pinot Grigio.'),
+       (2004, 'Lamb Shank Tagine', 'Main Course', 'Lamb', 'Apricots, Almonds, Chickpeas, Cumin, Cinnamon', 4, 180, 'Syrah, Zinfandel', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Lamb Shank Tagine', 'A Moroccan-inspired dish with slow-cooked lamb and spices, perfect for a hearty dinner.', 'Lamb Shank Tagine is a fragrant, slow-cooked Moroccan dish with tender lamb and a sweet-spicy blend of apricots, almonds, and warm spices. A bold red wine, such as Syrah or Zinfandel, pairs well with its richness.'),
+       (2005, 'Salmon en Croute', 'Main Course', 'Salmon', 'Spinach, Puff Pastry, Cream Cheese, Dill', 4, 90, 'Chardonnay, Champagne', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Salmon en Croute', 'Salmon fillets baked in puff pastry with a creamy spinach filling.', 'Salmon en Croute is a delicate and flavorful dish where salmon fillets are wrapped in puff pastry with a spinach and cream cheese filling. Best served with a light, buttery Chardonnay or a sparkling Champagne.'),
+       (2006, 'Osso Buco', 'Main Course', 'Veal', 'White Wine, Carrots, Celery, Garlic, Gremolata', 4, 180, 'Barolo, Barbaresco', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Osso Buco', 'A traditional Italian dish of braised veal shanks, often served with risotto or polenta.', 'Osso Buco is a classic Italian comfort dish where veal shanks are slowly braised in white wine and vegetables, served with gremolata. Pair it with a full-bodied Italian red like Barolo or Barbaresco.'),
+       (2007, 'Ratatouille', 'Main Course', 'Eggplant', 'Zucchini, Bell Peppers, Tomatoes, Garlic, Olive Oil', 4, 60, 'Rosé, Grenache', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Ratatouille', 'A Provençal vegetable dish made with eggplant, zucchini, and bell peppers, perfect for summer.', 'Ratatouille is a flavorful, vegetable-based dish from Provence, ideal for vegetarians. It is served warm or at room temperature and pairs wonderfully with a dry Rosé or a light Grenache.'),
+       (2008, 'Duck à l’Orange', 'Main Course', 'Duck', 'Oranges, Grand Marnier, Butter, Thyme, Garlic', 4, 150, 'Pinot Noir, Bordeaux', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Duck à l’Orange', 'A French dish featuring roasted duck with a tangy orange sauce.', 'Duck à l’Orange is a French classic where rich, roasted duck is paired with a citrusy, slightly sweet orange sauce. The dish pairs beautifully with a fine Pinot Noir or a light Bordeaux.'),
+       (2009, 'Bouillabaisse', 'Main Course', 'Seafood', 'Fish, Shellfish, Fennel, Saffron, Tomatoes', 6, 120, 'Sauvignon Blanc, Chablis', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Bouillabaisse', 'A traditional French seafood stew with fish, shellfish, and aromatic herbs.', 'Bouillabaisse is a traditional Provençal fish stew made with a variety of fish, shellfish, and aromatic herbs like fennel and saffron. The delicate seafood flavors are complemented by a crisp white wine like Sauvignon Blanc or Chablis.'),
+       (2010, 'Mushroom Risotto', 'Main Course', 'Arborio Rice', 'Mushrooms, Parmesan, White Wine, Garlic, Thyme', 4, 40, 'Chardonnay, Pinot Noir', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Mushroom Risotto', 'A creamy and savory risotto with mushrooms and Parmesan cheese.', 'Mushroom Risotto is a creamy Italian dish made by slowly stirring Arborio rice with mushrooms, Parmesan, and white wine. It pairs well with both light red wines like Pinot Noir and rich whites like Chardonnay.'),
+       (2011,'Shrimp Scampi', 'Main Course', 'Shrimp', 'Garlic, White Wine, Lemon, Butter, Parsley', 4, 25, 'Sauvignon Blanc, Pinot Grigio', 'https://img.static-rmg.be/a/view/q75/w480/h360/2367861/feestelijke-voorgerechten-met-bladerdeeg-jpg.jpg', 'Shrimp Scampi', 'A quick and easy shrimp dish with a buttery garlic and lemon sauce.', 'Shrimp Scampi is a quick and flavorful dish where shrimp is cooked in a garlic butter sauce with white wine and lemon. This light and bright dish is best paired with a crisp white wine like Sauvignon Blanc or Pinot Grigio.');
 
 
 INSERT INTO wineadvicerequests (id, client_id, sommelier_id, dinner_occasion, request_message, recipe_link, min_price_per_bottle, max_price_per_bottle)

@@ -1,15 +1,16 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.models;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @MappedSuperclass
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public abstract class User {
 
     @Id
@@ -33,6 +34,7 @@ public abstract class User {
     private String password;
 
     private String profilePictureUrl;
+    private String profilePictureAlt;
 
 
 }
@@ -44,4 +46,4 @@ public abstract class User {
 //    private Set<Role> roleSet = new HashSet<>();
 
 
-/*  private String getFullName() {return firstName + lastName;}*/
+

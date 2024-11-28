@@ -30,6 +30,7 @@ public class SommelierInputDto {
 
     private String password;
     private String profilePictureUrl;
+    private String profilePictureAlt;
 
     private String sommelierDescription;
     private String certificates;

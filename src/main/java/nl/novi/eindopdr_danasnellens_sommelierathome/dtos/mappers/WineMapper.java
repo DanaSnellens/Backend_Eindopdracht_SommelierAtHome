@@ -76,14 +76,6 @@ public class WineMapper {
         wineOutputDto.setShortDescription(wine.getShortDescription());
         wineOutputDto.setLongDescription(wine.getLongDescription());
 
-        if (wine.getWineAdviceSet() != null) {
-            Set<Long> wineAdviceIdSet = new HashSet<>();
-            for (WineAdvice wa : wine.getWineAdviceSet()) {
-                wineAdviceIdSet.add(wa.getId());
-            }
-            wineOutputDto.setWineAdviceIdSet(wineAdviceIdSet);
-        }
-
         if (wine.getRecipeSet() != null) {
             Set<Long> recipeIdSet = new HashSet<>();
             for (Recipe recipe : wine.getRecipeSet()) {

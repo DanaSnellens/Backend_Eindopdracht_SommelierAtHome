@@ -40,10 +40,10 @@ public class WineAdviceRequestMapper {
         return savedWar;
     }
 
-    public static WineAdviceRequest assignSommMapper(WineAdviceRequest savedWar, AssignSommInputDto assignSommInputDto) {
+/*    public static WineAdviceRequest assignSommMapper(WineAdviceRequest savedWar, AssignSommInputDto assignSommInputDto) {
         savedWar.setSommelier(sommelier);
         return savedWar;
-    }
+    }*/
 
     public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
         WineAdviceRequestOutputDto dto = new WineAdviceRequestOutputDto();

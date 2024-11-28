@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.AuthOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -32,7 +36,7 @@ public class AuthenticationController {
     }
 //TODO Onderstaande overgenomen uit Les17-jwt, maar is dit volledig? Tini heeft een andere manier. Sowieso de exception nog specifieceren + message
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<Object> signIn(@RequestBody AuthInputDto authInputDto) {
+    public ResponseEntity<?> signIn(@RequestBody AuthInputDto authInputDto) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authInputDto.getUsername(), authInputDto.getPassword());
         try {
             Authentication auth = authenticationManager.authenticate(upToken);
@@ -40,9 +44,11 @@ public class AuthenticationController {
             UserDetails ud = (UserDetails) auth.getPrincipal();
             String token = jwtUtil.generateToken(ud);
 
-            return ResponseEntity.ok()
+/*            return ResponseEntity.ok(new AuthOutputDto(token));*/
+
+                        return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                    .body("Token generated");
+                    .body(Collections.singletonMap("token", token));
         }
         catch (AuthenticationException authException) {
             return new ResponseEntity<>(authException.getMessage(), HttpStatus.UNAUTHORIZED);

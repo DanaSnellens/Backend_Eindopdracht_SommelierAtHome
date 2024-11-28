@@ -50,7 +50,7 @@ public class SpringSecurityConfig {
         http
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-/*               .cors().and()*/
+               .cors(Customizer.withDefaults())
 
                 .authorizeRequests(auth -> auth
 /*                        //TODO Onderstaande inkorten

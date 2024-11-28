@@ -29,6 +29,10 @@ import java.util.function.Function;
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractRoles(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -48,6 +52,7 @@ import java.util.function.Function;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities());
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -57,6 +62,7 @@ import java.util.function.Function;
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5))
+                .setHeaderParam("type", "JWT")
                 .signWith(getSigningKey() , SignatureAlgorithm.HS256)
                 .compact();
     }
