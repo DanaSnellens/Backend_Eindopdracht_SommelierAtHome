@@ -3,6 +3,8 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -19,6 +21,7 @@ public class RecipeOutputDto {
     private String imageAlt;
     private String preparationShortDescription;
     private String preparationLongDescription;
-
-    private Set<Long> wineIdSet;
+//TODO onderstaande verwijderen?
+/*    private Set<Long> wineIdSet;*/
+    private Map<Long, String> wineIdSet = new HashMap<>();
 }

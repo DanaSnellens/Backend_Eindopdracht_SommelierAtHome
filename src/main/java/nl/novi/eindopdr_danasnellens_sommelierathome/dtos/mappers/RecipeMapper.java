@@ -8,10 +8,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RecipeMapper {
@@ -69,13 +66,13 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
     //TODO wineIdSet is nu nog leeg, moet nog gevuld worden. Maar hoe?
+        //TODO naam aanpassen van Set naar Map?
         if (recipe.getWineSet() != null) {
-            Set<Long> wineIdSet = new HashSet<>();
+            Map<Long, String> wineIdSet = new HashMap<>();
             for (Wine wine : recipe.getWineSet()) {
-                wineIdSet.add(wine.getId());
+                wineIdSet.put(wine.getId(), wine.getWineName());
                 recipeOutputDto.setWineIdSet(wineIdSet);
             }
-
         }
 
         logger.debug("Mapped Recipe to RecipeOutputDto: {}", recipeOutputDto);
