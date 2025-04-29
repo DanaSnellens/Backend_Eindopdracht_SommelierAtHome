@@ -57,6 +57,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/**").permitAll() //TODO dit weghalen*/
                                 .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
+                                .requestMatchers("/register").permitAll()
 
                                 //TODO POST, put en delete request nog toevoegen aan roles
                                 .requestMatchers("/roles").hasRole("ADMIN")

@@ -1,5 +1,6 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
+import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AuthInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.AuthOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.utils.JwtUtil;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -28,6 +30,19 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
+//TODO Register toegevoegd, maar werkt nog niet. Moet nog getest worden
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> register(@RequestBody @Validated AuthInputDto authInputDto) {
+        try {
+            UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(authInputDto.getUsername(), authInputDto.getPassword());
+            Authentication auth = authenticationManager.authenticate(upToken);
+        }
+        catch (AuthenticationException authException) {
+            return new ResponseEntity<>(authException.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseEntity.ok().body(new AuthOutputDto("User registered"));
+    }
+
 //TODO getMapping nog checken Authentication weghalen als parameter?
     @GetMapping(value = "/authenticated")
     public ResponseEntity<Object> authenticated(//TODO WEG?? /*Authentication authentication, */

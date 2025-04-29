@@ -6,10 +6,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class WineMapper {
 
@@ -77,9 +74,9 @@ public class WineMapper {
         wineOutputDto.setLongDescription(wine.getLongDescription());
 
         if (wine.getRecipeSet() != null) {
-            Set<Long> recipeIdSet = new HashSet<>();
+            Map<Long, String> recipeIdSet = new HashMap<>();
             for (Recipe recipe : wine.getRecipeSet()) {
-                recipeIdSet.add(recipe.getId());
+                recipeIdSet.put(recipe.getId(), recipe.getRecipeName());
             }
             wineOutputDto.setRecipeIdSet(recipeIdSet);
         }
