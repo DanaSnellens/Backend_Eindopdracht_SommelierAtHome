@@ -4,10 +4,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineAdviceInputD
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.WineAdviceOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class WineAdviceMapper {
 
@@ -32,9 +29,9 @@ public class WineAdviceMapper {
         }
 
         if (wineAdvice.getWineSet() != null) {
-            Set<Long> wineIdSet = new HashSet<>();
+            Map<Long, String> wineIdSet = new HashMap<>();
             for (Wine wine : wineAdvice.getWineSet()) {
-                wineIdSet.add(wine.getId());
+                wineIdSet.put(wine.getId(), wine.getWineName());
             }
             wineAdviceOutputDto.setWineIdSet(wineIdSet);
         }
