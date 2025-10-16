@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
-public class WineAdviceOutputDto {
+public class  WineAdviceOutputDto {
     private Long id;
     private String personalMessage;
     private String adviceExplanation;

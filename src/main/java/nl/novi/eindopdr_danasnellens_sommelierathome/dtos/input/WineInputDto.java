@@ -6,7 +6,7 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import java.util.Set;
 
 @Data
-public class WineInputDto {
+public class  WineInputDto {
 
     private String wineName;
     private String country;
