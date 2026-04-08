@@ -1,0 +1,5 @@
+### Get all sommeliers
+GET http://localhost:8080/sommeliers
+
+### Get sommelier by name
+GET http://localhost:8080/sommeliers/sommelier1

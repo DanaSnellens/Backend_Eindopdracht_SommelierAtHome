@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +12,10 @@ import java.util.Set;
 @Entity
 @Table(name = "recipes")
 @Data
+@Builder (toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Recipe {
 
     @Id

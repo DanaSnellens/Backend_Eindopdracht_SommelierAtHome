@@ -40,7 +40,7 @@ public class WineService {
         //TODO: of dit anders oplossen voor deze simpele class?
         boolean exists = wineRepository.existsWineByWineName(wineInputDto.getWineName());
         if (exists) {
-            throw new EntityAlreadyExistsException("Wine with name: " + wineInputDto.getWineName() + " already exists");
+            throw new EntityAlreadyExistsException("Wine with name: " + wineInputDto.getWineName() + " already exists.");
         }
         else {
             Wine wine = wineInputToModel(wineInputDto);
