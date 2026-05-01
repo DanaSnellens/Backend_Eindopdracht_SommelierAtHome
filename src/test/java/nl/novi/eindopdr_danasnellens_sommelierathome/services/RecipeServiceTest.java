@@ -1,11 +1,15 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AddWinesInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.exceptions.EntityAlreadyExistsException;
 import nl.novi.eindopdr_danasnellens_sommelierathome.exceptions.RecordNotFoundException;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.RecipeRepository;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +19,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,11 +34,17 @@ class RecipeServiceTest {
     @Mock
     private RecipeRepository recipeRepository;
 
+    @Mock
+    private WineRepository wineRepository; //TODO: deze mocken als nodig voor testen van addWinesToRecipe, anders verwijderen
+
     @InjectMocks
     private RecipeService recipeService;
+    private WineService wineService; //TODO: deze mocken als nodig voor testen van addWinesToRecipe, anders verwijderen
 
     private Recipe recipe;
     private RecipeInputDto recipeInputDto;
+/*    private Wine wine; //TODO: deze alleen toevoegen als nodig voor testen van addWinesToRecipe, anders verwijderen
+    private WineInputDto wineInputDto; //TODO: deze alleen toevoegen als nodig voor testen van addWinesToRecipe, anders verwijderen*/
 
     @BeforeEach
     void setUp() {
@@ -83,9 +95,9 @@ class RecipeServiceTest {
 
         // assert
         assertEquals(1, recipeDtoList.size());
-        assertEquals(1L, recipeDtoList.get(0).getId());
+        assertEquals(1L, recipeDtoList.getFirst().getId());
         assertEquals("Spaghetti Bolognese", recipeDtoList.getFirst().getRecipeName());
-        verify(recipeRepository,times(1)).findAll();
+        verify(recipeRepository, times(1)).findAll();
     }
 
     @Test
@@ -101,7 +113,7 @@ class RecipeServiceTest {
         assertEquals(1L, recipeOutputDto.getId());
         assertEquals("Spaghetti Bolognese", recipeOutputDto.getRecipeName());
         //assertequals DTO/object:     assertEquals(recipeOutputDto, recipeOutputDto);
-        verify(recipeRepository,times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).findById(anyLong());
     }
 
     @Test
@@ -128,8 +140,8 @@ class RecipeServiceTest {
 
         // assert
         assertEquals("Spaghetti Bolognese", createdRecipeDto.getRecipeName());
-        verify(recipeRepository,times(1)).existsByRecipeName(anyString());
-        verify(recipeRepository,times(1)).save(any(Recipe.class));
+        verify(recipeRepository, times(1)).existsByRecipeName(anyString());
+        verify(recipeRepository, times(1)).save(any(Recipe.class));
     }
 
     @Test
@@ -142,7 +154,7 @@ class RecipeServiceTest {
         assertThatThrownBy(() -> recipeService.createRecipe(recipeInputDto))
                 .isInstanceOf(EntityAlreadyExistsException.class)
                 .hasMessageContaining("Recipe with name: %s already exists.", recipeInputDto.getRecipeName());
-        verify(recipeRepository,never()).save(any(Recipe.class));
+        verify(recipeRepository, never()).save(any(Recipe.class));
     }
 
     @Test
@@ -157,8 +169,8 @@ class RecipeServiceTest {
 
         // assert
         assertEquals("Spaghetti Bolognese", updatedRecipeDto.getRecipeName());
-        verify(recipeRepository,times(1)).findById(anyLong());
-        verify(recipeRepository,times(1)).save(any(Recipe.class));
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).save(any(Recipe.class));
     }
 
     @Test
@@ -171,8 +183,8 @@ class RecipeServiceTest {
         assertThatThrownBy(() -> recipeService.updateRecipeById(1L, recipeInputDto))
                 .isInstanceOf(RecordNotFoundException.class)
                 .hasMessageContaining("No recipe found with id: %d", 1L);
-        verify(recipeRepository,never()).save(any(Recipe.class));
-        verify(recipeRepository,times(1)).findById(anyLong());
+        verify(recipeRepository, never()).save(any(Recipe.class));
+        verify(recipeRepository, times(1)).findById(anyLong());
     }
 
     @Test
@@ -186,8 +198,8 @@ class RecipeServiceTest {
         recipeService.deleteRecipeById(1L);
 
         // assert
-        verify(recipeRepository,times(1)).findById(anyLong());
-        verify(recipeRepository,times(1)).deleteById(anyLong());
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 
     @Test
@@ -203,4 +215,81 @@ class RecipeServiceTest {
         verify(recipeRepository,never()).deleteById(anyLong());
         verify(recipeRepository,times(1)).findById(anyLong());
     }
+
+    @Test
+    @DisplayName("Should add existing wines to recipe and return updated recipeOutputDto")
+    void testAddWinesToRecipes_shouldAddExistingWinesAndReturnUpdatedRecipeOutputDto() {
+        // arrange
+        AddWinesInputDto addWinesInputDto = new AddWinesInputDto();
+        addWinesInputDto.setWineIdSet(Set.of(10L, 20L));
+
+        Wine wine1 = Wine.builder()
+                .id(10L)
+                .wineName("Chianti")
+                .build();
+        Wine wine2 = Wine.builder()
+                .id(20L)
+                .wineName("Barolo")
+                .build();
+
+        recipe.setWineSet(new HashSet<>());
+
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+        when(wineRepository.findById(10L)).thenReturn(Optional.of(wine1));
+        when(wineRepository.findById(20L)).thenReturn(Optional.of(wine2));
+        when(recipeRepository.save(any(Recipe.class))).thenReturn(recipe);
+
+        // act
+        RecipeOutputDto recipeOutputDto = recipeService.addWinesToRecipe(1L, addWinesInputDto);
+
+        // assert
+        assertNotNull(recipeOutputDto);
+        assertEquals(1L, recipeOutputDto.getId());
+        assertEquals("Spaghetti Bolognese", recipeOutputDto.getRecipeName());
+
+        assertEquals(2, recipeOutputDto.getWineIdSet().size());
+
+        verify(recipeRepository).findById(1L);
+        verify(wineRepository).findById(10L);
+        verify(wineRepository).findById(20L);
+        verify(recipeRepository).save(recipe);
+    }
+
+    @Test
+    @DisplayName("Should throw a record not found exception when trying to add a non-existing wine to a recipe")
+    void testAddWinesToRecipes_shouldThrowExceptionWhenAddingNonExistingWineToRecipe() {
+        // arrange
+        AddWinesInputDto addWinesInputDto = new AddWinesInputDto();
+        addWinesInputDto.setWineIdSet(Set.of(10L, 20L));
+
+        Wine wine2 = Wine.builder()
+                .id(20L)
+                .wineName("Barolo")
+                .build();
+
+        when(wineRepository.findById(20L)).thenReturn(Optional.of(wine2));
+
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+        when(wineRepository.findById(10L)).thenReturn(Optional.empty());
+
+        
+        //Act & assert
+        assertThatThrownBy(() -> recipeService.addWinesToRecipe(1L, addWinesInputDto))
+                .isInstanceOf(RecordNotFoundException.class)
+                .hasMessageContaining("No wine with %d could not be found", 10L);
+    }
+
+
+@Test
+@DisplayName("Should throw a record not found exception when trying to adjust a non-existing recipe")
+void testAddWinesToRecipes_shouldThrowExceptionWhenAdjustingNonExistingRecipe() {
+    // arrange
+    AddWinesInputDto addWinesInputDto = new AddWinesInputDto();
+    when(recipeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+    //Act & assert
+    assertThatThrownBy(() -> recipeService.addWinesToRecipe(1L, addWinesInputDto))
+            .isInstanceOf(RecordNotFoundException.class)
+            .hasMessageContaining("No recipe found with id: %d", recipe.getId());
+}
 }
