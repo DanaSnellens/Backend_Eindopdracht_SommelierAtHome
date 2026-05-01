@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS wines (
                        wine_type VARCHAR(50),
                        food_pairing TEXT,
                        year INT,
+                       aromas TEXT,
                        price DECIMAL(10, 2),
                        image_link VARCHAR(255),
                        image_alt VARCHAR(255),
@@ -132,8 +133,8 @@ CREATE TABLE IF NOT EXISTS recipes_wines (
                                PRIMARY KEY (recipe_id, wine_id),
                                FOREIGN KEY (recipe_id) REFERENCES recipes(id),
                                FOREIGN KEY (wine_id) REFERENCES wines(id)
-);*/
-
+);
+*/
 -- Insert into clients table
 INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, membership)
 VALUES
