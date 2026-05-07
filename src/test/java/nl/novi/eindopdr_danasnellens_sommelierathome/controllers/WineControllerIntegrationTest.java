@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,6 +23,10 @@ public class WineControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    WineController wineController;
+
 
      @Test
      @WithMockUser(username = "testuser", roles = "ADMIN")
@@ -46,13 +51,17 @@ public class WineControllerIntegrationTest {
                      "longDescription" : "Château Margaux is one of the most renowned wines in the world, known for its elegance and complexity. It offers rich flavors of blackcurrant, cedar, and tobacco, making it a perfect choice for special occasions."
                  }
                  """;
-
-         this.mockMvc
+//Uitgecommente deel staat in code van laatste college
+/*         MvcResult result = */this.mockMvc
                  .perform(MockMvcRequestBuilders.post("/wines")
                  .contentType(APPLICATION_JSON)
                  .content(requestJson))
                  .andDo(MockMvcResultHandlers.print())
                  .andExpect(MockMvcResultMatchers.status().isCreated());
+/*
+         String createdWineJson = result.getResponse().getContentAsString();
+         assertThat(result.getResponse().getHeader())*/
+
      }
 
 }
