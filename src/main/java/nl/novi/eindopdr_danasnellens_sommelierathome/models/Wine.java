@@ -7,10 +7,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "wines")
-@Getter
-@Setter
+@Data
+@Builder (toBuilder = true)
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
+
 public class Wine {
 
     @Id
@@ -18,7 +19,6 @@ public class Wine {
     @SequenceGenerator(name = "wines_sequence_1021", sequenceName = "wines_sequence_1021", initialValue = 1021, allocationSize = 1)
     @Setter(AccessLevel.NONE)
     private Long id;
-
     private String wineName;
     private String country;
     private String region;
@@ -27,6 +27,7 @@ public class Wine {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
+    @Column(name = "wine_year")
     private Integer year;
     private Double price;
     private String aromas;
