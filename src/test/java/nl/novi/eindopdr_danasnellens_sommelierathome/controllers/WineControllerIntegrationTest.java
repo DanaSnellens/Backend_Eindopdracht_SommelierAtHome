@@ -1,6 +1,8 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.transaction.Transactional;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.WineInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,11 +27,13 @@ public class WineControllerIntegrationTest {
     MockMvc mockMvc;
 
     @Autowired
-    WineController wineController;
+    private WineRepository wineRepository;
+
+    @Autowired
+    WineInputDto wineInputDto;
 
 
      @Test
-     @WithMockUser(username = "testuser", roles = "ADMIN")
      void shouldCreateCorrectWine() throws Exception {
 
          String requestJson = """
@@ -58,8 +62,7 @@ public class WineControllerIntegrationTest {
                  .content(requestJson))
                  .andDo(MockMvcResultHandlers.print())
                  .andExpect(MockMvcResultMatchers.status().isCreated());
-/*
-         String createdWineJson = result.getResponse().getContentAsString();
+/*         String createdWineJson = result.getResponse().getContentAsString();
          assertThat(result.getResponse().getHeader())*/
 
      }

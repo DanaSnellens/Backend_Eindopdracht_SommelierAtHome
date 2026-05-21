@@ -27,6 +27,7 @@ public class Wine {
     private String wineStyle;
     private String wineType;
     private String foodPairing;
+    @Column(name = "wine_year")
     private Integer year;
     private Double price;
     private String aromas;

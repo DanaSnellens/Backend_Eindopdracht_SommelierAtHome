@@ -26,6 +26,11 @@ public class WineAdvice {
 
     private String personalMessage;
     private String adviceExplanation;
+    //Toegevoegd voor uploaden en downloaden van bestanden, maar nog niet in gebruik. Dan STRING advice explanation weghalen??
+    private String contentType;
+
+    @Lob
+    private byte[] fileData;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "wineadvices_wines",

@@ -61,12 +61,19 @@ public class SommelierService {
         }
     }
     //TODO do smth with updatedSomm (of imput weg?)
-    public SommelierOutputDto updateSommelierByUsername(String username, SommelierInputDto updatedSommelier) {
+    public SommelierOutputDto updateSommelierByUsername(String username, SommelierInputDto sommelierInputDto) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
             return sommelierModelToOutput(optionalSommelier.get());
         }
         else throw new UsernameNotFoundException("No sommelier found with username: " + username);
+
+        //dit nog fixen
+/*
+        if (sommelierInputDto.getUsername() != null) {
+            optionalSommelier.get().setUsername(sommelierInputDto.getUsername());
+
+        }*/
     }
 
     @Transactional

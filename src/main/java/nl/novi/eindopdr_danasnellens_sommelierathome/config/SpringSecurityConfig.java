@@ -57,6 +57,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/**").permitAll() //TODO dit weghalen*/
                                 .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
+                        //Deze verplaatsen naar clientcontroller, maar voor nu even hier??
                                 .requestMatchers("/register").permitAll()
 
                                 //TODO POST, put en delete request nog toevoegen aan roles
