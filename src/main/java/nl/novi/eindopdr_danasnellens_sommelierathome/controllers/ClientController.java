@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientUpdateDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,7 @@ public class ClientController {
 @PutMapping("/{username}")
 public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
                                                               @AuthenticationPrincipal UserDetails userDetails,
-                                                              @Valid @RequestBody ClientInputDto updatedClient) {
+                                                              @Valid @RequestBody ClientUpdateDto updatedClient) {
 
     boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
     boolean isSelf = username.equals(userDetails.getUsername());
