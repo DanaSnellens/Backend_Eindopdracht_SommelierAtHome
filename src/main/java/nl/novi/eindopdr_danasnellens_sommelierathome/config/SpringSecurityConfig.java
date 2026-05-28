@@ -57,7 +57,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/**").permitAll() //TODO dit weghalen*/
                                 .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
-                        //Deze verplaatsen naar clientcontroller, maar voor nu even hier??
+                        //TODO Deze verplaatsen naar clientcontroller, maar voor nu even hier??
                                 .requestMatchers("/register").permitAll()
 
                                 //TODO POST, put en delete request nog toevoegen aan roles
@@ -71,10 +71,7 @@ public class SpringSecurityConfig {
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/sommeliers/{username}").permitAll()
-
-                                 //TODO POST aanpassen naar alleen admin
-
-                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/{username}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/{username}").hasRole("ADMIN")
 

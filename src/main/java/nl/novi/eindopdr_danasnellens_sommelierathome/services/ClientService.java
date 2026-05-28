@@ -16,6 +16,8 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientReposito
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.RoleRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.config.SpringSecurityConfig.*;
@@ -71,6 +73,13 @@ public class ClientService {
             throw new EntityAlreadyExistsException("User with username: " + clientInputDto.getUsername() + "  already exists");
         }
     }
+
+/*    public ClientOutputDto updateClient(ClientInputDto clientInputDto) {
+        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientInputDto.getUsername());
+        //TODO Of moet er in de mapper een aparte zijn voor updatedClient, zoals bij wines?
+        Client updatedClient = clientInputDtoToModel(clientInputDto);
+
+    }*/
 
     //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
 /*    public ClientOutputDto createClient(ClientInputDto clientInputDto, AddRolesInputDto addRolesInputDto) {
