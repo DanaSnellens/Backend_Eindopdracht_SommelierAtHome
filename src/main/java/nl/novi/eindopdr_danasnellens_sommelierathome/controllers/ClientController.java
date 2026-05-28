@@ -31,7 +31,11 @@ public class ClientController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
-        if (username.equals(userDetails.getUsername()) && userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"))) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if ((isSelf && isClient) || isAdmin) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -45,14 +49,29 @@ public class ClientController {
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
 //TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
-    @PutMapping("/{username}")
+/*    @PutMapping("/{username}")
     public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable ("username") String username, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
         if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }*/
+@PutMapping("/{username}")
+public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
+                                                              @AuthenticationPrincipal UserDetails userDetails,
+                                                              @Valid @RequestBody ClientInputDto updatedClient) {
+
+    boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+    boolean isSelf = username.equals(userDetails.getUsername());
+
+    if (isSelf || isAdmin) {
+        ClientOutputDto dto = clientService.updateClientByUsername(username, updatedClient);
+        return ResponseEntity.ok().body(dto);
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+}
 
     @DeleteMapping("/{username}")
     public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
