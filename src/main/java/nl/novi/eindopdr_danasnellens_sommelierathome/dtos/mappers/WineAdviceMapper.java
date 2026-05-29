@@ -38,7 +38,6 @@ public class WineAdviceMapper {
         return wineAdviceOutputDto;
     }
 
-
     public static List<WineAdviceOutputDto> wineAdviceModelListToOutputList(List<WineAdvice> wineAdviceList) {
         List<WineAdviceOutputDto> wineAdviceOutputDtoList = new ArrayList<>();
         for (WineAdvice wineAdvice : wineAdviceList) {

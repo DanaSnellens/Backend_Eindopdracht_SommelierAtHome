@@ -49,30 +49,23 @@ public class ClientController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(clientOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
-//TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
-/*    @PutMapping("/{username}")
-    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable ("username") String username, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
-        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
-            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
+
+    @PutMapping("/{username}")
+    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
+                                                                  @AuthenticationPrincipal UserDetails userDetails,
+                                                                  @Valid @RequestBody ClientUpdateDto updatedClient) {
+
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if (isSelf && isClient || isAdmin) {
+            ClientOutputDto dto = clientService.updateClientByUsername(username, updatedClient);
+            return ResponseEntity.ok().body(dto);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-    }*/
-@PutMapping("/{username}")
-public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
-                                                              @AuthenticationPrincipal UserDetails userDetails,
-                                                              @Valid @RequestBody ClientUpdateDto updatedClient) {
-
-    boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
-    boolean isSelf = username.equals(userDetails.getUsername());
-
-    if (isSelf || isAdmin) {
-        ClientOutputDto dto = clientService.updateClientByUsername(username, updatedClient);
-        return ResponseEntity.ok().body(dto);
-    } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-}
 
     @DeleteMapping("/{username}")
     public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
