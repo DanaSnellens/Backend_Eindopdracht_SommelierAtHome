@@ -54,7 +54,6 @@ public class ClientController {
     public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
                                                                   @AuthenticationPrincipal UserDetails userDetails,
                                                                   @Valid @RequestBody ClientUpdateDto updatedClient) {
-
         boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
         boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
         boolean isSelf = username.equals(userDetails.getUsername());
@@ -68,8 +67,17 @@ public class ClientController {
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
-        clientService.deleteClientByUsername(username);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username,
+                                                        @AuthenticationPrincipal UserDetails userDetails) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if (isSelf && isClient || isAdmin) {
+            clientService.deleteClientByUsername(username);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }
