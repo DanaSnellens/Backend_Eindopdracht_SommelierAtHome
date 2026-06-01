@@ -88,7 +88,6 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/recipes/{id}/addwines").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/recipes/{id}").hasRole("ADMIN")
 
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdvice kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvices").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvices/{id}").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/wineadvices").hasRole("ADMIN")
@@ -96,13 +95,12 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/wineadvices/{id}/addwines").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvices/{id}").hasRole("ADMIN")
 
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdviceRequest kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}/sommelier").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasRole("ADMIN")
 
                                 .anyRequest().denyAll()
 

@@ -19,7 +19,6 @@ public class WineAdviceRequestMapper {
         war.setDinnerOccasion(warInputDto.getDinnerOccasion());
         war.setRequestMessage(warInputDto.getRequestMessage());
         war.setRecipeLink(warInputDto.getRecipeLink());
-        war.setRecipeFile(warInputDto.getRecipeFile());
         war.setMinPricePerBottle(warInputDto.getMinPricePerBottle());
         war.setMaxPricePerBottle(warInputDto.getMaxPricePerBottle());
 
@@ -34,7 +33,6 @@ public class WineAdviceRequestMapper {
         savedWar.setDinnerOccasion(updatedWarInputDto.getDinnerOccasion());
         savedWar.setRequestMessage(updatedWarInputDto.getRequestMessage());
         savedWar.setRecipeLink(updatedWarInputDto.getRecipeLink());
-        savedWar.setRecipeFile(updatedWarInputDto.getRecipeFile());
         savedWar.setMinPricePerBottle(updatedWarInputDto.getMinPricePerBottle());
         savedWar.setMaxPricePerBottle(updatedWarInputDto.getMaxPricePerBottle());
         return savedWar;
