@@ -24,8 +24,7 @@ public class WineAdviceRequestMapper {
 
         //TODO Vervangen door outputDTO? En if statement toevoegen om te checken of authenticated?
         war.setClient(client); // set authenticated client
-//        war.setSommelier(sommelier); // set authenticated sommelier
-
+//        war.setSommelier(sommelier);
         return war;
     }
 
@@ -37,26 +36,23 @@ public class WineAdviceRequestMapper {
         savedWar.setMaxPricePerBottle(updatedWarInputDto.getMaxPricePerBottle());
         return savedWar;
     }
-
-/*    public static WineAdviceRequest assignSommMapper(WineAdviceRequest savedWar, AssignSommInputDto assignSommInputDto) {
+    public static WineAdviceRequest assignSommMapper(WineAdviceRequest savedWar, Sommelier sommelier) {
         savedWar.setSommelier(sommelier);
         return savedWar;
-    }*/
+    }
 
     public static WineAdviceRequestOutputDto wineAdviceRequestModelToOutput(WineAdviceRequest war) {
         WineAdviceRequestOutputDto dto = new WineAdviceRequestOutputDto();
-            //No need to set clientId or SommelierId, userDetails will be set in the service layer {
         dto.setId(war.getId());
         dto.setDinnerOccasion(war.getDinnerOccasion());
         dto.setRequestMessage(war.getRequestMessage());
         dto.setRecipeLink(war.getRecipeLink());
-        dto.setRecipeFile(war.getRecipeFile());
         dto.setMinPricePerBottle(war.getMinPricePerBottle());
         dto.setMaxPricePerBottle(war.getMaxPricePerBottle());
 
-        //TODO Of moet onderstaande if statement in de service layer/vervangen door JWT?UserDetails?
-/*        dto.setSommelierUsername(war.getSommelier().getUsername());*/    //Als ik deze uitcomment doet createWar het niet meer
-/*        dto.setClientUsername(war.getClient().getUsername());*/
+        if (war.getSommelier() != null) {
+            dto.setSommelierUsername(war.getSommelier().getId());
+        }
 
         if (war.getWineAdvice() != null) {
             dto.setWineAdviceId(war.getWineAdvice().getId());

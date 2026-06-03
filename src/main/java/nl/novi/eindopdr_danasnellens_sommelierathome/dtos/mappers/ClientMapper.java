@@ -47,6 +47,7 @@ public class ClientMapper {
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+        clientOutputDto.setProfilePictureAlt(client.getProfilePictureAlt());
         clientOutputDto.setMembership(client.getMembership());
 
         if (client.getRoleSet() != null) {

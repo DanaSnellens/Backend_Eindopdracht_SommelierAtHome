@@ -136,14 +136,14 @@ CREATE TABLE IF NOT EXISTS recipes_wines (
 );
 */
 -- Insert into clients table
-INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, membership)
+INSERT INTO clients (id, username, first_name, last_name, email, password, profile_picture_url, profile_picture_alt, membership)
 VALUES
-       (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$12$YZLf4hPhDPvPwsta9lRIaeGo.OUMe5gtsht7j4U75wwEyKJU.gCvi', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'REGULAR'),
-       (nextval('user_sequence'),'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$12$GUjbpLbcg0DGsfTPPKPOIuQZSToS.1RLGPPdxRbSCtSWs.TvECU/G', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'BASIC'),
-       (nextval('user_sequence'),'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$12$ol22s0/eJGCLh4ZVy5wBq.VLqImWi8s/LaiXk.SJ521B6S7vWwETW', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'PREMIUM'),
-       (nextval('user_sequence'),'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$12$lpXJRyWV9gQfPCOUskaqn.iaVGaISIRTwJZRo9uROUrVKsEdcn3nu', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'REGULAR'),
-       (nextval('user_sequence'),'client5', 'Sophia', 'Garcia', 'sophiagarcia@gmail.com', '$2a$12$dBZFGmfoAqbkUZ.l9ccm/uPIL9hg16u0Nwv72ZODnhSZWrXJFSaye', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'PREMIUM'),
-       (nextval('user_sequence'),'client6', 'Mason', 'Brown', 'masonbrown@gmail.com', '$2a$12$Hz2jcM3gbrSHy0cgKMt/R.kkKvtO4lfHDzUrPLHC8o0A1ILlPx.IS', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'BASIC');
+       (nextval('user_sequence'),'client1', 'Emma', 'Johnson', 'emmajohnson@gmail.com', '$2a$12$YZLf4hPhDPvPwsta9lRIaeGo.OUMe5gtsht7j4U75wwEyKJU.gCvi', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Montelena-Chardonnay-2016.jpg', 'Photo of client1','REGULAR'),
+       (nextval('user_sequence'),'client2', 'Liam', 'Williams', 'liamwilliams@gmail.com', '$2a$12$GUjbpLbcg0DGsfTPPKPOIuQZSToS.1RLGPPdxRbSCtSWs.TvECU/G', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Chateau-Margaux-2015.jpg', 'Photo of client1','BASIC'),
+       (nextval('user_sequence'),'client3', 'Olivia', 'Martinez', 'oliviamartinez@gmail.com', '$2a$12$ol22s0/eJGCLh4ZVy5wBq.VLqImWi8s/LaiXk.SJ521B6S7vWwETW', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Penfolds-Grange-2018.jpg', 'Photo of client1','PREMIUM'),
+       (nextval('user_sequence'),'client4', 'Noah', 'Davis', 'noahdavis@gmail.com', '$2a$12$lpXJRyWV9gQfPCOUskaqn.iaVGaISIRTwJZRo9uROUrVKsEdcn3nu', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Domaine-de-la-Romanee-Conti-La-Tache.jpg', 'Photo of client1','REGULAR'),
+       (nextval('user_sequence'),'client5', 'Sophia', 'Garcia', 'sophiagarcia@gmail.com', '$2a$12$dBZFGmfoAqbkUZ.l9ccm/uPIL9hg16u0Nwv72ZODnhSZWrXJFSaye', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Cloudy-Bay-Sauvignon-Blanc.jpg', 'Photo of client1','PREMIUM'),
+       (nextval('user_sequence'),'client6', 'Mason', 'Brown', 'masonbrown@gmail.com', '$2a$12$Hz2jcM3gbrSHy0cgKMt/R.kkKvtO4lfHDzUrPLHC8o0A1ILlPx.IS', 'https://www.wine.com/product/images/w_600,h_600,c_fit,q_auto:good,fl_progressive/Almaviva-2019.jpg', 'Photo of client1','BASIC');
 
 -- Insert into sommeliers table
 INSERT INTO sommeliers (id, username, first_name, last_name, email, password, profile_picture_url, sommelier_description, certificates, experience_in_years, curriculum_vitae, specialization)

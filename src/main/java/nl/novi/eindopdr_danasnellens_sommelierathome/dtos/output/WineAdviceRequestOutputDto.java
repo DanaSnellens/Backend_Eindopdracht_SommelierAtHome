@@ -12,13 +12,12 @@ public class WineAdviceRequestOutputDto {
     private String dinnerOccasion;
     private String requestMessage;
     private String recipeLink;
-    private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
 
     private String clientUsername;
     @Column(nullable = true)
-    private String sommelierUsername; // Als deze is assigned
+    private Long sommelierUsername; // Als deze is assigned
     @Column(nullable = true)
     private Long wineAdviceId; // Als deze is assigned
 

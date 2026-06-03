@@ -61,9 +61,19 @@ public class WineAdviceRequestController {
     }
 
     @PutMapping("/{warId}/sommelier")
+    public ResponseEntity<String> assignSommelierToWineAdviceRequest(
+            @PathVariable("warId") Long warId,
+            @RequestBody @Valid AssignSommInputDto assignSommInputDto) {
+
+        wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, assignSommInputDto);
+        return ResponseEntity.ok("Sommelier " + assignSommInputDto.getSommelierUsername()
+                + " assigned to wine advice request " + warId);
+    }
+
+/*    @PutMapping("/{warId}/sommelier")
     public ResponseEntity<String> assignSommelierToWineAdviceRequest(@PathVariable ("warId")Long warId, @RequestBody AssignSommInputDto assignSommInputDto) {
         wineAdviceRequestService.assignSommelierToWineAdviceRequest(warId, assignSommInputDto);
         return ResponseEntity.ok("Sommelier " + assignSommInputDto.getSommelierUsername() + " assigned to wineadvice request " + warId);
-    }
+    }*/
 }
 
