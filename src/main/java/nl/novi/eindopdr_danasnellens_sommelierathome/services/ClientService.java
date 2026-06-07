@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AddRolesInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientUpdateDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
@@ -16,6 +17,8 @@ import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.ClientReposito
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.RoleRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRepository;
 import nl.novi.eindopdr_danasnellens_sommelierathome.repositories.WineAdviceRequestRepository;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.config.SpringSecurityConfig.*;
@@ -45,13 +48,11 @@ public class ClientService {
         return clientModelListToOutputList(clientList);
     }
 
-/*    @Transactional*/
     public ClientOutputDto getClientByUsername(String username) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {
             return clientModelToOutput(optionalClient.get());
-        }
-        else throw new UsernameNotFoundException("No user found with the username " + username);
+        } else throw new UsernameNotFoundException("No user found with the username " + username);
     }
 
     public ClientOutputDto createClient(ClientInputDto clientInputDto) {
@@ -72,62 +73,22 @@ public class ClientService {
         }
     }
 
-    //@AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
-/*    public ClientOutputDto createClient(ClientInputDto clientInputDto, AddRolesInputDto addRolesInputDto) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientInputDto.getUsername());
-        if (optionalClient.isEmpty()) {
-            clientInputDto.setPassword(passwordEncoder.encode(clientInputDto.getPassword()));
-            
-
-
-
-            //Give the client a ROLE_cLIENT automaticly when created without having using the input dto
-
-            Client client = clientRepository.save(clientInputDtoToModel(clientInputDto));
-            return clientModelToOutput(client);
-        }
-        else throw new EntityAlreadyExistsException("User with clientUsername: " + clientInputDto.getUsername() + "already exists" );
-    }*/
-
-
-    //TODO nog iets doen met updatedClient
-    public ClientOutputDto updateClientByUsername(String username, ClientInputDto clientInputDto) {
+    public ClientOutputDto updateClientByUsername(String username, ClientUpdateDto updatedClientInputDto) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(username);
         if (optionalClient.isPresent()) {
             Client existingClient = optionalClient.get();
-            Client updatedClient = clientInputDtoToModel(clientInputDto);
-            //TODO update mapper toevoegen net als bij recipe en wine
-            updatedClient = clientRepository.save(updatedClient);
+            updatedClientMapper(existingClient, updatedClientInputDto);
+            Client updatedClient = clientRepository.save(existingClient);
             return clientModelToOutput(updatedClient);
-        }
-        else throw new UsernameNotFoundException("No client found with username: " + username);
+        } else throw new UsernameNotFoundException("No client found with username: " + username);
     }
-
-/*    public void deleteClientById(Long id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isPresent()) {
-            clientRepository.deleteById(id);
-        }
-        else throw new UsernameNotFoundException("No user found with id: " + id);
-    }*/
 
     @Transactional
     public void deleteClientByUsername(String clientUsername) {
         Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
         if (optionalClient.isPresent()) {
             clientRepository.deleteByUsername(clientUsername);
-        }
-        else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
+        } else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
     }
-
-/*    public void addRoleToClient(String clientUsername, String roleName) {
-        Optional<Client> optionalClient = clientRepository.findClientByUsername(clientUsername);
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            client.addRole(roleRepository.findRoleByRoleName(roleName));
-            clientRepository.save(client);
-        }
-        else throw new UsernameNotFoundException("No client found with username: " + clientUsername);
-    }*/
 }
 

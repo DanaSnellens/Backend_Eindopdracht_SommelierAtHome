@@ -57,7 +57,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/**").permitAll() //TODO dit weghalen*/
                                 .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                                 .requestMatchers("/authenticated").authenticated()
-                        //Deze verplaatsen naar clientcontroller, maar voor nu even hier??
+                        //TODO Deze verplaatsen naar clientcontroller, maar voor nu even hier??
                                 .requestMatchers("/register").permitAll()
 
                                 //TODO POST, put en delete request nog toevoegen aan roles
@@ -66,15 +66,12 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/clients").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/clients/{username}").hasAnyRole("ADMIN", "CLIENT")
                                 .requestMatchers(HttpMethod.POST, "/clients").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/clients/{username}").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.DELETE, "/clients/{username}").hasAnyRole("ADMIN", "CLIENT") //TODO OF AUTHENTICATED?
+                                .requestMatchers(HttpMethod.PUT, "/clients/{username}").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.DELETE, "/clients/{username}").hasAnyRole("ADMIN", "CLIENT")
 
                                 .requestMatchers(HttpMethod.GET, "/sommeliers").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/sommeliers/{username}").permitAll()
-
-                                 //TODO POST aanpassen naar alleen admin
-
-                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN", "CLIENT")
+                                .requestMatchers(HttpMethod.POST, "/sommeliers").hasAnyRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/sommeliers/{username}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/sommeliers/{username}").hasRole("ADMIN")
 
@@ -91,7 +88,6 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/recipes/{id}/addwines").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/recipes/{id}").hasRole("ADMIN")
 
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdvice kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvices").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvices/{id}").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/wineadvices").hasRole("ADMIN")
@@ -99,13 +95,12 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/wineadvices/{id}/addwines").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/wineadvices/{id}").hasRole("ADMIN")
 
-                                //TODO Klopt dit?? authenticated? Sommelier moet alles in kunnen zien, client moet alleen zijn eigen wineAdviceRequest kunnen zien
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/wineadvicerequests").hasRole("CLIENT")
-                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/wineadvicerequests/{id}/sommelier").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasAnyRole("CLIENT", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/wineadvicerequests/{id}").hasRole("ADMIN")
 
                                 .anyRequest().denyAll()
 

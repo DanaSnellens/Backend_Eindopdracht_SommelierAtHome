@@ -35,9 +35,7 @@ public class WineService {
         else throw new RecordNotFoundException("No wine found with id: " + id);
     }
 
-    //TODO @AuthenticationPrincipal UserDetails userDetails nog fixen (ook in controller). Zie huiswerkklas 16; 52 minuten
     public WineOutputDto createWine(WineInputDto wineInputDto) {
-        //TODO: of dit anders oplossen voor deze simpele class?
         boolean exists = wineRepository.existsWineByWineName(wineInputDto.getWineName());
         if (exists) {
             throw new EntityAlreadyExistsException("Wine with name: " + wineInputDto.getWineName() + " already exists.");
@@ -48,7 +46,7 @@ public class WineService {
             return wineModelToOutput(savedWine);
         }
     }
-//TODO @Valid toevoegen? (voor WineInputDto
+
     public WineOutputDto updateWineById(Long id, WineInputDto updatedWineInputDto) {
         Optional<Wine> optionalWine = wineRepository.findById(id);
         if (optionalWine.isPresent()) {

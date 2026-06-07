@@ -15,7 +15,6 @@ public class SommelierMapper {
 
     public static Sommelier sommelierInputDtoToModel(SommelierInputDto sommelierInputDto) {
         Sommelier sommelier = new Sommelier();
-        //TODO UserName krijgen we mee vanuit het object (via security) Zie hw-klas votes (16) 28 min.
         sommelier.setUsername(sommelierInputDto.getUsername());
         sommelier.setFirstName(sommelierInputDto.getFirstName());
         sommelier.setLastName(sommelierInputDto.getLastName());
@@ -23,7 +22,6 @@ public class SommelierMapper {
         sommelier.setPassword(sommelierInputDto.getPassword());
         sommelier.setProfilePictureUrl(sommelierInputDto.getProfilePictureUrl());
         sommelier.setProfilePictureAlt(sommelierInputDto.getProfilePictureAlt());
-//        sommelier.setRoleSet(sommelierInputDto.getRoleSet());
         sommelier.setSommelierDescription(sommelierInputDto.getSommelierDescription());
         sommelier.setCertificates(sommelierInputDto.getCertificates());
         sommelier.setExperienceInYears(sommelierInputDto.getExperienceInYears());
@@ -33,7 +31,22 @@ public class SommelierMapper {
         return sommelier;
     }
 
-    //from model to dto
+    public static Sommelier updateSommelierMapper (Sommelier savedSommelier, SommelierInputDto updatedSommelierInputDto) {
+        savedSommelier.setUsername(updatedSommelierInputDto.getUsername());
+        savedSommelier.setFirstName(updatedSommelierInputDto.getFirstName());
+        savedSommelier.setLastName(updatedSommelierInputDto.getLastName());
+        savedSommelier.setEmail(updatedSommelierInputDto.getEmail());
+        savedSommelier.setProfilePictureUrl(updatedSommelierInputDto.getProfilePictureUrl());
+        savedSommelier.setProfilePictureAlt(updatedSommelierInputDto.getProfilePictureAlt());
+        savedSommelier.setSommelierDescription(updatedSommelierInputDto.getSommelierDescription());
+        savedSommelier.setCertificates(updatedSommelierInputDto.getCertificates());
+        savedSommelier.setExperienceInYears(updatedSommelierInputDto.getExperienceInYears());
+        savedSommelier.setCurriculumVitae(updatedSommelierInputDto.getCurriculumVitae());
+        savedSommelier.setSpecialization(updatedSommelierInputDto.getSpecialization());
+
+        return savedSommelier;
+    }
+
     public static SommelierOutputDto sommelierModelToOutput(Sommelier sommelier) {
         SommelierOutputDto sommelierOutputDto = new SommelierOutputDto();
         sommelierOutputDto.setId(sommelier.getId());
@@ -43,7 +56,6 @@ public class SommelierMapper {
         sommelierOutputDto.setEmail(sommelier.getEmail());
         sommelierOutputDto.setProfilePictureUrl(sommelier.getProfilePictureUrl());
         sommelierOutputDto.setProfilePictureAlt(sommelier.getProfilePictureAlt());
-
         sommelierOutputDto.setSommelierDescription(sommelier.getSommelierDescription());
         sommelierOutputDto.setCertificates(sommelier.getCertificates());
         sommelierOutputDto.setExperienceInYears(sommelier.getExperienceInYears());

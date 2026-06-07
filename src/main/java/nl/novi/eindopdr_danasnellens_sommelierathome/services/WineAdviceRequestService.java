@@ -94,17 +94,36 @@ public class WineAdviceRequestService {
         } else throw new RuntimeException("No wine advice request found with warId: " + warId);
     }
 
+    @Transactional
     public void assignSommelierToWineAdviceRequest(Long warId, @Valid AssignSommInputDto assignSommInputDto) {
+        WineAdviceRequest war = wineAdviceRequestRepository.findById(warId)
+                .orElseThrow(() -> new RuntimeException("No wine advice request found with id: " + warId));
+
+        Sommelier sommelier = sommelierRepository.findSommelierByUsername(assignSommInputDto.getSommelierUsername())
+                .orElseThrow(() -> new RuntimeException("No sommelier found with username: " + assignSommInputDto.getSommelierUsername()));
+
+        // assign the entity so JPA sets the sommelier_id foreign key
+        war.setSommelier(sommelier);
+
+        // optional: if you use a mapper helper, call it instead:
+        // assignSommMapper(war, sommelier);
+
+        wineAdviceRequestRepository.save(war);
+    }
+
+/*    public void assignSommelierToWineAdviceRequest(Long warId, @Valid AssignSommInputDto assignSommInputDto) {
         Optional<WineAdviceRequest> optionalWineAdviceRequest = wineAdviceRequestRepository.findById(warId);
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(assignSommInputDto.getSommelierUsername());
 
         if (optionalWineAdviceRequest.isPresent() && optionalSommelier.isPresent()) {
             Sommelier sommelier = optionalSommelier.get();
             WineAdviceRequest war = optionalWineAdviceRequest.get();
+
+            assignSommMapper(war, assignSommInputDto);
             war.setSommelier(sommelier);
             wineAdviceRequestRepository.save(war);
         } else throw new RuntimeException("No wine advice request found with id: " + warId + " or no sommelier found with id: " + assignSommInputDto.getSommelierUsername());
-    }
+    }*/
 
     //TODO Niet nodig? Want bij create wa wordt dit automatisch gedaan
 

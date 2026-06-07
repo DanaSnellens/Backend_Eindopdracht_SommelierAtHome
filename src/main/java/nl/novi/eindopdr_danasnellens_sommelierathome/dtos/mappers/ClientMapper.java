@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers;
 
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientUpdateDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Client;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
@@ -23,13 +24,20 @@ public class ClientMapper {
         client.setPassword(clientInputDto.getPassword());
         client.setProfilePictureUrl(clientInputDto.getProfilePictureUrl());
         client.setProfilePictureAlt(clientInputDto.getProfilePictureAlt());
-        //ROLE?
         client.setMembership(clientInputDto.getMembership());
 
         return client;
     }
 
-    //TODO: UpdateDTO maken (net als bij wine en recipe)
+    public static Client updatedClientMapper (Client savedClient, ClientUpdateDto updatedClientInputDto) {
+        savedClient.setFirstName(updatedClientInputDto.getFirstName());
+        savedClient.setLastName(updatedClientInputDto.getLastName());
+        savedClient.setProfilePictureUrl(updatedClientInputDto.getProfilePictureUrl());
+        savedClient.setProfilePictureAlt(updatedClientInputDto.getProfilePictureAlt());
+        savedClient.setMembership(updatedClientInputDto.getMembership());
+
+        return savedClient;
+    }
 
     public static ClientOutputDto clientModelToOutput(Client client) {
         ClientOutputDto clientOutputDto = new ClientOutputDto();
@@ -39,6 +47,7 @@ public class ClientMapper {
         clientOutputDto.setLastName(client.getLastName());
         clientOutputDto.setEmail(client.getEmail());
         clientOutputDto.setProfilePictureUrl(client.getProfilePictureUrl());
+        clientOutputDto.setProfilePictureAlt(client.getProfilePictureAlt());
         clientOutputDto.setMembership(client.getMembership());
 
         if (client.getRoleSet() != null) {

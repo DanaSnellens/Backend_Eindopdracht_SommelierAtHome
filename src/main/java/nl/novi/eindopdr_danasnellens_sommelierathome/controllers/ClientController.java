@@ -2,6 +2,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.controllers;
 
 import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.ClientUpdateDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.ClientOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.ClientService;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,11 @@ public class ClientController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ClientOutputDto> getClientByUsername(@PathVariable("username") String username, @AuthenticationPrincipal UserDetails userDetails) {
-        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"))) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if ((isSelf && isClient) || isAdmin) {
             return ResponseEntity.ok().body(clientService.getClientByUsername(username));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -44,19 +49,35 @@ public class ClientController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}").buildAndExpand(clientOutputDto.getUsername()).toUri();
         return ResponseEntity.created(uri).body(clientOutputDto);
     }
-//TODO Hier @AuthenticationPrincipal toegevoegd, maar nog niet getest. Als het werkt:zelfde aan somm toevoegen
+
     @PutMapping("/{username}")
-    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable ("username") String username, @AuthenticationPrincipal UserDetails userDetails, @Valid @RequestBody ClientInputDto updatedClient) {
-        if (username.equals(userDetails.getUsername()) || userDetails.getAuthorities().equals("ROLE_ADMIN")) {
-            return ResponseEntity.ok().body(clientService.getClientByUsername(username));
+    public ResponseEntity<ClientOutputDto> updateClientByUsername(@PathVariable("username") String username,
+                                                                  @AuthenticationPrincipal UserDetails userDetails,
+                                                                  @Valid @RequestBody ClientUpdateDto updatedClient) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if (isSelf && isClient || isAdmin) {
+            ClientOutputDto dto = clientService.updateClientByUsername(username, updatedClient);
+            return ResponseEntity.ok().body(dto);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username ) {
-        clientService.deleteClientByUsername(username);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteClientByUsername(@PathVariable ("username") String username,
+                                                        @AuthenticationPrincipal UserDetails userDetails) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isClient = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_CLIENT"));
+        boolean isSelf = username.equals(userDetails.getUsername());
+
+        if (isSelf && isClient || isAdmin) {
+            clientService.deleteClientByUsername(username);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.repositories;
 
 import jakarta.transaction.Transactional;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdvice;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.WineAdviceRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,5 @@ public interface WineAdviceRequestRepository extends JpaRepository<WineAdviceReq
     void deleteReferencesFromRecipesWines(@Param("wineId") Long wineId);
     //TODO Verwijderen als niet gebruikt
     Optional<WineAdvice> findWineAdviceById(Long id);
-
+    Optional<Sommelier> findSommelierById(Long id);
 }

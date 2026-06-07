@@ -36,9 +36,9 @@ public class Wine {
     private String shortDescription;
     private String longDescription;
 
-    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<WineAdvice> wineAdviceSet;
 
-    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "wineSet", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Recipe> recipeSet;
 }

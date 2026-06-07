@@ -3,6 +3,7 @@ package nl.novi.eindopdr_danasnellens_sommelierathome.services;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.SommelierInputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.mappers.SommelierMapper;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.SommelierOutputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Role;
 import nl.novi.eindopdr_danasnellens_sommelierathome.models.Sommelier;
@@ -60,20 +61,16 @@ public class SommelierService {
             throw new UsernameNotFoundException("Sommelier with username: " + sommelierInputDto.getUsername() + " already exists");
         }
     }
-    //TODO do smth with updatedSomm (of imput weg?)
-    public SommelierOutputDto updateSommelierByUsername(String username, SommelierInputDto sommelierInputDto) {
+
+    public SommelierOutputDto updateSommelierByUsername(String username, SommelierInputDto updatedsommelierInputDto) {
         Optional<Sommelier> optionalSommelier = sommelierRepository.findSommelierByUsername(username);
         if (optionalSommelier.isPresent()) {
-            return sommelierModelToOutput(optionalSommelier.get());
+            Sommelier existingSommelier = optionalSommelier.get();
+            updateSommelierMapper(existingSommelier, updatedsommelierInputDto);
+            Sommelier updatedSommelier = sommelierRepository.save(existingSommelier);
+            return sommelierModelToOutput(updatedSommelier);
         }
         else throw new UsernameNotFoundException("No sommelier found with username: " + username);
-
-        //dit nog fixen
-/*
-        if (sommelierInputDto.getUsername() != null) {
-            optionalSommelier.get().setUsername(sommelierInputDto.getUsername());
-
-        }*/
     }
 
     @Transactional

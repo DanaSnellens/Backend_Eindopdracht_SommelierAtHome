@@ -12,9 +12,6 @@ public class WineAdviceRequestInputDto {
     private String dinnerOccasion;
     private String requestMessage;
     private String recipeLink;
-    private File recipeFile;
     private Double minPricePerBottle;
     private Double maxPricePerBottle;
-    //TODO automatisch koppelen via userdetails
-/*    private Long clientId;*/
 }

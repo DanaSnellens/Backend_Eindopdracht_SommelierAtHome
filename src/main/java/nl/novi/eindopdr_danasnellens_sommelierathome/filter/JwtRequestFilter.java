@@ -17,8 +17,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+
     private final MyUserDetailService myUserDetailService;
+
     private final JwtUtil jwtUtil;
+
     public JwtRequestFilter(MyUserDetailService myUserDetailService, JwtUtil jwtUtil) {
         this.myUserDetailService = myUserDetailService;
         this.jwtUtil = jwtUtil;
@@ -29,6 +32,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
