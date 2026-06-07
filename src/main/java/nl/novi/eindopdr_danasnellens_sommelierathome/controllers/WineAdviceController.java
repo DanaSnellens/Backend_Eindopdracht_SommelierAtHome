@@ -67,6 +67,4 @@ public class WineAdviceController {
         WineAdviceOutputDto wineAdviceOutputDto = wineAdviceService.addWinesToWineAdvice(id, addWinesInputDto);
         return ResponseEntity.ok().body(wineAdviceOutputDto);
     }
-
-
 }

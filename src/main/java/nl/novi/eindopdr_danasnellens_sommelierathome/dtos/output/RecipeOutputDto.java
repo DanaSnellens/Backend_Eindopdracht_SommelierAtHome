@@ -36,7 +36,5 @@ public class RecipeOutputDto {
         return Objects.hash(id, recipeName, course, mainIngredient, otherIngredients, servings, preparationTime, winePairing, imageLink, imageAlt, preparationShortDescription, preparationLongDescription);
     }
 
-    //TODO onderstaande verwijderen?
-/*    private Set<Long> wineIdSet;*/
     private Map<Long, String> wineIdSet = new HashMap<>();
 }

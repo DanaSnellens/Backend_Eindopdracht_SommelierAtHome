@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.io.File;
+import java.util.Objects;
 
 @Data
 public class WineAdviceRequestOutputDto {
@@ -20,8 +21,5 @@ public class WineAdviceRequestOutputDto {
     private Long sommelierUsername; // Als deze is assigned
     @Column(nullable = true)
     private Long wineAdviceId; // Als deze is assigned
-
-
-
 }
 

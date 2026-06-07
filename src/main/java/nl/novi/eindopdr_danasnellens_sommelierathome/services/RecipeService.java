@@ -43,7 +43,6 @@ public class RecipeService {
     }
 
     public RecipeOutputDto createRecipe(RecipeInputDto recipeInputDto) {
-        //TODO userDetails toevoegen, alleen somm mag aanmaken{
         boolean exists = recipeRepository.existsByRecipeName(recipeInputDto.getRecipeName());
         if (exists) {
             throw new EntityAlreadyExistsException("Recipe with name: " + recipeInputDto.getRecipeName() + " already exists.");
