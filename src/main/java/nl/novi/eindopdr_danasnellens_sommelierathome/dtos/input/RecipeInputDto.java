@@ -1,13 +1,15 @@
 package nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import nl.novi.eindopdr_danasnellens_sommelierathome.models.Wine;
+import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecipeInputDto {
     private String recipeName;
     private String course;
