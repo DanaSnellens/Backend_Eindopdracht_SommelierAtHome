@@ -7,8 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WineRepository extends JpaRepository<Wine, Long> {
-    //TODO Verwijderen als niet gebruikt
-    Optional<Wine> findWineByWineName(String wineName);
-
     boolean existsWineByWineName(String wineName);
 }
