@@ -52,6 +52,7 @@ public class RecipeService {
             return recipeModelToOutput(savedRecipe);
         }
     }
+
     public RecipeOutputDto updateRecipeById(Long id, RecipeInputDto updatedRecipeInputDto) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         if (optionalRecipe.isPresent()) {

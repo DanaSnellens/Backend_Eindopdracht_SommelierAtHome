@@ -36,6 +36,7 @@ public class Recipe {
     private String preparationShortDescription;
     private String preparationLongDescription;
 
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "recipes_wines",
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),

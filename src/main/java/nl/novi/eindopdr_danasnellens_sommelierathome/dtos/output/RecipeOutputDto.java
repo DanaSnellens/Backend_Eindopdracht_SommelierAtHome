@@ -22,6 +22,7 @@ public class RecipeOutputDto {
     private String imageAlt;
     private String preparationShortDescription;
     private String preparationLongDescription;
+/*    private boolean hasPdf;*/
 
     @Override
     public boolean equals(Object o) {

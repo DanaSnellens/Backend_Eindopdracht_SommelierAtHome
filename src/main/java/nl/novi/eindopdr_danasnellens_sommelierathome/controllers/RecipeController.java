@@ -4,14 +4,22 @@ import jakarta.validation.Valid;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.AddWinesInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.input.RecipeInputDto;
 import nl.novi.eindopdr_danasnellens_sommelierathome.dtos.output.RecipeOutputDto;
+import nl.novi.eindopdr_danasnellens_sommelierathome.models.Recipe;
+/*import nl.novi.eindopdr_danasnellens_sommelierathome.models.RecipeFile;*/
 import nl.novi.eindopdr_danasnellens_sommelierathome.services.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/recipes")
@@ -44,8 +52,22 @@ public class RecipeController {
         RecipeOutputDto recipeOutputDto = recipeService.updateRecipeById(id, updatedRecipe);
         return ResponseEntity.ok().body(recipeOutputDto);
     }
+/*
+    @PutMapping("/{id}recipeFile")
+    public ResponseEntity<RecipeOutputDto> addRecipeFileToRecipe(@PathVariable ("id") Long recipeId, @RequestBody MultipartFile recipeFile)
+        throws IOException{
+            String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/recipes/")
+                    .path(Objects.requireNonNull(recipeId.toString()))
+                    .path("/recipeFile")
+                    .toUriString();
 
-    @DeleteMapping("/{id}")
+            RecipeFile recipeFile = recipeFileService.storeFile(file, url);
+            Recipe recipe = recipeService.addRecipeFile(recipeId, recipeFile);
+
+        return ResponseEntity.created(URI.create(url)).body(new RecipeOutputDto());
+    }*/
+
     public ResponseEntity<Object> deleteRecipeById(@PathVariable Long id) {
         recipeService.deleteRecipeById(id);
         return ResponseEntity.ok("Recipe with id " + id + " has been successful deleted");

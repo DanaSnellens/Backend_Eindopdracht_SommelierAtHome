@@ -65,8 +65,6 @@ public class RecipeMapper {
         recipeOutputDto.setPreparationShortDescription(recipe.getPreparationShortDescription());
         recipeOutputDto.setPreparationLongDescription(recipe.getPreparationLongDescription());
 
-    //TODO wineIdSet is nu nog leeg, moet nog gevuld worden. Maar hoe?
-        //TODO naam aanpassen van Set naar Map?
         if (recipe.getWineSet() != null) {
             Map<Long, String> wineIdSet = new HashMap<>();
             for (Wine wine : recipe.getWineSet()) {
