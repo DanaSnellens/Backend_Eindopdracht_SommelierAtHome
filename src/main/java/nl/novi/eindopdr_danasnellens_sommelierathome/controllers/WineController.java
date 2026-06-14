@@ -33,14 +33,12 @@ public class WineController {
         return ResponseEntity.ok().body(wineService.getWineById(id));
     }
 
-    //TODO @AuthenticationPrincipal UserDetails userDetails nog fixen (ook in service). Zie huiswerkklas 16; 52 minuten
-    //TODO Zie ook SpringSecurityConfig.java
     @PostMapping
     public ResponseEntity<WineOutputDto> createWine
-        (@Valid @RequestBody WineInputDto wineInputDto/*, @AuthenticationPrincipal UserDetails userDetails*/) {
+        (@Valid @RequestBody WineInputDto wineInputDto) {
             WineOutputDto wineOutputDto = wineService.createWine(wineInputDto); ;
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(wineOutputDto.getId()).toUri();
-        return ResponseEntity.created(uri).body(wineOutputDto /*, userDetails.getUsername()*/);
+        return ResponseEntity.created(uri).body(wineOutputDto);
     }
 
     @PutMapping("/{id}")
